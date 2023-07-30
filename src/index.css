@@ -3,6 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
   width: 100%;
+  position: relative;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -28,6 +29,10 @@
 
   body {
     margin: 0;
+  }
+
+  #root{
+    position: relative;
   }
 
   .dark-button {
@@ -80,6 +85,46 @@
     width: 50px;
     align-self: center;
     margin-bottom: 30px;
+  }
+
+  .error-text{
+    color: red;
+    margin: 0;
+    align-self: center;
+    font-size: 32px;
+  }
+
+  .toast{
+    z-index: 10;
+    position: absolute;
+    width: 80%;
+    display: flex;
+    place-items: center;
+    min-height: 100px;
+    margin-top: 40px;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #003E66;
+    font-size: 32px;
+    border-radius: 15px;
+  }
+
+  .toast p{
+    margin: 0 20px;
+    width: 100%;
+  }
+
+  .toast-error {
+    background-color: pink;
+  }
+
+  .toast-success {
+    background-color: rgb(72, 183, 72);
+  }
+
+  .toast-warning {
+    background-color: rgb(252, 255, 166);
   }
 }
 

@@ -1,6 +1,27 @@
+import { SyntheticEvent, useRef } from 'react';
+import { AuthProviderValue } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import styles from '../styles/components/LoginStyle.module.css';
+import { Loader } from './Loader';
 
-export function Login( {register} : {register: () => void} ) {
+export function Login({ register }: { register: () => void }) {
+
+  const email = useRef<string>('');
+  const password = useRef<string>('');
+  const { isLoading, handleLogin } = useAuth() as AuthProviderValue;
+
+  const onChangeEmail = (event: SyntheticEvent) => {
+    event.preventDefault();
+    email.current = (event.target as HTMLInputElement).value
+  }
+
+  const onChangePassword = (event: SyntheticEvent) => {
+    event.preventDefault();
+    password.current = (event.target as HTMLInputElement).value;
+  }
+
+  const onClickLogin = () => handleLogin({ email: email.current, password: password.current });
+
   return (
     <div className={`${styles.login}`}>
       <div className={`${styles.loginWrapper}`}>
@@ -10,11 +31,11 @@ export function Login( {register} : {register: () => void} ) {
           <div className={`${styles.inputs}`}>
             <div className='input'>
               <p>Email</p>
-              <input type='text' />
+              <input type='text' onChange={onChangeEmail} />
             </div>
             <div className='input'>
               <p>Password</p>
-              <input type='password' />
+              <input type='password' onChange={onChangePassword} />
             </div>
             <div className={`${styles.stay}`}>
               <input type='checkbox' />
@@ -23,7 +44,9 @@ export function Login( {register} : {register: () => void} ) {
           </div>
         </div>
         <div className={`${styles.actions}`}>
-          <button className='light-button' onClick={() => alert('bruh')}>Login</button>
+          <button className='light-button' onClick={onClickLogin}>
+            {isLoading ? <Loader /> : 'Login'}
+          </button>
           <a onClick={() => register()}>or register</a>
         </div>
       </div>

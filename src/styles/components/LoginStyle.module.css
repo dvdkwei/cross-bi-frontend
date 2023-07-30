@@ -81,9 +81,16 @@
     color: white;
   }
 
+  .actions p{
+    margin-bottom: 30px;
+    font-size: 40px;
+    animation: text-opacity .75s ease-in;
+  }
+
   .actions button {
     width: 100%;
     font-size: 64px;
+    height: 100px;
   }
 
   .actions a {

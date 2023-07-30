@@ -5,7 +5,7 @@ import { Register } from '../components/Register';
 
 export function AuthScreen() {
 
-  const [isOpenLogin, setIsOpenLogin] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(true);
   const [isOpenRegister, setisOpenRegister] = useState(false);
 
   const toggleLoginRegister = () => {
@@ -14,28 +14,16 @@ export function AuthScreen() {
   }
 
   return (
-    <div className={`${styles.auth}`}>
-      <div className={`${styles.welcomeTextContainer}`}>
-        <h1>Monitor.</h1>
-        <h1>Enhance.</h1>
-        <h1>Made Easy.</h1>
+    <>
+      <div className={`${styles.auth}`}>
+        <div className={`${styles.welcomeTextContainer}`}>
+          <h1>Monitor.</h1>
+          <h1>Enhance.</h1>
+          <h1>Made Easy.</h1>
+        </div>
+        { isOpenLogin && <Login register={toggleLoginRegister} /> }
+        { isOpenRegister && <Register login={toggleLoginRegister} /> }
       </div>
-      <div className={`${styles.actions}`}>
-        <button className='dark-button' onClick={() => setIsOpenLogin(isOpenLogin => !isOpenLogin)}>
-          Let's Go
-        </button>
-        {/* <a>or register</a> */}
-      </div>
-      {
-        isOpenLogin &&
-        <Login 
-          register={toggleLoginRegister}
-        />
-      }
-      {
-        isOpenRegister && 
-        <Register login={toggleLoginRegister} />
-      }
-    </div>
+    </>
   )
 }
