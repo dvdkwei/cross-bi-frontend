@@ -106,12 +106,13 @@
     left: 50%;
     transform: translate(-50%, 0);
     color: #003E66;
-    font-size: 32px;
+    font-size: 40px;
     border-radius: 15px;
+    animation: toast-appear .3s ease-in-out;
   }
 
   .toast p{
-    margin: 0 20px;
+    margin: 20px 20px;
     width: 100%;
   }
 
@@ -125,6 +126,15 @@
 
   .toast-warning {
     background-color: rgb(252, 255, 166);
+  }
+}
+
+@keyframes toast-appear {
+  from {
+    margin-top: -300px;
+  }
+  to {
+    margin-top: 40px;
   }
 }
 
