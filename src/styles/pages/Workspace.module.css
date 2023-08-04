@@ -1,0 +1,62 @@
+.workspaceContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.workspace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  animation: content-render-animation .5s ease-in-out;
+}
+
+.workspaceHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: rgba(0, 62, 102);
+  transition: all .6s ease;
+}
+
+.dashboardTitleWrapper {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.dashboardTitleWrapper img {
+  width: 60px;
+  transition-duration: .6s;
+}
+
+.dashboardTitle {
+  margin: 0 0 0 0;
+  font-size: 4rem;
+}
+
+@keyframes rotateUp {
+  from {
+    rotate: '';
+  }
+  to {
+    rotate: '180deg';
+  }
+}
+
+@keyframes content-render-animation {
+  from {
+    transform: scale(95%);
+  }
+
+  to {
+    transform: scale(100%);
+  }
+}

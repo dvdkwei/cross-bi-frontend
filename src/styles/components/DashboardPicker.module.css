@@ -1,0 +1,52 @@
+.overlay{
+  position: absolute;
+  z-index: 5;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: rgba(0, 0, 0, .4);
+  backdrop-filter: blur(10px);
+  animation: render-overlay .6s ease-in;
+  place-content: center;
+}
+
+.dashboardTitles {
+  padding: 30px 0;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: fit-content;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.dashboardTitles button {
+  padding: 30px 0;
+  width: 100%;
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 500;
+  color: rgba(0, 62, 102); 
+  background-color: white;
+  outline: none;
+  border-style: none;
+  border-bottom: 1px rgba(0, 0, 0, .4) solid;
+  transition: all .3s;
+}
+
+.dashboardTitles button:active{
+  background-color: rgba(0, 62, 102);
+  color: white;
+  font-weight: bold;
+}
+
+@keyframes render-overlay {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}

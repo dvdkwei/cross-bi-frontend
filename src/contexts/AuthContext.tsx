@@ -85,11 +85,14 @@ export function AuthProvider({ children }: { children: ReactElement }) {
         body: JSON.stringify(loginData)
       }).then(res => {
         if (res.status === 401) {
-          throw Error()
+          throw Error('False Email or Password');
+        }
+        if (res.status !== 200){
+          throw Error('Error logging in. Please check your internet connection');
         }
       });
     } catch (err: unknown) {
-      addToast({message: 'False email or password', style: 'toast-error', timeout: 4000});
+      addToast({message: (err as Error).message, style: 'toast-error', timeout: 4000});
       return;
     } finally{
       setIsLoading(false);
@@ -100,6 +103,7 @@ export function AuthProvider({ children }: { children: ReactElement }) {
     persistCookie('true', { sameSite: 'Strict', expires: expiryDate });
     setIsAuthenticated(true);
     setIsLoading(false);
+    navigate('/');
   };
 
   const handleLogout = () => {
@@ -115,15 +119,15 @@ export function AuthProvider({ children }: { children: ReactElement }) {
     if(value){
       setIsAuthenticated(true);
     }
-  }, [value])
+  }, [value]);
 
-  useEffect(() => {
-    if(!isAuthenticated){
-      navigate('/login');
-      return
-    }
-    navigate('/my-workspace');
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if(!isAuthenticated){
+  //     navigate('/login');
+  //     return;
+  //   }
+  //   navigate('/')
+  // }, [isAuthenticated, navigate]);
 
   return (
     <AuthContext.Provider value={providerValue}>

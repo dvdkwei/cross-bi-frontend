@@ -16,7 +16,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-@media only screen and (max-device-width: 768px){
+@media only screen and (max-device-width: 768px) {
   a {
     font-weight: 500;
     color: #646cff;
@@ -31,7 +31,7 @@
     margin: 0;
   }
 
-  #root{
+  #root {
     position: relative;
   }
 
@@ -87,17 +87,17 @@
     margin-bottom: 30px;
   }
 
-  .error-text{
+  .error-text {
     color: red;
     margin: 0;
     align-self: center;
     font-size: 32px;
   }
 
-  .toast{
+  .toast {
     z-index: 10;
     position: absolute;
-    width: 80%;
+    width: 90%;
     display: flex;
     place-items: center;
     min-height: 100px;
@@ -111,9 +111,10 @@
     animation: toast-appear .3s ease-in-out;
   }
 
-  .toast p{
+  .toast p {
     margin: 20px 20px;
     width: 100%;
+    font-weight: 500;
   }
 
   .toast-error {
@@ -127,14 +128,40 @@
   .toast-warning {
     background-color: rgb(252, 255, 166);
   }
+
+  .no-highlight {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .workspace, 
+  .settings {
+    animation: page-render-animation 0.8s ease-in-out;
+  }
 }
 
 @keyframes toast-appear {
   from {
     margin-top: -300px;
   }
+
   to {
     margin-top: 40px;
+  }
+}
+
+@keyframes page-render-animation {
+  from {
+    opacity: 80%;
+  }
+
+  to {
+    opacity: 100%;
   }
 }
 
