@@ -12,6 +12,7 @@
 }
 
 .dashboardTitles {
+  z-index: 15;
   padding: 30px 0;
   margin-top: 50px;
   display: flex;

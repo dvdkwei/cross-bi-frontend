@@ -14,16 +14,16 @@
   
   .welcomeTextContainer{
     color: #003E66;
-    font-size: 52px;
     text-align: left;
-    font-weight: 600;
     padding: 40px;
     display: flex;
     flex-direction: column;
   }
   
   .welcomeTextContainer h1{
-    margin: 0
+    margin: 0;
+    font-weight: 600;
+    font-size: 80px;
   }
   
   .actions {

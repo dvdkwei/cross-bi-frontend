@@ -1,41 +1,73 @@
 import { MenuBar } from "../components/MenuBar";
-import arrowDownIcon from '../assets/icons/chevron-down.svg';
 import styles from '../styles/pages/Workspace.module.css';
-import { useRef, useState } from "react";
-import { DashboardPicker } from "../components/DashboardPicker";
+import { useRef } from "react";
+// import { DashboardPicker } from "../components/DashboardPicker";
+import { Card, Text, Metric, LineChart, Title } from "@tremor/react";
 
 export const Workspace = () => {
-  const dashboardPicker = useRef<HTMLImageElement>(null);
   const workspaceHeader = useRef<HTMLDivElement>(null);
-  const [isDashboardPickerOpen, setIsDashboardPickerOpen] = useState<boolean>(false);
+  const dashboards = ['Sales', 'Operations', 'Servers'];
 
-  const onClickDashboardPicker = () => {
-    if (dashboardPicker.current && workspaceHeader.current) {
-      if (!dashboardPicker.current.style.rotate) {
-        dashboardPicker.current.style.rotate = '-180deg';
-        dashboardPicker.current.style.color = 'white';
-        workspaceHeader.current.style.backgroundColor = 'rgb(0, 62, 102)';
-        workspaceHeader.current.style.color = 'white';
-      } else {
-        dashboardPicker.current.style.rotate = '';
-        workspaceHeader.current.style.backgroundColor = 'white';
-        workspaceHeader.current.style.color = 'rgb(0, 62, 102)';
-      }
-      setIsDashboardPickerOpen(isDashboardPickerOpen => !isDashboardPickerOpen);
-    }
-  }
+  const chartdata = [
+    {
+      year: 1970,
+      "Export Growth Rate": 2.04,
+      "Import Growth Rate": 1.53,
+    },
+    {
+      year: 1971,
+      "Export Growth Rate": 1.96,
+      "Import Growth Rate": 1.58,
+    },
+    {
+      year: 1972,
+      "Export Growth Rate": 1.96,
+      "Import Growth Rate": 1.61,
+    },
+    {
+      year: 1973,
+      "Export Growth Rate": 1.93,
+      "Import Growth Rate": 1.61,
+    },
+    {
+      year: 1974,
+      "Export Growth Rate": 1.88,
+      "Import Growth Rate": 1.67,
+    },
+    //...
+  ];
 
   return (
     <div className={styles.workspaceContainer}>
       <div className={styles.workspaceHeader} ref={workspaceHeader}>
-        <div className={styles.dashboardTitleWrapper} onClick={onClickDashboardPicker}>
-          <h1 className={styles.dashboardTitle}>Sales</h1>
-          <img src={arrowDownIcon} ref={dashboardPicker} />
-        </div>
+        <select>
+          {
+            dashboards.map((dashboard, index) => {
+              return (
+                <option key={'dh' + index} className="px-8">{dashboard}</option>
+              )
+            })
+          }
+        </select>
       </div>
       <div className={styles.workspace}>
-        {isDashboardPickerOpen && <DashboardPicker />}
-
+        <Card className="w-[100%] flex flex-col gap-10" decoration="top" decorationColor="blue">
+          <Text className="text-[#003E66] text-5xl">Revenue</Text>
+          <Metric className="text-7xl">420.691€</Metric>
+        </Card>
+        <Card className="w-[100%] flex flex-col gap-10">
+          <Title>Export/Import Growth Rates (1970 to 2021)</Title>
+          <LineChart
+            data={chartdata}
+            index="year"
+            categories={["Export Growth Rate", "Import Growth Rate"]}
+            colors={["emerald", "red"]}
+            className="tremor-content-strong"
+          />
+        </Card>
+        <button className='light-button w-full text-[2.2rem] font-semibold !border-[0] mt-6'>
+          Add More Element
+        </button>
       </div>
       <MenuBar />
     </div>

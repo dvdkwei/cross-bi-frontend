@@ -1,0 +1,77 @@
+.incidentsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  gap: 40px;
+}
+
+.incidentsHeader {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  color: rgba(0, 62, 102);
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.incidentsHeader h1 {
+  margin: 20px 0;
+}
+
+.dateContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: rgba(0, 62, 102);
+  align-items: center;
+  font-weight: 600;
+  font-size: 2rem;
+  gap: 20px;
+  animation: render-date-container .2s ease-in;
+}
+
+.dateMask {
+  width: 100%;
+  /* height: 4rem; */
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 62, 102);
+  border: 2px solid rgba(0, 62, 102);
+  border-radius: 10px;
+  background-image: url("../../assets/icons/chevron-down.svg");
+  background-position-x: 98%;
+  background-position-y: 50%;
+  background-size: 2.3rem;
+  background-repeat: no-repeat;
+  padding: 4px 0;
+}
+
+.dateMask p {
+  margin: 10px;
+}
+
+.dateMask input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  opacity: 0;
+}
+
+@keyframes render-date-container {
+  from{
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

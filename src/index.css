@@ -1,3 +1,7 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -14,9 +18,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  touch-action: pan-x pan-y;
+  height: 100% 
 }
 
-@media only screen and (max-device-width: 768px) {
+@media only screen and (max-device-width: 768px){
   a {
     font-weight: 500;
     color: #646cff;
@@ -37,23 +44,24 @@
 
   .dark-button {
     border-radius: 10px;
+    color: white;
     background: #003E66;
     display: flex;
     padding: 10px;
     border-radius: 20px;
     place-content: center;
-    font-weight: 500;
   }
 
   .light-button {
     border-radius: 10px;
     color: #003E66;
     background-color: #ffffff;
+    border: #003E66 2px solid;
     display: flex;
     padding: 10px;
     border-radius: 20px;
     place-content: center;
-    font-weight: 500;
+    place-items: center;
   }
 
   .input {
@@ -109,6 +117,7 @@
     font-size: 40px;
     border-radius: 15px;
     animation: toast-appear .3s ease-in-out;
+    word-wrap: break-word;
   }
 
   .toast p {
@@ -139,7 +148,7 @@
     user-select: none;
   }
 
-  .workspace, 
+  .workspace,
   .settings {
     animation: page-render-animation 0.8s ease-in-out;
   }

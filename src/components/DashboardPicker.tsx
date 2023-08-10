@@ -1,12 +1,12 @@
 import styles from '../styles/components/DashboardPicker.module.css'
 
-export const DashboardPicker = () => {
+export const DashboardPicker = ({closePicker}: {closePicker: () => void}) => {
 
   // useDashboard
 
   return(
-    <div className={styles.overlay}>
-      <div className={styles.dashboardTitles}>
+    <div className={styles.overlay} onClick={closePicker}>
+      <select className={styles.dashboardTitles}>
         {
           ['Sales', 'Operations', 'Servers'].map((title, index) => {
             return(
@@ -16,7 +16,7 @@ export const DashboardPicker = () => {
             );
           })
         }
-      </div>
+      </select>
     </div>
   )
 }

@@ -11,6 +11,8 @@ export const Settings = () => {
       <div className={styles.settings}>
         <h1>Settings</h1>
         <div className={styles.settingButtons}>
+          <p>Dashboards</p>
+          <p>How To Install</p>
           <p>About</p>
           <p onClick={handleLogout}>Logout</p>
         </div>
