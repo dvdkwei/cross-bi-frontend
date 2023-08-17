@@ -1,8 +1,8 @@
 import { SyntheticEvent, useRef } from 'react';
-import { AuthProviderValue } from '../contexts/AuthContext';
 import { useAuth } from '../hooks/useAuth';
 import styles from '../styles/components/LoginStyle.module.css';
 import { Loader } from './Loader';
+import { AuthProviderValue } from '../types/AuthTypes';
 
 export function Login({ register }: { register: () => void }) {
 

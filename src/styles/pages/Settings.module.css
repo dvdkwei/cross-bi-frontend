@@ -21,6 +21,32 @@
   font-weight: 600;
 }
 
+.workspaceInfo{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: rgba(0, 62, 102);
+}
+
+.workspaceInfo select {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #003e66;
+  font-size: 2.6rem;
+  font-weight: 500;
+  outline: none;
+  appearance: none;
+  background-image: url("../../assets/icons/chevron-down.svg");
+  background-position-x: 99%;
+  background-position-y: 50%;
+  background-size: 2.3rem;
+  background-repeat: no-repeat;
+  width: 100%;
+  border: #003e66 3px solid;
+  border-radius: 10px;
+}
+
 .settingButtons {
   display: flex;
   flex-direction: column;
@@ -50,7 +76,7 @@
 
 @keyframes content-render-animation {
   from {
-    transform: scale(95%);
+    transform: scale(98%);
   }
 
   to {

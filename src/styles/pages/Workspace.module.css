@@ -29,7 +29,6 @@
 }
 
 .workspaceHeader select {
-  /* padding-right: 70px; */
   background-color: transparent;
   color: #003e66;
   font-size: 3.8rem;
@@ -42,7 +41,6 @@
   background-size: 2.3rem;
   background-repeat: no-repeat;
   width: 100%;
-  /* border: 1px solid black; */
 }
 
 @keyframes rotateUp {
@@ -57,7 +55,7 @@
 
 @keyframes content-render-animation {
   from {
-    transform: scale(95%);
+    transform: scale(98%);
   }
 
   to {

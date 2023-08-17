@@ -1,10 +1,10 @@
 import { SyntheticEvent, useRef } from 'react';
 import styles from '../styles/components/LoginStyle.module.css';
 import { useToast } from '../hooks/useToast';
-import { ToastProviderValue } from '../contexts/ToastContext';
 import { useAuth } from '../hooks/useAuth';
-import { AuthProviderValue } from '../contexts/AuthContext';
 import { Loader } from './Loader';
+import { AuthProviderValue } from '../types/AuthTypes';
+import { ToastProviderValue } from '../types/ToastTypes';
 
 export function Register({login} : {login: () => void}) {
   const email = useRef<string>('');

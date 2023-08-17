@@ -1,6 +1,6 @@
-import { SyntheticEvent, useState } from 'react'
-import { MenuBar } from '../components/MenuBar'
-import styles from '../styles/pages/Incidents.module.css'
+import { SyntheticEvent, useState } from 'react';
+import { MenuBar } from '../components/MenuBar';
+import styles from '../styles/pages/Incidents.module.css';
 
 export const Incidents = () => {
   const [showDate, setShowDate] = useState(false);
@@ -26,7 +26,7 @@ export const Incidents = () => {
   }
 
   const onClickFilter = () => {
-    if(fromDate || toDate) {
+    if (fromDate || toDate) {
       return;
     }
     setShowDate(showDate => !showDate);
@@ -36,30 +36,33 @@ export const Incidents = () => {
     <div className={styles.incidentsContainer}>
       <div className={styles.incidentsHeader}>
         <h1>Incidents ⚡️</h1>
+        <button
+          className='dark-button w-auto h-fit text-[2.2rem] !px-10'
+          onClick={onClickFilter}
+        >
+          Filter 〒
+        </button>
       </div>
-      <button
-        className='dark-button w-[90%] text-[2.5rem]'
-        onClick={onClickFilter}
-      >
-        Filter 〒
-      </button>
       {showDate &&
         <div className={styles.dateContainer}>
           <div className={styles.dateMask}>
             <p>{fromDate ? fromDate : 'From Date'}</p>
-            <input 
-              type='date' 
-              onChange={onChangeFromDate} 
+            <input
+              type='date'
+              onChange={onChangeFromDate}
               max={getMaxFromDate()}
             />
           </div>
           <div className={styles.dateMask}>
             <p>{toDate ? toDate : 'To Date'}</p>
-            <input type='date' onChange={onChangeToDate} max={getMaxToDate()}/>
+            <input type='date'
+              onChange={onChangeToDate} 
+              max={getMaxToDate()} 
+            />
           </div>
         </div>
       }
-      <MenuBar />
+      <MenuBar menuIndex={1}/>
     </div>
   )
 }

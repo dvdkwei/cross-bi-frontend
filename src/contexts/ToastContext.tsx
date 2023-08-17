@@ -1,14 +1,5 @@
-import { ReactElement, createContext, useEffect, useState } from "react"
-
-type Toast = {
-  message: string,
-  timeout: number, 
-  style: 'toast-success' | 'toast-error' | 'toast-warning'
-}
-
-export type ToastProviderValue = {
-  addToast: (newToast: Toast) => void
-}
+import { ReactElement, createContext, useEffect, useState } from "react";
+import { Toast, ToastProviderValue } from "../types/ToastTypes";
 
 export const ToastContext = createContext<Partial<ToastProviderValue>>({});
 

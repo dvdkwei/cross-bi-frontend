@@ -69,7 +69,7 @@ export const Workspace = () => {
           Add More Element
         </button>
       </div>
-      <MenuBar />
+      <MenuBar menuIndex={0}/>
     </div>
   )
 }
