@@ -16,7 +16,7 @@ function App() {
       window.moveTo(16, 16);
       window.resizeTo(500, 844);
     }
-  }, [])
+  }, []);
 
   return (
     <Routes>

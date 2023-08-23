@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useCookie } from "./useCookie"
 import { User } from "../types/UserTypes";
-import { useToast } from "./useToast";
+import { useToastContext } from "./useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
 
-export const useUser = (): User => {
+export const useUser = () => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
   const API_KEY = import.meta.env.VITE_API_KEY;
   const { value } = useCookie('cb_user_id');
-  const { addToast } = useToast() as ToastProviderValue;
-  const [currentUser, setCurrentUser] = useState<User>();
+  const { addToast } = useToastContext() as ToastProviderValue;
+  const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
 
   useEffect(() => {
     if (value) {
@@ -34,5 +34,8 @@ export const useUser = (): User => {
     }
   }, [API_KEY, BASE_API_URL, addToast, value]);
 
-  return (currentUser as User)
+  return {
+    currentUser,
+    setCurrentUser
+  }
 }

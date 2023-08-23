@@ -1,9 +1,11 @@
 import { ReactElement, createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookie } from "../hooks/useCookie";
-import { useToast } from "../hooks/useToast";
+import { useToastContext } from "../hooks/useToastContext";
 import { AuthProviderValue, LoginData, registerData } from "../types/AuthTypes";
 import { ToastProviderValue } from "../types/ToastTypes";
+import { useUser } from "../hooks/useUser";
+import { User } from "../types/UserTypes";
 
 export const AuthContext = createContext<Partial<AuthProviderValue>>({})
 
@@ -13,7 +15,8 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { addToast } = useToast() as ToastProviderValue;
+  const { addToast } = useToastContext() as ToastProviderValue;
+  const { setCurrentUser }  = useUser();
   const { value: authValue, persistCookie: persistAuthCookie } = useCookie('cb_authed');
   const { persistCookie: persistUIDCookie } = useCookie('cb_user_id');
 
@@ -80,6 +83,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
         return res.json();
       }).then(parsed => {
         persistUIDCookie(parsed.data.id);
+        setCurrentUser(parsed as User);
       });
     } catch (err: unknown) {
       addToast({ message: (err as Error).message, style: 'toast-error', timeout: 4000 });
@@ -97,6 +101,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
   };
 
   const handleLogout = () => {
+    setCurrentUser(undefined);
     removeAllCookies();
     setIsAuthenticated(false);
   };

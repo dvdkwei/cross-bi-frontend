@@ -1,6 +1,6 @@
-import { ReactElement, createContext, useCallback, useEffect, useState } from "react";
+import { ReactElement, createContext, useCallback, useState } from "react";
 import { Workspace, WorkspaceProviderValue } from "../types/WorkspaceTypes";
-import { useToast } from "../hooks/useToast";
+import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
 import { useCookie } from "../hooks/useCookie";
 
@@ -9,40 +9,13 @@ export const WorkspaceContext = createContext<Partial<WorkspaceProviderValue>>({
 export const WorkspaceProvider = ({ children }: { children: ReactElement }) => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
   const API_KEY = import.meta.env.VITE_API_KEY;
-  const { addToast } = useToast() as ToastProviderValue;
+  const { addToast } = useToastContext() as ToastProviderValue;
   const [currentWorkspace, setCurrentWorkspace] = useState<Workspace | undefined>(undefined);
-  const { value: workspaceCookieId, persistCookie } = useCookie('cb_current_workspace_id');
-
-  const getWorkspaces = useCallback(async (userId: string) => {
-    let workspaces: Workspace[] = [];
-    const headers = new Headers();
-    headers.append('x-api-key', API_KEY);
-    headers.append('Content-Type', 'appplication/json');
-
-    await fetch(`${BASE_API_URL}/workspace/filter?user_id=${userId}`, {
-      headers,
-      method: 'GET'
-    }).then(res => res.json())
-      .then(parsed => {
-        workspaces = parsed.data
-        if (workspaces.length) {
-          persistCookie(workspaces[0].id.toString())
-        }
-      })
-      .catch((err: unknown) => {
-        if (err instanceof Error) {
-          addToast({
-            message: err.message,
-            timeout: 4000,
-            style: 'toast-error'
-          })
-        }
-      });
-
-    return workspaces;
-  }, [API_KEY, BASE_API_URL, addToast, persistCookie]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { persistCookie } = useCookie('cb_current_workspace_id');
 
   const fetchCurrentWorkspace = useCallback(async (workspaceId: string) => {
+    setIsLoading(true);
     const headers = new Headers();
     headers.append('x-api-key', API_KEY);
     headers.append('Content-Type', 'appplication/json');
@@ -64,6 +37,9 @@ export const WorkspaceProvider = ({ children }: { children: ReactElement }) => {
             style: 'toast-error'
           })
         }
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [API_KEY, BASE_API_URL, addToast])
 
@@ -72,17 +48,16 @@ export const WorkspaceProvider = ({ children }: { children: ReactElement }) => {
     fetchCurrentWorkspace(workspaceId);
   }
 
-  const providerValue: WorkspaceProviderValue = {
-    currentWorkspace,
-    getWorkspaces,
-    switchWorkspace
+  const resetWorkspace = () => {
+    setCurrentWorkspace(undefined)
   }
 
-  useEffect(() => {
-    if (workspaceCookieId) {
-      fetchCurrentWorkspace(workspaceCookieId);
-    }
-  }, [fetchCurrentWorkspace, workspaceCookieId])
+  const providerValue: WorkspaceProviderValue = {
+    isLoading,
+    currentWorkspace,
+    switchWorkspace,
+    resetWorkspace
+  }
 
   return (
     <WorkspaceContext.Provider value={providerValue}>

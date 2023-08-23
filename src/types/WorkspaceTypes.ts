@@ -4,9 +4,10 @@ export type Workspace = {
 }
 
 export type WorkspaceProviderValue = {
+  isLoading: boolean,
   currentWorkspace: Workspace | undefined,
-  getWorkspaces: (userId: string) => Promise<Workspace[]>,
-  switchWorkspace: (workspaceId: string) => void
+  switchWorkspace: (workspaceId: string) => void,
+  resetWorkspace: () => void
 }
 
 export type WorkspaceInfoProps = { 

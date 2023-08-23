@@ -6,6 +6,12 @@
   align-items: center;
 }
 
+.workspaceContainer span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
 .workspace {
   position: relative;
   padding-bottom: 200px;

@@ -1,13 +1,35 @@
 import { MenuBar } from "../components/MenuBar";
 import styles from '../styles/pages/Workspace.module.css';
-import { useRef } from "react";
-// import { DashboardPicker } from "../components/DashboardPicker";
 import { Card, Text, Metric, LineChart, Title } from "@tremor/react";
+import { useDashboardContext } from "../hooks/useDashboardContext";
+import { DashboardProviderValue } from "../types/DashboardTypes";
+import { Loader } from "../components/Loader";
+import { useWorkspace } from "../hooks/useWorkspace";
 
-export const Workspace = () => {
-  const workspaceHeader = useRef<HTMLDivElement>(null);
-  const dashboards = ['Sales', 'Operations', 'Servers'];
+const DashboardPicker = () => {
+  const { dashboards, pickedDashboard, switchDashboard } = useDashboardContext() as DashboardProviderValue;
 
+  const onChangeSelect = (dashboardId: string) => {
+    switchDashboard(dashboardId);
+  }
+
+  return (
+    <select value={pickedDashboard?.id ?? ''} onChange={e => onChangeSelect(e.target.value)}>
+      {
+        dashboards?.length &&
+        dashboards.map((dashboard, index) => {
+          return (
+            <option key={'dh' + index} className="px-8" value={dashboard.id}>
+              {dashboard.name}
+            </option>
+          )
+        })
+      }
+    </select>
+  )
+}
+
+const DashboardContent = () => {
   const chartdata = [
     {
       year: 1970,
@@ -38,17 +60,9 @@ export const Workspace = () => {
   ];
 
   return (
-    <div className={styles.workspaceContainer}>
-      <div className={styles.workspaceHeader} ref={workspaceHeader}>
-        <select>
-          {
-            dashboards.map((dashboard, index) => {
-              return (
-                <option key={'dh' + index} className="px-8">{dashboard}</option>
-              )
-            })
-          }
-        </select>
+    <>
+      <div className={styles.workspaceHeader}>
+        <DashboardPicker />
       </div>
       <div className={styles.workspace}>
         <Card className="w-[100%] flex flex-col gap-10" decoration="top" decorationColor="blue">
@@ -69,7 +83,17 @@ export const Workspace = () => {
           Add More Element
         </button>
       </div>
-      <MenuBar menuIndex={0}/>
+    </>
+  )
+}
+
+export const Workspace = () => {
+  const { isLoading: isLoadingWorkspace } = useWorkspace();
+
+  return (
+    <div className={styles.workspaceContainer}>
+      {(isLoadingWorkspace) ? <Loader /> : <DashboardContent />}
+      <MenuBar menuIndex={0} />
     </div>
   )
 }

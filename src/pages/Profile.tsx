@@ -35,14 +35,14 @@ const ProfileSummary = ({ user }: { user: User }) => {
 }
 
 export const Profile = () => {
-  const user = useUser();
+  const { currentUser } = useUser();
 
   return (
     <div className={styles.profileContainer}>
       <div className={styles.profileHeader}>
         <h1>Profile</h1>
       </div>
-      {user ? <ProfileSummary user={user} /> : <Loader />}
+      {currentUser ? <ProfileSummary user={currentUser} /> : <Loader />}
       <MenuBar menuIndex={3}/>
     </div>
   )

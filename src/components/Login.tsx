@@ -1,5 +1,5 @@
 import { SyntheticEvent, useRef } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuthContext } from '../hooks/useAuthContext';
 import styles from '../styles/components/LoginStyle.module.css';
 import { Loader } from './Loader';
 import { AuthProviderValue } from '../types/AuthTypes';
@@ -8,7 +8,7 @@ export function Login({ register }: { register: () => void }) {
 
   const email = useRef<string>('');
   const password = useRef<string>('');
-  const { isLoading, handleLogin } = useAuth() as AuthProviderValue;
+  const { isLoading, handleLogin } = useAuthContext() as AuthProviderValue;
 
   const onChangeEmail = (event: SyntheticEvent) => {
     event.preventDefault();

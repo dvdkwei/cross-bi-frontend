@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext.tsx'
 import { ToastProvider } from './contexts/ToastContext.tsx'
 import { WorkspaceProvider } from './contexts/WorkspaceContext.tsx'
+import { DashboardProvider } from './contexts/DashboardContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <ToastProvider>
         <AuthProvider>
           <WorkspaceProvider>
-            <App />
+            <DashboardProvider>
+              <App />
+            </DashboardProvider>
           </WorkspaceProvider>
         </AuthProvider>
       </ToastProvider>

@@ -1,7 +1,7 @@
 import { SyntheticEvent, useRef } from 'react';
 import styles from '../styles/components/LoginStyle.module.css';
-import { useToast } from '../hooks/useToast';
-import { useAuth } from '../hooks/useAuth';
+import { useToastContext } from '../hooks/useToastContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { Loader } from './Loader';
 import { AuthProviderValue } from '../types/AuthTypes';
 import { ToastProviderValue } from '../types/ToastTypes';
@@ -10,8 +10,8 @@ export function Register({login} : {login: () => void}) {
   const email = useRef<string>('');
   const pass = useRef<string>('');
   const secondpass = useRef<string>('');
-  const { addToast } = useToast() as ToastProviderValue;
-  const { isLoading, handleRegister } = useAuth() as AuthProviderValue;
+  const { addToast } = useToastContext() as ToastProviderValue;
+  const { isLoading, handleRegister } = useAuthContext() as AuthProviderValue;
 
   const onChangeEmail = (event: SyntheticEvent) => {
     email.current = (event.target as HTMLInputElement).value;

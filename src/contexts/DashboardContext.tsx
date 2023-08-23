@@ -1,0 +1,79 @@
+import { ReactElement, createContext, useCallback, useEffect, useState } from "react";
+import { useToastContext } from "../hooks/useToastContext";
+import { ToastProviderValue } from "../types/ToastTypes";
+import { useWorkspaceContext } from "../hooks/useWorkspaceContext";
+import { WorkspaceProviderValue } from "../types/WorkspaceTypes";
+import { Dashboard, DashboardProviderValue } from "../types/DashboardTypes";
+
+export const DashboardContext = createContext<Partial<DashboardProviderValue>>({});
+
+export const DashboardProvider = ({ children }: { children: ReactElement }) => {
+  const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
+  const API_KEY = import.meta.env.VITE_API_KEY;
+  const { addToast } = useToastContext() as ToastProviderValue;
+  const [dashboards, setDashboards] = useState<Dashboard[]>([]);
+  const [pickedDashboard, setPickedDashboard] = useState<Dashboard | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { currentWorkspace } = useWorkspaceContext() as WorkspaceProviderValue;
+
+  const fetchDashboards = useCallback(async () => {
+    if (currentWorkspace) {
+      const headers = new Headers();
+      headers.append('x-api-key', API_KEY);
+      headers.append('Content-Type', 'appplication/json');
+
+      await fetch(`${BASE_API_URL}/dashboard/filter?workspace_id=${currentWorkspace.id}`, {
+        headers,
+        method: 'GET'
+      })
+        .then(res => res.json())
+        .then(parsed => {
+          setDashboards(parsed.data)
+          setPickedDashboard(parsed.data?.length ? parsed.data[0] : undefined)
+        })
+        .catch((err: unknown) => {
+          if (err instanceof Error) {
+            addToast({
+              message: err.message,
+              timeout: 4000,
+              style: 'toast-error'
+            })
+          }
+        })
+        .finally(() => setIsLoading(false));  
+    }
+  }, [API_KEY, BASE_API_URL, addToast, currentWorkspace]);
+
+  const switchDashboard = (dashboardId: string) => {
+    setPickedDashboard(dashboards.filter(dashboard => dashboard.id == dashboardId)[0]);
+  }
+
+  const resetDashboards = () => {
+    setPickedDashboard(undefined);
+    setDashboards([]);
+  }
+
+  const providerValue: DashboardProviderValue = {
+    isLoading,
+    dashboards,
+    pickedDashboard,
+    switchDashboard,
+    fetchDashboards,
+    resetDashboards
+  }
+
+  useEffect(() => {
+    if (currentWorkspace) {
+      fetchDashboards();
+    }
+    else {
+      resetDashboards();
+    }
+  }, [currentWorkspace, fetchDashboards]);
+
+  return (
+    <DashboardContext.Provider value={providerValue}>
+      {children}
+    </DashboardContext.Provider>
+  )
+}

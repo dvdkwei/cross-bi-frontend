@@ -2,11 +2,11 @@ import { MenuBar } from '../components/MenuBar';
 import uploadIcon from '../assets/icons/file-plus.svg';
 import styles from '../styles/pages/UploadData.module.css';
 import { SyntheticEvent, useRef, useState } from 'react';
-import { useToast } from '../hooks/useToast';
+import { useToastContext } from '../hooks/useToastContext';
 import { ToastProviderValue } from '../types/ToastTypes';
 
 const UploadForm = ({ callback }: { callback: React.Dispatch<React.SetStateAction<File | undefined>> }) => {
-  const { addToast } = useToast() as ToastProviderValue;
+  const { addToast } = useToastContext() as ToastProviderValue;
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const onChangeInputFile = (event: SyntheticEvent) => {
