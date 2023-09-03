@@ -44,7 +44,7 @@ export const Incidents = () => {
         </button>
       </div>
       {showDate &&
-        <div className={styles.dateContainer}>
+        <div className={`${styles.dateContainer} ${showDate ? styles.showDateContainer : styles.hideDateContainer}`}>
           <div className={styles.dateMask}>
             <p>{fromDate ? fromDate : 'From Date'}</p>
             <input
