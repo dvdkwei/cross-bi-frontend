@@ -64,7 +64,6 @@ export const DashboardContent = () => {
           }
         })
       }
-      <h1>{views.length > 0 && JSON.stringify(views)}</h1>
       <button className='light-button w-full text-[2.2rem] font-semibold !border-[0] mt-6'>
         Add More Element
       </button>

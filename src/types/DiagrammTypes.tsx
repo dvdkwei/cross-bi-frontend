@@ -2,24 +2,18 @@ import { Color } from "@tremor/react"
 
 export type BigNumberData = {
   valueTitle: string,
-  value: string
+  value: string,
 }
 
 export type BigNumberProps = {
   viewId: number,
-  currency: string,
+  currency: 'EUR' | 'USD',
   decorationColor?: Color,
 }
 
 export type YAxisData = {
   yAxisTitle: string,
   yAxisValue: number
-}
-
-export type BarDiagrammData = {
-  xAxisTitle: string,
-  xAxisValue: string[],
-  yAxisData: [YAxisData[]]
 }
 
 export type BarDiagrammNativeData = {
@@ -32,27 +26,10 @@ export type BarDiagrammProps = {
   decoration?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-export type LineDiagrammData = {
-  xAxisTitle: string,
-  xAxisValue: string[],
-  yAxisData: [YAxisData[]]
-}
-
-export type LineDiagrammNativeData = {
-  [x: string]: string | number
-}
-
 export type LineDiagrammProps = {
   subtitle?: string,
   viewId: number,
   decoration?: 'top' | 'bottom' | 'left' | 'right'
-}
-
-export type DonutDiagrammData = {
-  descriptionTitle: string,
-  descriptionValue: string,
-  valueTitle: string,
-  value: string | number,
 }
 
 export type DonutDiagrammProps = {
@@ -62,16 +39,31 @@ export type DonutDiagrammProps = {
   decoration?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-export type ListDiagrammData = {
-  descriptionTitle: string,
-  descriptionValue: string,
-  valueTitle: string,
-  value: string | number,
-}
-
 export type ListDiagrammProps = {
   title: string,
   viewId: number,
   currency?: string,
   decoration?: 'top' | 'bottom' | 'left' | 'right'
+}
+
+export type UncategorisedDiagrammData = {
+  title: string | undefined,
+  axisData : {
+    xAxisTitle: string,
+    xAxisValue: string,
+    yAxisTitle: string,
+    yAxisValue: number | string
+  }[]
+}
+
+export type CategorisedDiagrammData = {
+  xAxisTitle: string,
+  xAxisValue: string[],
+  categories: string[],
+  yAxisData: [YAxisData[]],
+  title: string | undefined
+}
+
+export type DiagrammNativeData = {
+  [x: string]: string | number
 }

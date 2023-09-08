@@ -2,8 +2,6 @@ import styles from '../styles/components/DashboardPicker.module.css'
 
 export const DashboardPicker = ({closePicker}: {closePicker: () => void}) => {
 
-  // useDashboard
-
   return(
     <div className={styles.overlay} onClick={closePicker}>
       <select className={styles.dashboardTitles}>

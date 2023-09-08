@@ -14,7 +14,7 @@ const ProfileSummary = ({ user }: { user: User }) => {
   return (
     <div className={styles.profileSummary}>
       <div className={styles.profilePicture}>
-        <img src={'https://www.comingsoon.net/wp-content/uploads/sites/3/2023/07/Oppenheimer-True-Story.jpg'} />
+        <img src={'https://miro.medium.com/v2/resize:fit:620/1*RpQjmNQ-ORXkQaOX7zlbZw.png'} />
       </div>
       <div className={styles.bio}>
         <h2 className={styles.name}>
