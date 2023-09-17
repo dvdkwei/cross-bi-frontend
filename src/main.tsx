@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/AuthContext.tsx'
 import { ToastProvider } from './contexts/ToastContext.tsx'
 import { WorkspaceProvider } from './contexts/WorkspaceContext.tsx'
 import { DashboardProvider } from './contexts/DashboardContext.tsx'
+import { TimeFrameProvider } from './contexts/TimeFrameContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <AuthProvider>
           <WorkspaceProvider>
             <DashboardProvider>
-              <App />
+              <TimeFrameProvider>
+                <App />
+              </TimeFrameProvider>
             </DashboardProvider>
           </WorkspaceProvider>
         </AuthProvider>

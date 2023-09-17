@@ -2,6 +2,8 @@ import { BigNumberData } from "../types/DiagrammTypes";
 import { useEffect, useState } from "react";
 import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
+import { useTimeFrameContext } from "./useTimeFrameContext";
+import { TimeFrameProviderValue } from "../contexts/TimeFrameContext";
 
 export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
@@ -9,7 +11,11 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
   const [data, setData] = useState<BigNumberData | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState<string>('');
+  const [xAxisTitle, setXaxisTitle] = useState<string>('');
+  const [yAxisTitle, setYaxisTitle] = useState<string>('');
+  const [aggregateStrategy, setAggregateStrategy] = useState<string>('');
   const { addToast } = useToastContext() as ToastProviderValue;
+  const { fromDate, toDate } = useTimeFrameContext() as TimeFrameProviderValue;
 
   useEffect(() => {
     const translateTitle = (title: string) => {
@@ -34,11 +40,16 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
     };
 
     const fetchData = async () => {
+      let fetchUrl = `${BASE_API_URL}/view/aggregate/${viewId}`;
       const headers = new Headers();
       headers.append('x-api-key', API_KEY);
       headers.append('Content-Type', 'appplication/json');
 
-      await fetch(`${BASE_API_URL}/view/aggregate/${viewId}`, {
+      if(fromDate && toDate){
+        fetchUrl += `?from=${fromDate}&to=${toDate}`
+      }
+
+      await fetch(fetchUrl, {
         headers,
         method: 'GET'
       })
@@ -50,7 +61,13 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
               value: roundValue(Number(parsed.data.value))
             });
 
-            setTitle(parsed.data.title ?? translateTitle(parsed.data.valueTitle))
+            setTitle(parsed.data.title ?? translateTitle(parsed.data.valueTitle));
+            setXaxisTitle(parsed.data.x_axis);
+            setYaxisTitle(parsed.data.y_axis)
+            setAggregateStrategy(parsed.data.aggregate)
+          }
+          else {
+            setData(undefined);
           }
         })
         .catch((error: unknown) => {
@@ -66,11 +83,23 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
     }
 
     fetchData();
-  }, [API_KEY, BASE_API_URL, addToast, currency, viewId])
+  }, 
+  [
+    API_KEY, 
+    BASE_API_URL, 
+    addToast, 
+    currency, 
+    fromDate, 
+    toDate, 
+    viewId
+  ]);
 
   return {
     data,
     title,
-    isLoading
+    isLoading,
+    xAxisTitle,
+    yAxisTitle,
+    aggregateStrategy
   }
 }

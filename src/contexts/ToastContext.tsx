@@ -6,6 +6,7 @@ export const ToastContext = createContext<Partial<ToastProviderValue>>({});
 export function ToastProvider({ children }: { children: ReactElement }) {
   const [toast, setToast] = useState<Partial<Toast>>({});
   const [shouldShowToasts, setShouldShowToasts] = useState(false);
+  const toastZIndex = '100';
 
   const addToast = (newToast: Toast) => {
     setToast(newToast);
@@ -20,8 +21,9 @@ export function ToastProvider({ children }: { children: ReactElement }) {
 
   return (
     <ToastContext.Provider value={providerValue} >
-      {shouldShowToasts &&
-        <div className={`toast ${toast.style}`}>
+      {
+        shouldShowToasts &&
+        <div className={`toast ${toast.style} z-${toastZIndex}`}>
           <p>{toast.message}</p>
         </div>
       }

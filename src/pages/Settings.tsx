@@ -5,7 +5,7 @@ import styles from '../styles/pages/Settings.module.css';
 import { AuthProviderValue } from '../types/AuthTypes';
 import { WorkspaceProviderValue, WorkspaceInfoProps } from '../types/WorkspaceTypes';
 import { Loader } from '../components/Loader';
-import { useWorkspace } from '../hooks/useWorkspace';
+import { useWorkspaces } from '../hooks/useWorkspaces';
 
 const WorkspaceInfo = ({ currentWorkspace, workspaces, callback }: WorkspaceInfoProps) => {
   return (
@@ -34,7 +34,7 @@ const WorkspaceInfo = ({ currentWorkspace, workspaces, callback }: WorkspaceInfo
 const SettingsContent = () => {
   const { handleLogout } = useAuthContext() as AuthProviderValue;
   const { currentWorkspace, switchWorkspace } = useWorkspaceContext() as WorkspaceProviderValue;
-  const { workspaces, resetWorkspace } = useWorkspace();
+  const { workspaces, resetWorkspace } = useWorkspaces();
 
   const onClickChangeWorkspace = (workspaceId: string) => switchWorkspace(workspaceId);
 
@@ -70,7 +70,7 @@ const SettingsContent = () => {
 export const Settings = () => {
 
   const { isLoading: isLoadingContext } = useWorkspaceContext() as WorkspaceProviderValue;
-  const { isLoading } = useWorkspace();
+  const { isLoading } = useWorkspaces();
 
   return (
     <div className={styles.settingsContainer}>

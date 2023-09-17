@@ -27,11 +27,13 @@
 }
 
 .workspaceHeader {
-  width: 90%;
+  width: 95%;
   display: flex;
   color: rgba(0, 62, 102);
   transition: all .6s ease;
-  margin: 20px 0;
+  padding: 20px 0 40px;
+  gap: 25px;
+  justify-content: space-between;
 }
 
 .workspaceHeader select {

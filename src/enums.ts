@@ -5,3 +5,9 @@ export enum DiagrammTypes {
   DONUT = 4,
   LIST = 5
 }
+
+export enum IncidentStatuses {
+  NEW = 0,
+  SORTED = 1,
+  RESOLVED = 2
+}

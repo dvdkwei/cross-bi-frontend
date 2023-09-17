@@ -33,14 +33,12 @@ export type LineDiagrammProps = {
 }
 
 export type DonutDiagrammProps = {
-  title: string,
   viewId: number,
   currency?: string,
   decoration?: 'top' | 'bottom' | 'left' | 'right'
 }
 
 export type ListDiagrammProps = {
-  title: string,
   viewId: number,
   currency?: string,
   decoration?: 'top' | 'bottom' | 'left' | 'right'

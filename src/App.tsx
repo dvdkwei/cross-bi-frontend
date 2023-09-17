@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthScreen } from './pages/AuthScreen'
 import { useEffect } from 'react'
@@ -8,6 +7,7 @@ import { Settings } from './pages/Settings';
 import { Incidents } from './pages/Incidents';
 import { UploadData } from './pages/UploadData';
 import { Profile } from './pages/Profile';
+import { EditDiagramm } from './pages/EditDiagramm';
 
 function App() {
 
@@ -30,6 +30,7 @@ function App() {
         <Route path='/upload' element={<UploadData />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/settings' element={<Settings />} />
+        <Route path='/edit/:diagrammType/:viewId' element={<EditDiagramm />}/>
       </Route>
     </Routes>
   )

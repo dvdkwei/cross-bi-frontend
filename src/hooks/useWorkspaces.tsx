@@ -5,7 +5,7 @@ import { useToastContext } from "./useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
 import { useWorkspaceContext } from "./useWorkspaceContext";
 
-export const useWorkspace = () => {
+export const useWorkspaces = () => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
   const API_KEY = import.meta.env.VITE_API_KEY;
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);

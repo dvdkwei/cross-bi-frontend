@@ -4,8 +4,10 @@ import { useToastContext } from "./useToastContext"
 import { ToastProviderValue } from "../types/ToastTypes"
 import { Color } from "@tremor/react"
 import { useColors } from "./useColors"
+import { useTimeFrameContext } from "./useTimeFrameContext"
+import { TimeFrameProviderValue } from "../contexts/TimeFrameContext"
 
-export const useDiagrammData = (id : number) => {
+export const useDiagrammData = (id: number) => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
   const API_KEY = import.meta.env.VITE_API_KEY;
   const { addToast } = useToastContext() as ToastProviderValue;
@@ -18,19 +20,25 @@ export const useDiagrammData = (id : number) => {
   const [data, setData] = useState<DiagrammNativeData[]>([]);
   const [slicedColors, setSlicedColors] = useState<Color[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { fromDate, toDate } = useTimeFrameContext() as TimeFrameProviderValue;
 
   const translateTitle = (title: string) => {
     return title.split('_')
       .map(word => {
         if (['of', 'and', 'for'].includes(word.toLocaleLowerCase())) {
-          return word
+          return word;
         }
-        return word.charAt(0).toUpperCase() + word.substring(1, word.length)
+        return word.charAt(0).toUpperCase() + word.substring(1, word.length);
       })
       .join(' ');
   }
 
   const transformUncategorisedData = (rawData: UncategorisedDiagrammData) => {
+    if (!rawData.axisData.length) {
+      setData([]);
+      return;
+    }
+
     setTitle(rawData.title ?? translateTitle(rawData.axisData[0].xAxisTitle));
     setIndex(rawData.axisData[0].xAxisTitle);
     setCategories([rawData.axisData[0].yAxisTitle]);
@@ -54,11 +62,18 @@ export const useDiagrammData = (id : number) => {
   }
 
   const transformCategorisedData = (rawData: CategorisedDiagrammData) => {
+    if (!rawData.yAxisData.length) {
+      setData([]);
+      return;
+    }
+
     const transformed: DiagrammNativeData[] = [];
     setTitle(rawData.title ?? translateTitle(rawData.xAxisTitle));
     setIndex(rawData.xAxisTitle);
     setCategories(rawData.categories);
-    
+    setXaxisTitle(rawData.xAxisTitle);
+    setYaxisTitle(rawData.yAxisData[0][0].yAxisTitle);
+
     rawData.xAxisValue.forEach((xelem, xindex) => {
       let tempObj: DiagrammNativeData = {
         [rawData.xAxisTitle]: xelem
@@ -77,15 +92,25 @@ export const useDiagrammData = (id : number) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      let fetchUrl = `${BASE_API_URL}/view/inspect/${id}`;
       const headers = new Headers();
       headers.append('x-api-key', API_KEY);
       headers.append('Content-Type', 'appplication/json');
 
-      await fetch(`${BASE_API_URL}/view/inspect/${id}`, {
+      if (fromDate && toDate) {
+        fetchUrl += `?from=${fromDate}&to=${toDate}`
+      }
+
+      await fetch(fetchUrl, {
         headers,
         method: 'GET'
       })
-        .then(res => res.json())
+        .then(res => {
+          if (res.status === 404) {
+            throw new Error(`View ${id} Not Found`)
+          }
+          return res.json();
+        })
         .then(parsed => {
           if (parsed.data) {
             if (parsed.data.categories) {
@@ -109,8 +134,8 @@ export const useDiagrammData = (id : number) => {
     }
 
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [API_KEY, BASE_API_URL, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [API_KEY, BASE_API_URL, id, fromDate, toDate]);
 
   useEffect(() => {
     if (data && data.length) {

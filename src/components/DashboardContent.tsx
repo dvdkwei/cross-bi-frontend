@@ -1,5 +1,5 @@
 import { DiagrammTypes } from "../enums";
-import { useView } from "../hooks/useView"
+import { useViews } from "../hooks/useViews"
 import { BarDiagramm } from "./BarDiagramm";
 import { BigNumber } from "./BigNumber";
 import { DonutDiagramm } from "./DonutDiagramm";
@@ -7,65 +7,67 @@ import { LineDiagramm } from "./LineDiagramm";
 import { ListDiagramm } from "./ListDiagramm";
 
 export const DashboardContent = () => {
-  const { views } = useView();
+  const { views } = useViews();
 
   return (
     <>
       {
-        views.map((view, index) => {
-          if(view.diagramm_type){
-            switch(view.diagramm_type){
-              case DiagrammTypes.BIGNUMBER: { 
-                return (
-                  <BigNumber 
-                    key={'1-' + index}
-                    viewId={view.id}
-                    currency="EUR"
-                    decorationColor="green"
-                  />
-                )
-              }
-              case DiagrammTypes.BAR: { 
-                return (
-                  <BarDiagramm 
-                    key={'2-' + index}
-                    viewId={view.id}
-                  />
-                )
-              }
-              case DiagrammTypes.LINE: { 
-                return (
-                  <LineDiagramm 
-                    key={'3-' + index}
-                    viewId={view.id}
-                  />
-                )
-              }
-              case DiagrammTypes.DONUT: { 
-                return (
-                  <DonutDiagramm 
-                    key={'4-' + index}
-                    title={view.name}
-                    viewId={view.id}
-                    currency="EUR"
-                  />
-                )
-              }
-              case DiagrammTypes.LIST: { 
-                return (
-                  <ListDiagramm 
-                    key={'5-' + index}
-                    title={view.name}
-                    viewId={view.id}
-                  />
-                )
+        views
+          .sort((firstView, nextView) => firstView.id - nextView.id)
+          .map((view, index) => {
+            if (view.diagramm_type) {
+              switch (view.diagramm_type) {
+                case DiagrammTypes.BIGNUMBER: {
+                  return (
+                    <BigNumber
+                      key={'1-' + index}
+                      viewId={view.id}
+                      currency="EUR"
+                      decorationColor="green"
+                    />
+                  )
+                }
+                case DiagrammTypes.BAR: {
+                  return (
+                    <BarDiagramm
+                      key={'2-' + index}
+                      viewId={view.id}
+                    />
+                  )
+                }
+                case DiagrammTypes.LINE: {
+                  return (
+                    <LineDiagramm
+                      key={'3-' + index}
+                      viewId={view.id}
+                    />
+                  )
+                }
+                case DiagrammTypes.DONUT: {
+                  return (
+                    <DonutDiagramm
+                      key={'4-' + index}
+                      viewId={view.id}
+                      currency="EUR"
+                    />
+                  )
+                }
+                case DiagrammTypes.LIST: {
+                  return (
+                    <ListDiagramm
+                      key={'5-' + index}
+                      viewId={view.id}
+                    />
+                  )
+                }
               }
             }
-          }
-        })
+          })
       }
-      <button className='light-button w-full text-[2.2rem] font-semibold !border-[0] mt-6'>
-        Add More Element
+      <button
+        className='light-button w-full text-[2.2rem] font-semibold !border-[0] mt-6 mb-[300px]'
+      >
+        Add View
       </button>
     </>
   )

@@ -2,11 +2,14 @@ import { BarChart, Card, Subtitle, Title } from "@tremor/react"
 import { BarDiagrammProps } from "../types/DiagrammTypes"
 import { useEffect } from "react";
 import { useDiagrammData } from "../hooks/useDiagrammData";
+import { useNavigate } from "react-router-dom";
+import { DiagrammTypes } from "../enums";
 
 export const BarDiagramm = ({
   subtitle,
   viewId
 }: BarDiagrammProps) => {
+  const navigate = useNavigate();
   const { isLoading, data, title, index, categories, slicedColors } = useDiagrammData(viewId);
 
   useEffect(() => {
@@ -30,7 +33,9 @@ export const BarDiagramm = ({
       {
         !isLoading && data.length &&
         <>
-          <Title>{title}</Title>
+          <Title onClick={() => navigate(`/edit/${DiagrammTypes.BAR}/${viewId}`)}>
+            {title}
+          </Title>
           {subtitle && <Subtitle>{subtitle}</Subtitle>}
           <BarChart
             className="!h-[600px]"

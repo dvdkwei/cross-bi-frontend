@@ -50,6 +50,7 @@
     padding: 10px;
     border-radius: 20px;
     place-content: center;
+    place-items: center;
   }
 
   .light-button {
@@ -103,7 +104,6 @@
   }
 
   .toast {
-    z-index: 10;
     position: absolute;
     width: 90%;
     display: flex;
@@ -118,6 +118,7 @@
     border-radius: 15px;
     animation: toast-appear .3s ease-in-out;
     word-wrap: break-word;
+    z-index: 100;
   }
 
   .toast p {

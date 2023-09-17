@@ -1,10 +1,13 @@
 import { Card, Title, List, ListItem, Subtitle } from "@tremor/react"
 import { ListDiagrammProps } from "../types/DiagrammTypes";
 import { useDiagrammData } from "../hooks/useDiagrammData";
+import { useNavigate } from "react-router-dom";
+import { DiagrammTypes } from "../enums";
 
 export const ListDiagramm = ({
   viewId,
 }: ListDiagrammProps) => {
+  const navigate = useNavigate();
   const { isLoading, data, xAxisTitle, yAxisTitle, title } = useDiagrammData(viewId);
 
   return (
@@ -13,13 +16,14 @@ export const ListDiagramm = ({
       className="w-[100%] flex flex-col gap-10"
       decoration="top"
       decorationColor="blue"
-
     >
       {!isLoading && data.length == 0 && <Subtitle>No Data</Subtitle>}
       {
         !isLoading && data.length > 0 &&
         <>
-          <Title>{title}</Title>
+          <Title onClick={() => navigate(`/edit/${DiagrammTypes.LIST}/${viewId}`)}>
+            {title}
+          </Title>
           <List>
             {
               data.map((dt, index) => {
