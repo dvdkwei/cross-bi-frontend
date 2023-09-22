@@ -4,7 +4,6 @@ import { useWorkspaceContext } from '../hooks/useWorkspaceContext';
 import styles from '../styles/pages/Settings.module.css';
 import { AuthProviderValue } from '../types/AuthTypes';
 import { WorkspaceProviderValue, WorkspaceInfoProps } from '../types/WorkspaceTypes';
-import { Loader } from '../components/Loader';
 import { useWorkspaces } from '../hooks/useWorkspaces';
 
 const WorkspaceInfo = ({ currentWorkspace, workspaces, callback }: WorkspaceInfoProps) => {
@@ -33,7 +32,7 @@ const WorkspaceInfo = ({ currentWorkspace, workspaces, callback }: WorkspaceInfo
 
 const SettingsContent = () => {
   const { handleLogout } = useAuthContext() as AuthProviderValue;
-  const { currentWorkspace, switchWorkspace } = useWorkspaceContext() as WorkspaceProviderValue;
+  const { isLoading, currentWorkspace, switchWorkspace } = useWorkspaceContext() as WorkspaceProviderValue;
   const { workspaces, resetWorkspace } = useWorkspaces();
 
   const onClickChangeWorkspace = (workspaceId: string) => switchWorkspace(workspaceId);
@@ -44,18 +43,18 @@ const SettingsContent = () => {
   }
 
   return (
-    <div className='flex flex-col w-[90%] gap-20'>
+    <div className='flex flex-col w-[95%] gap-6'>
       <div className={styles.workspaceInfo}>
-        <h2 className='text-[2.8rem] font-semibold'>Current Workspace</h2>
+        <h2 className='text-[24px] font-semibold'>Current Workspace</h2>
         {
-          currentWorkspace ?
+          isLoading ?
+            <select className='!border-gray-700'></select>
+            :
             <WorkspaceInfo
               currentWorkspace={currentWorkspace}
               workspaces={workspaces}
               callback={onClickChangeWorkspace}
             />
-            :
-            <select className='!border-gray-700'></select>
         }
       </div>
       <div className={styles.settingButtons}>
@@ -68,16 +67,12 @@ const SettingsContent = () => {
 }
 
 export const Settings = () => {
-
-  const { isLoading: isLoadingContext } = useWorkspaceContext() as WorkspaceProviderValue;
-  const { isLoading } = useWorkspaces();
-
   return (
     <div className={styles.settingsContainer}>
       <div className={styles.settings}>
         <h1>Settings</h1>
       </div>
-      {(isLoadingContext || isLoading) ? <Loader /> : <SettingsContent />}
+      <SettingsContent />
       <MenuBar menuIndex={4} />
     </div >
   )

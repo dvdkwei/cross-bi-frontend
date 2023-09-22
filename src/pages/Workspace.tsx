@@ -51,7 +51,7 @@ export const Workspace = () => {
   } = useTimeFrameContext() as TimeFrameProviderValue;
 
   const [showDate, setShowDate] = useState(!!fromDate || !!toDate);
-  const buttonStyle = "dark-button text-[2rem] !px-6 font-semibold";
+  const buttonStyle = "dark-button text-[12px] !px-4 font-semibold";
 
   const toggleTimeFrameButton = () => {
     setShowDate(showDate => !showDate);
@@ -70,7 +70,7 @@ export const Workspace = () => {
     <div className={styles.workspaceContainer}>
       <div className={styles.workspaceHeader + ' fixed z-50 bg-white'}>
         <DashboardPicker />
-        <div className="flex gap-4 w-fit">
+        <div className="flex gap-2 w-fit text-[18px]">
           {
             !showDate ?
               <button
@@ -97,7 +97,7 @@ export const Workspace = () => {
           }
         </div>
       </div>
-      <div className={styles.workspace + ' pt-[150px]'}>
+      <div className={styles.workspace + ' pt-[80px]'}>
         <DashboardContent />
       </div>
       { 

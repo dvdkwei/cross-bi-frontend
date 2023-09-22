@@ -6,7 +6,7 @@
   place-items: center;
 }
 
-.settingsContainer span{
+.settingsContainer span .loader{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -15,20 +15,19 @@
 .settings {
   display: flex;
   flex-direction: column;
-  width: 90%;
-  margin-top: 20px;
-  gap: 60px;
+  width: 95%;
+  margin: 8px;
 }
 
 .settings h1{
-  font-size: 4rem;
+  font-size: 28px;
   color: rgba(0, 62, 102);
   margin: 0;
   font-weight: 600;
 }
 
 .workspaceInfo{
-  margin-top: 40px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -37,37 +36,38 @@
 
 .workspaceInfo select {
   margin-top: 15px;
-  padding: 10px 20px;
+  padding: 4px 10px;
   background-color: transparent;
   color: #003e66;
-  font-size: 2.6rem;
+  font-size: 18px;
   font-weight: 500;
   outline: none;
   appearance: none;
   background-image: url("../../assets/icons/chevron-down.svg");
-  background-position-x: 99%;
+  background-position-x: 98%;
   background-position-y: 50%;
-  background-size: 2.3rem;
+  background-size: 20px;
   background-repeat: no-repeat;
   width: 100%;
   border: #003e66 3px solid;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .settingButtons {
   display: flex;
   flex-direction: column;
   color: rgba(0, 62, 102);
-  gap: 20px;
+  gap: 8px;
+  border-radius: 8px;
 }
 
 .settingButtons p {
   margin: 0;
-  padding: 10px 0;
+  padding: 6px 0;
   width: 100%;
-  font-size: 2.8rem;
-  border: 3px solid rgba(0, 62, 102);
-  border-radius: 15px;
+  font-size: 18px;
+  border: 2px solid rgba(0, 62, 102);
+  border-radius: 8px;
   font-weight: bold;
   display: flex;
   place-content: center;

@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.workspaceContainer span {
+.workspaceContainer span .loader{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -17,7 +17,7 @@
   padding-bottom: 200px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   width: 90%;
   max-height: 90%;
   overflow-y: scroll;
@@ -26,29 +26,33 @@
   animation: content-render-animation .5s ease-in-out;
 }
 
+.workspace::-webkit-scrollbar {
+  display: none;
+}
+
 .workspaceHeader {
   width: 95%;
   display: flex;
   color: rgba(0, 62, 102);
   transition: all .6s ease;
-  padding: 20px 0 40px;
-  gap: 25px;
+  padding: 10px 0 20px;
+  gap: 18px;
   justify-content: space-between;
 }
 
 .workspaceHeader select {
   background-color: transparent;
   color: #003e66;
-  font-size: 3.8rem;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 700;
   outline: none;
   appearance: none;
   background-image: url("../../assets/icons/chevron-down.svg");
   background-position-x: 98%;
   background-position-y: 50%;
-  background-size: 2.3rem;
+  background-size: 28px;
   background-repeat: no-repeat;
-  width: 100%;
+  /* width: 100%; */
 }
 
 @keyframes rotateUp {

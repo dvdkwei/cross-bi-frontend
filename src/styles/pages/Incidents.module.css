@@ -5,7 +5,7 @@
   min-height: 100vh;
   height: 100vh;
   align-items: center;
-  gap: 20px;
+  gap: 8px;
 }
 
 .incidentsHeader {
@@ -13,12 +13,35 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
+  width: 95%;
   color: rgba(0, 62, 102);
-  font-size: 4rem;
+  font-size: 28px;
   font-weight: 600;
 }
 
 .incidentsHeader h1 {
-  margin: 20px 0;
+  margin: 8px 0;
+}
+
+.incidentsFilter button {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color ease .5s;
+  border-width: 2px;
+  padding: 2px 0;
+}
+
+.cards {
+  animation: cards .3s ease-out;
+  max-height: none !important;
+}
+
+.cards p{
+  font-size: 12px;
+}
+
+@keyframes cards {
+  from{ opacity: 0;}
+  to{ opacity: 1;}
 }

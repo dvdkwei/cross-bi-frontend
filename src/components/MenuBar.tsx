@@ -30,14 +30,14 @@ export const MenuBar = ({menuIndex}: {menuIndex: number}) => {
             return (
               <div
                 key={'ic-' + index}
-                className={`flex flex-col w-[80px] h-full gap-4 justify-center items-center`}
+                className={`flex flex-col h-full gap-2 justify-center items-center`}
                 onClick={() => onClickMenuIcons(index)}
               >
                 <img
                   src={icon}
                   className={`${menuIndex === index ? '!opacity-100' : ''}`}
                 />
-                <p className='text-[1.3rem] font-semibold'>{titles[index]}</p>
+                <p className='text-[8px] font-semibold'>{titles[index]}</p>
               </div>
             )
           })

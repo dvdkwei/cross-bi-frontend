@@ -4,6 +4,7 @@ import { DiagrammNativeData, LineDiagrammProps } from "../types/DiagrammTypes";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DiagrammTypes } from "../enums";
+import styles from '../styles/components/Diagramm.module.css';
 
 export const LineDiagramm = ({
   subtitle,
@@ -17,9 +18,7 @@ export const LineDiagramm = ({
   useEffect(() => {
     if (!isLoading && data) {
       const yAxisLabels = [
-        ...document.querySelectorAll(
-          "#bar-diagramm .yAxis.text-tremor-label tspan"
-        )
+        ...document.querySelectorAll("#line-diagramm .yAxis.text-tremor-label tspan")
       ];
       yAxisLabels.forEach(label => label.setAttribute('x', '60'));
       setFilteredData(data);
@@ -35,7 +34,7 @@ export const LineDiagramm = ({
   return (
     <Card
       id="line-diagramm"
-      className="w-[100%] flex flex-col gap-10"
+      className={styles.lineContainer}
       decoration="top"
       decorationColor="blue"
     >
@@ -52,7 +51,7 @@ export const LineDiagramm = ({
           <MultiSelect
             value={filteredCategories}
             onValueChange={(val) => setFilteredCategories(val)}
-            className='[&>ul]:!max-h-[400px] [&>button#headlessui-listbox-button-:r35:]:!h-[80px] [&>ul>li>span]:!static !py-4'
+            className={styles.multiSelect}
           >
             {
               categories.map((element, index) => {
@@ -69,12 +68,12 @@ export const LineDiagramm = ({
       {
         !isLoading && data &&
         <LineChart
-          className="!h-[600px]"
           data={filteredData}
           index={index}
           categories={filteredCategories ?? categories}
           colors={slicedColors}
           showAnimation={true}
+          className={styles.line}
         />
       }
     </Card>

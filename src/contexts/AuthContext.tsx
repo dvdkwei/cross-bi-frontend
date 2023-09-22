@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
   const API_KEY = import.meta.env.VITE_API_KEY;
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { addToast } = useToastContext() as ToastProviderValue;
   const { setCurrentUser }  = useUser();
   const { value: authValue, persistCookie: persistAuthCookie } = useCookie('cb_authed');

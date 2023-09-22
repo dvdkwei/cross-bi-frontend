@@ -26,7 +26,7 @@ type EditFormProps = {
 
 const PreviewDiagramm = ({ diagrammType, viewId }: EditFormProps) => {
   return (
-    <div className='w-[90%] mt-14 mb-10'>
+    <div className='w-[90%] mt-4 mb-2'>
       {
         (() => {
           switch (diagrammType) {
@@ -147,7 +147,7 @@ const EditForm = ({ diagrammType, viewId }: EditFormProps) => {
         diagrammType={diagrammType}
         viewId={viewId}
       />
-      <div className='flex flex-col w-[90%] gap-6 mt-4'>
+      <div className='flex flex-col w-[90%] gap-2 mt-4'>
         <button className={styles.saveButton} onClick={onClickSaveSettings}>
           {isLoading ? <ButtonLoader /> : 'Save Settings'}
         </button>
@@ -291,7 +291,7 @@ const EditAggregateForm = ({ diagrammType, viewId }: EditFormProps) => {
         diagrammType={diagrammType}
         viewId={viewId}
       />
-      <div className='flex flex-col w-[90%] gap-6 mt-4'>
+      <div className='flex flex-col w-[90%] gap-2 mt-4'>
         <button className={styles.saveButton} onClick={onClickSaveSettings}>
           {isLoading ? <ButtonLoader /> : 'Save Settings'}
         </button>
@@ -308,21 +308,23 @@ export const EditDiagramm = () => {
   return (
     <div className={styles.editContainer}>
       <h1 className={styles.editTitle}>
-        <img src={chevron} className='w-14 cursor-pointer' onClick={() => navigate(-1)} />
+        <img src={chevron} className='w-6 cursor-pointer' onClick={() => navigate(-1)} />
         View Settings
       </h1>
-      {
-        Number(diagrammType) === DiagrammTypes.BIGNUMBER ?
-          <EditAggregateForm
-            diagrammType={Number(diagrammType)}
-            viewId={Number(viewId)}
-          />
-          :
-          <EditForm
-            diagrammType={Number(diagrammType)}
-            viewId={Number(viewId)}
-          />
-      }
+      <div className='flex flex-col w-full overflow-auto items-center min-h-[100vh] mt-[52px]'>
+        {
+          Number(diagrammType) === DiagrammTypes.BIGNUMBER ?
+            <EditAggregateForm
+              diagrammType={Number(diagrammType)}
+              viewId={Number(viewId)}
+            />
+            :
+            <EditForm
+              diagrammType={Number(diagrammType)}
+              viewId={Number(viewId)}
+            />
+        }
+      </div>
       <MenuBar menuIndex={0} />
     </div>
   )

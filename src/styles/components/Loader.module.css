@@ -1,6 +1,6 @@
 .loader {
-  width: 64px;
-  height: 64px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: inline-block;
   position: relative;
@@ -21,8 +21,8 @@
   margin: auto;
   border: 3px solid;
   border-color: transparent #003E66 #003E66;
-  width: 40px;
-  height: 40px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   animation: rotationBack 0.6s linear infinite;
   transform-origin: center center;

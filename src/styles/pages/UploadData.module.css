@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 100vh;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 }
 
 .uploadHeader{
@@ -16,10 +16,10 @@
 }
 
 .uploadHeader h1{
-  width: 90%;
-  font-size: 4rem;
+  width: 95%;
+  font-size: 28px;
   font-weight: 600;
-  margin: 20px 0;
+  margin: 8px 0;
 }
 
 .upload {
@@ -35,9 +35,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 90%;
+  width: 95%;
   padding: 40px 0;
-  border: 15px rgba(0, 62, 102, .7) dashed;
+  border: 4px rgba(0, 62, 102, .7) dashed;
   color: rgba(0, 62, 102);
   border-radius: 20px;
   place-content: center;
@@ -54,11 +54,11 @@
 }
 
 .uploadForm img {
-  width: 15%;
+  width: 12%;
 }
 
 .uploadForm h2 {
-  font-size: 2.5rem;
+  font-size: 22px;
   font-weight: 600;
 } 
 
@@ -67,41 +67,42 @@
   flex-direction: column;
   color: rgba(0, 62, 102);
   width: 90%;
-  gap: 20px;
+  gap: 8px;
 }
 
 .fileInfo h2 {
-  font-size: 52px;
+  font-size: 24px;
   font-weight: 500;
 }
 
 .fileUploaded h3{
-  font-size: 40px;
+  font-size: 18px;
 }
 
 .dashboardName {
   width: 100%;
-  padding: 20px 0;
+  padding: 8px 0;
   background-color: transparent;
   border-bottom: 1px rgba(0, 62, 102) solid;
   outline: none;
-  font-size: 2.8rem;
+  font-size: 22px;
   font-weight: 500;
 }
 
 .actions {
-  margin-top: 50px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 15px;
+  gap: 8px;
   align-items: center;
   font-weight: bold;
 }
 
 .actions > button {
   width: 100%;
-  font-size: 2.5rem;
+  font-size: 16px;
+  padding: 4px 0;
 }
 
 @keyframes content-render-animation {

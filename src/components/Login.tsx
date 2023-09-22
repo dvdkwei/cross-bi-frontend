@@ -26,7 +26,7 @@ export function Login({ register }: { register: () => void }) {
     <div className={`${styles.login}`}>
       <div className={`${styles.loginWrapper}`}>
         <div className={`${styles.loginInputs}`}>
-          <div className={'gesture-line'}></div>
+          <div className='gesture-line'></div>
           <h1>Log into your account</h1>
           <div className={`${styles.inputs}`}>
             <div className='input'>

@@ -3,6 +3,7 @@ import { ListDiagrammProps } from "../types/DiagrammTypes";
 import { useDiagrammData } from "../hooks/useDiagrammData";
 import { useNavigate } from "react-router-dom";
 import { DiagrammTypes } from "../enums";
+import styles from '../styles/components/Diagramm.module.css';
 
 export const ListDiagramm = ({
   viewId,
@@ -12,8 +13,8 @@ export const ListDiagramm = ({
 
   return (
     <Card
-      id="line-diagramm"
-      className="w-[100%] flex flex-col gap-10"
+      id="list-diagramm"
+      className={styles.listContainer}
       decoration="top"
       decorationColor="blue"
     >

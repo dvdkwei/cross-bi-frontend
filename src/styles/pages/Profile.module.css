@@ -8,7 +8,7 @@
   gap: 20px;
 }
 
-.profileContainer span {
+.profileContainer span .loader {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -17,20 +17,20 @@
 .profileHeader {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 95%;
   color: rgba(0, 62, 102);
-  font-size: 4rem;
+  font-size: 28px;
   font-weight: 600;
 }
 
 .profileHeader h1 {
-  margin: 20px 0;
+  margin: 8px 0;
 }
 
 .profileSummary {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 95%;
   justify-content: center;
   align-items: center;
   animation: content-render-animation .5s ease-in-out;
@@ -42,7 +42,7 @@
   width: 100%;
   aspect-ratio: 1/1;
   border: 1px solid black;
-  border-radius: 50px;
+  border-radius: 10px;
 }
 
 .profilePicture img{
@@ -50,7 +50,7 @@
   width: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 50px;
+  border-radius: 10px;
 }
 
 .bio {
@@ -62,17 +62,17 @@
 }
 
 .name {
-  font-size: 4.3rem;
+  font-size: 26px;
   font-weight: 700;
 }
 
 .username {
-  font-size: 3rem;
+  font-size: 22px;
   font-weight: 600;
 }
 
 .contactInfo {
-  margin-top: 100px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -80,20 +80,20 @@
 }
 
 .contactInfo h2 {
-  font-size: 2.8rem;
+  font-size: 24px;
   font-weight: 700;
 }
 
 .contactInfo h3 {
-  margin-top: 10px;
-  font-size: 2.3rem;
+  margin-top: 6px;
+  font-size: 20px;
   font-weight: 500;
   display: flex;
   flex-direction: row;
   align-content: center;
   width: 100%;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 0 6px;
   cursor: pointer;
 }
 

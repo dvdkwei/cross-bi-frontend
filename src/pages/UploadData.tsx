@@ -71,7 +71,7 @@ export const UploadData = () => {
                 <h3>{currentFile.name}&nbsp;&nbsp;&nbsp;{getFileSizeInMB(currentFile.size)}MB</h3>
               </div>
               <div className='flex flex-col w-full'>
-                <h2 className='text-[3.2rem] mt-20 font-semibold'>Dashboard Name:</h2>
+                <h2 className='text-[24px] mt-6 font-semibold'>Dashboard Name:</h2>
                 <input
                   placeholder={'e.g. ' + removeFileNamePostfix(currentFile.name)}
                   className={styles.dashboardName}

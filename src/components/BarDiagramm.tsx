@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDiagrammData } from "../hooks/useDiagrammData";
 import { useNavigate } from "react-router-dom";
 import { DiagrammTypes } from "../enums";
+import styles from '../styles/components/Diagramm.module.css';
 
 export const BarDiagramm = ({
   subtitle,
@@ -26,7 +27,7 @@ export const BarDiagramm = ({
   return (
     <Card
       id="bar-diagramm"
-      className="w-[100%] flex flex-col gap-10"
+      className={styles.barContainer}
       decoration="top"
       decorationColor="blue"
     >
@@ -38,7 +39,7 @@ export const BarDiagramm = ({
           </Title>
           {subtitle && <Subtitle>{subtitle}</Subtitle>}
           <BarChart
-            className="!h-[600px]"
+            className={styles.bar}
             data={data}
             index={index}
             categories={categories}

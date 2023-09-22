@@ -26,7 +26,7 @@ const ProfileSummary = ({ user }: { user: User }) => {
           <div className='flex w-full border-2 border-[#003e66]'/>
           <h3 className={styles.email} onClick={onClickMailIcon}>
             {user.email}
-            <img className='w-16' src={mailIcon} />
+            <img className='w-6' src={mailIcon} />
           </h3>
         </div>
       </div>

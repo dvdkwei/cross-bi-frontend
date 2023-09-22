@@ -11,7 +11,7 @@ export const BigNumber = ({ viewId, currency, decorationColor }: BigNumberProps)
   return (
     <Card
       id="big-number"
-      className="w-[100%] flex flex-col gap-10"
+      className="w-[100%] flex flex-col gap-2 !p-2"
       decoration="top"
       decorationColor={decorationColor ?? 'blue' }
       onClick={() => navigate(`/edit/${DiagrammTypes.BIGNUMBER}/${viewId}`)}
@@ -20,8 +20,8 @@ export const BigNumber = ({ viewId, currency, decorationColor }: BigNumberProps)
       {
         !isLoading && data &&
         <>
-          <Text className="text-[#003E66] text-5xl">{title}</Text>
-          <Metric className="text-6xl">{data.value}</Metric>
+          <Text className="text-[#003E66] !text-[18px]">{title}</Text>
+          <Metric className="!text-[32px]">{data.value}</Metric>
         </>
       }
     </Card>

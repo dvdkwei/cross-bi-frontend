@@ -11,35 +11,35 @@
 .saveButton {
   display: flex;
   background-color: #003e66;
-  font-size: 2.6rem;
+  font-size: 16px;
   font-weight: 700;
-  border-radius: 30px;
-  padding: 10px 0;
+  border-radius: 12px;
+  padding: 6px 0;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  height: 90px;
 }
 
 .deleteButton {
   background-color: transparent;
   color: red;
-  font-size: 2.6rem;
+  font-size: 16px;
   font-weight: 600;
-  border-radius: 30px;
-  padding: 10px 0;
+  border-radius: 12px;
+  padding: 5px 0;
   border: 2px red solid;
 }
 
 .editTitle {
   width: 95%;
+  position: fixed;
+  background-color: white;
   display: flex;
   justify-content: flex-start;
-  margin: 20px 0;
-  font-size: 3.8rem;
+  padding: 8px 0;
+  font-size: 24px;
   font-weight: 600;
   color: #003e66;
-  gap: 15px;
+  gap: 8px;
 }
 
 .editForm {
@@ -47,16 +47,16 @@
   flex-direction: column;
   width: 90%;
   color: #003e66;
-  gap: 40px;
+  gap: 14px;
 }
 
 .editForm label {
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 16px;
 }
 
 .editForm input{
-  font-size: 2.8rem;
+  font-size: 20px;
   font-weight: 500;
   background-color: transparent;
   border-radius: 4px;
@@ -73,9 +73,9 @@
   background-image: url("../../assets/icons/chevron-down.svg");
   background-position-x: 100%;
   background-position-y: 50%;
-  background-size: 2.3rem;
+  background-size: 18px;
   background-repeat: no-repeat;
   width: 100%;
-  font-size: 2.8rem;
+  font-size: 20px;
   font-weight: 500;
 }

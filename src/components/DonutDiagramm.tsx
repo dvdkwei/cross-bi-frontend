@@ -4,7 +4,8 @@ import { useDiagrammData } from "../hooks/useDiagrammData";
 import { useNavigate } from "react-router-dom";
 import { DiagrammTypes } from "../enums";
 import { useEffect, useState } from "react";
-import { MultiSelectFilter } from "./XAxisFilter";
+import { XAxisFilter } from "./XAxisFilter";
+import styles from '../styles/components/Diagramm.module.css';
 
 export const DonutDiagramm = ({
   viewId,
@@ -43,8 +44,8 @@ export const DonutDiagramm = ({
 
   return (
     <Card
-      id="line-diagramm"
-      className="w-[100%] flex flex-col gap-10"
+      id="donut-diagramm"
+      className={`flex flex-col gap-2 ${styles.donutContainer}`}
       decoration="top"
       decorationColor="blue"
     >
@@ -58,14 +59,14 @@ export const DonutDiagramm = ({
       {
         !isLoading && data.length > 0 &&
         <>
-          <MultiSelectFilter
+          <XAxisFilter
             dataToFilter={data}
             value={filterValues}
             onValueChange={setFilterValues}
             valueKey={xAxisTitle}
           />
           <DonutChart
-            className="w-full !h-[600px] [&>div>div>svg>text]:!text-4xl mt-4 mb-4"
+            className={styles.donut}
             data={filteredData}
             index={index}
             category={yAxisTitle}
