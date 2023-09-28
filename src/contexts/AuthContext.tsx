@@ -17,13 +17,12 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { addToast } = useToastContext() as ToastProviderValue;
   const { setCurrentUser }  = useUser();
-  const { value: authValue, persistCookie: persistAuthCookie } = useCookie('cb_authed');
-  const { persistCookie: persistUIDCookie } = useCookie('cb_user_id');
+  const { value: authValue, persistCookie: persistAuthCookie, removeCookie: removeAuthCookie } = useCookie('cb_authed');
+  const { persistCookie: persistUIDCookie, removeCookie: removeUserCookie } = useCookie('cb_user_id');
 
   const removeAllCookies = () => {
-    document.cookie.split(';').forEach(cookie => {
-      document.cookie = cookie.trim() + '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    })
+    removeAuthCookie();
+    removeUserCookie();
   }
 
   const handleRegister = async (registerData: registerData) => {
@@ -62,6 +61,16 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
     });
   }
 
+  const getExpiryDate = (): Date => {
+    const expiryDate = new Date();
+    const offset = expiryDate.getTimezoneOffset() * -1;
+
+    expiryDate.setUTCMinutes(expiryDate.getUTCMinutes() + offset);
+    expiryDate.setUTCHours(expiryDate.getUTCHours() + 3);
+
+    return expiryDate;
+  }
+
   const handleLogin = async (loginData: LoginData) => {
     setIsLoading(true);
     const headers = new Headers();
@@ -92,9 +101,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
       setIsLoading(false);
     }
 
-    const expiryDate = new Date();
-    expiryDate.setUTCHours(expiryDate.getUTCHours() + 3);
-    persistAuthCookie('true', { sameSite: 'Strict', expires: expiryDate });
+    persistAuthCookie('true', { sameSite: 'Strict', expires: getExpiryDate() });
     setIsAuthenticated(true);
     setIsLoading(false);
     navigate('/');

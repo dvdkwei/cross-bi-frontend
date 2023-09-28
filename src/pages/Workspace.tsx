@@ -54,6 +54,7 @@ export const Workspace = () => {
   const buttonStyle = "dark-button text-[12px] !px-4 font-semibold";
 
   const toggleTimeFrameButton = () => {
+    resetTimeFrame();
     setShowDate(showDate => !showDate);
   };
 
@@ -97,7 +98,7 @@ export const Workspace = () => {
           }
         </div>
       </div>
-      <div className={styles.workspace + ' pt-[80px]'}>
+      <div className={styles.workspace + ' pt-[60px]'}>
         <DashboardContent />
       </div>
       { 

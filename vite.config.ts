@@ -9,11 +9,14 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      },
       devOptions: {
         enabled: true,
       },
       selfDestroying: true,
-      injectRegister: 'auto',
+      injectRegister: 'script',
       manifest: {
         "name": "Cross BI",
         "short_name": "Cross BI",

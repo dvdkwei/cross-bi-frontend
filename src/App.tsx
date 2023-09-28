@@ -20,12 +20,6 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    if(navigator.onLine){
-      console.log('online')
-    }
-  }, []);
-
   return (
     <Routes>
       <Route path='/login' element={<AuthScreen />} />
@@ -38,7 +32,7 @@ function App() {
         <Route path='/upload' element={<UploadData />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/settings' element={<Settings />} />
-        <Route path='/edit/:diagrammType/:viewId' element={<EditDiagramm />}/>
+        <Route path='/edit/:diagrammType/:viewId' element={<EditDiagramm />} />
       </Route>
     </Routes>
   )

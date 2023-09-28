@@ -65,7 +65,7 @@ export const DashboardContent = () => {
           })
       }
       <button
-        className='light-button w-full text-[18px] font-semibold !border-[0] mt-6 mb-[70px]'
+        className='light-button w-full text-[14px] font-semibold !border-[0] mt-6 mb-[70px]'
       >
         Add View
       </button>

@@ -1,7 +1,6 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MenuBar } from '../components/MenuBar';
 import styles from '../styles/pages/Incidents.module.css';
-import { TimeFrame } from '../components/TimeFrame';
 import { Incident, useIncidents } from '../hooks/useIncidents';
 import { Loader } from '../components/Loader';
 import { Callout, Color } from '@tremor/react';
@@ -48,27 +47,9 @@ const MappedIncidents = ({ incidents }: { incidents: Incident[] }) => {
 }
 
 export const Incidents = ({ incidents }: {incidents: Incident[]}) => {
-  const [showDate, setShowDate] = useState<boolean>(false);
-  const [fromDate, setFromDate] = useState<string>('');
-  const [toDate, setToDate] = useState<string>('');
   const [filterStatus, setFilterStatus] = useState<IncidentStatuses | undefined>(undefined);
   const [sortedIncidents, setSortedIncidents] = useState<Incident[]>([])
   const { isLoading } = useIncidents();
-
-  const onChangeFromDate = (event: SyntheticEvent) => {
-    setFromDate((event.target as HTMLInputElement).value);
-  }
-
-  const onChangeToDate = (event: SyntheticEvent) => {
-    setToDate((event.target as HTMLInputElement).value);
-  }
-
-  const onClickFilter = () => {
-    if (fromDate || toDate) {
-      return;
-    }
-    setShowDate(showDate => !showDate);
-  }
 
   const onClickNewButton = () => {
     if(filterStatus == IncidentStatuses.NEW){
@@ -111,10 +92,9 @@ export const Incidents = ({ incidents }: {incidents: Incident[]}) => {
       <div className={styles.incidentsHeader}>
         <h1>Incidents ⚡️</h1>
         <button
-          className='dark-button w-auto h-auto text-[16px] !px-10'
-          onClick={onClickFilter}
+          className='dark-button w-auto h-auto text-[12px] !px-4 !py-2'
         >
-          Filter 〒
+          Turn On Notifications
         </button>
       </div>
       <div className={`flex flex-row mb-4 gap-2 w-[95%] ${styles.incidentsFilter}`}>
@@ -142,15 +122,6 @@ export const Incidents = ({ incidents }: {incidents: Incident[]}) => {
           <Loader />
           :
           <MappedIncidents incidents={sortedIncidents} />
-      }
-      {
-        showDate &&
-          <TimeFrame
-            fromDate={fromDate}
-            toDate={fromDate}
-            fromDateHandler={onChangeFromDate}
-            toDateHandler={onChangeToDate}
-          />
       }
       <MenuBar menuIndex={1} />
     </div>

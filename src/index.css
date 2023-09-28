@@ -42,6 +42,10 @@
     position: relative;
   }
 
+  body::-webkit-scrollbar{
+    display: none;
+  }
+
   .dark-button {
     border-radius: 10px;
     color: white;
@@ -103,24 +107,23 @@
 
   .toast {
     position: absolute;
-    width: 90%;
+    width: 95%;
     display: flex;
     place-items: center;
-    min-height: 100px;
-    margin-top: 40px;
+    margin-top: 12px;
     top: 0;
     left: 50%;
     transform: translate(-50%, 0);
     color: #003E66;
-    font-size: 40px;
-    border-radius: 15px;
+    font-size: 16px;
+    border-radius: 10px;
     animation: toast-appear .3s ease-in-out;
     word-wrap: break-word;
     z-index: 100;
   }
 
   .toast p {
-    margin: 20px 20px;
+    margin: 8px;
     width: 100%;
     font-weight: 500;
   }
