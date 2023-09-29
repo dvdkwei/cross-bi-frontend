@@ -38,7 +38,7 @@ export const LineDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
-      <Title onClick={() => navigate(`/edit/${DiagrammTypes.LINE}/${viewId}`)}>
+      <Title className="mb-2" onClick={() => navigate(`/edit/${DiagrammTypes.LINE}/${viewId}`)}>
         {title}
       </Title>
       {

@@ -49,7 +49,7 @@ export const DonutDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
-      <Title onClick={() => navigate(`/edit/${DiagrammTypes.DONUT}/${viewId}`)}>
+      <Title className="mb-2" onClick={() => navigate(`/edit/${DiagrammTypes.DONUT}/${viewId}`)}>
         {title}
       </Title>
       {

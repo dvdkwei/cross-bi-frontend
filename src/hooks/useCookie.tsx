@@ -34,7 +34,7 @@ export function useCookie(key: string) {
 
   useEffect(() => {
     const currentValue = getCookieValue();
-    setValue(currentValue)
+    setValue(currentValue);
   }, [getCookieValue]);
 
   return {

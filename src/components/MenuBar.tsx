@@ -5,8 +5,11 @@ import uploadIcon from '../assets/icons/plus.svg';
 import profileIcon from '../assets/icons/user.svg';
 import incidentIcon from '../assets/icons/incident.svg';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-export const MenuBar = ({menuIndex}: {menuIndex: number}) => {
+export const MenuBar = ({ menuIndex }: { menuIndex: number }) => {
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
   const pages = ['/my-workspace', '/incidents', '/upload', '/profile', '/settings'];
   const titles = ['Dashboard', 'Incidents', 'Upload', 'Profile', 'Settings'];
   const icons = [
@@ -21,6 +24,21 @@ export const MenuBar = ({menuIndex}: {menuIndex: number}) => {
   const onClickMenuIcons = (index: number) => {
     navigate(pages[index], { replace: true });
   }
+
+  useEffect(() => {
+    const setOffline = () => setIsOnline(false);
+    const setOnline = () => setIsOnline(true);
+
+    window.addEventListener('offline', setOffline);
+    window.addEventListener('online', setOnline);
+
+    // cleanup if we unmount
+    return () => {
+      window.removeEventListener('offline', setOffline);
+      window.removeEventListener('online', setOnline);
+    }
+  }, []);
+
 
   return (
     <div className={styles.menuBarContainer}>
@@ -43,6 +61,12 @@ export const MenuBar = ({menuIndex}: {menuIndex: number}) => {
           })
         }
       </div>
+      {
+        !isOnline &&
+        <div className='text-[11px] bg-red-700 w-full flex justify-center'>
+        Offline Mode
+        </div>
+      }
     </div>
   )
 }

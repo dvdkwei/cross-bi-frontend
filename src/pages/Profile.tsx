@@ -4,6 +4,7 @@ import { useUser } from '../hooks/useUser';
 import styles from '../styles/pages/Profile.module.css';
 import { User } from '../types/UserTypes';
 import mailIcon from '../assets/icons/mail.svg';
+import profpic from '../assets/profile-picture.png';
 
 const ProfileSummary = ({ user }: { user: User }) => {
 
@@ -14,7 +15,7 @@ const ProfileSummary = ({ user }: { user: User }) => {
   return (
     <div className={styles.profileSummary}>
       <div className={styles.profilePicture}>
-        <img src={'https://miro.medium.com/v2/resize:fit:620/1*RpQjmNQ-ORXkQaOX7zlbZw.png'} />
+        <img src={profpic} />
       </div>
       <div className={styles.bio}>
         <h2 className={styles.name}>

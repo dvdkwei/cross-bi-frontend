@@ -35,7 +35,7 @@
   display: flex;
   color: rgba(0, 62, 102);
   transition: all .6s ease;
-  padding: 10px 0 20px;
+  padding: 10px 0 10px;
   gap: 18px;
   justify-content: space-between;
 }
@@ -43,7 +43,7 @@
 .workspaceHeader select {
   background-color: transparent;
   color: #003e66;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   outline: none;
   appearance: none;
@@ -52,7 +52,7 @@
   background-position-y: 50%;
   background-size: 28px;
   background-repeat: no-repeat;
-  /* width: 100%; */
+  width: 100%;
 }
 
 @keyframes rotateUp {

@@ -6,5 +6,5 @@ import { AuthProviderValue } from "../types/AuthTypes";
 export const RouteProtector = () => {
   const { isAuthenticated } = useAuthContext() as AuthProviderValue;
 
-  return isAuthenticated ? <Outlet /> : <AuthScreen />
+  return isAuthenticated ? <Outlet /> : <AuthScreen />;
 }
