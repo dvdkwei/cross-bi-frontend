@@ -4,7 +4,7 @@ import { useDashboardContext } from "../hooks/useDashboardContext";
 import { DashboardProviderValue } from "../types/DashboardTypes";
 import { Loader } from "../components/Loader";
 import { useWorkspaces } from "../hooks/useWorkspaces";
-import { useViews } from "../hooks/useViews";
+import { useViewsOfWorkspaceAndDashboard } from "../hooks/useViewsOfWorkspaceAndDashboard";
 import { DashboardContent } from "../components/DashboardContent";
 import { useState } from "react";
 import { TimeFrame } from "../components/TimeFrame";
@@ -40,7 +40,7 @@ const DashboardPicker = () => {
 
 export const Workspace = () => {
   const { isLoading: isLoadingWorkspace } = useWorkspaces();
-  const { isLoading: isLoadingViews } = useViews();
+  const { isLoading: isLoadingViews } = useViewsOfWorkspaceAndDashboard();
   const { isLoading: isLoadingDashboard } = useDashboardContext() as DashboardProviderValue;
   const { 
     fromDate, 
@@ -101,6 +101,7 @@ export const Workspace = () => {
       <div className={styles.workspace + ' pt-[60px]'}>
         <DashboardContent />
       </div>
+      <MenuBar menuIndex={0} />
       { 
         showDate && 
         <TimeFrame 
@@ -110,7 +111,6 @@ export const Workspace = () => {
           toDateHandler={toDateHandler}
         /> 
       }
-      <MenuBar menuIndex={0} />
     </div>
   )
 }

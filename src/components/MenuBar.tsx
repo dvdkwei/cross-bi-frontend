@@ -55,7 +55,7 @@ export const MenuBar = ({ menuIndex }: { menuIndex: number }) => {
                   src={icon}
                   className={`${menuIndex === index ? '!opacity-100' : ''}`}
                 />
-                <p className='text-[8px] font-semibold'>{titles[index]}</p>
+                <p className='text-[8px] text-white font-semibold'>{titles[index]}</p>
               </div>
             )
           })

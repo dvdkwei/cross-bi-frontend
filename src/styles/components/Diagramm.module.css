@@ -73,10 +73,10 @@
 }
 
 .barContainer>p {
-  font-size: 28px !important;
+  font-size: 24px !important;
 }
 
-.bar>div>div>div>div>ol>li>p {
+.bar>div>div>div>div p {
   font-size: 14px !important;
 }
 

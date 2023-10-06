@@ -5,6 +5,7 @@ import styles from '../styles/pages/Settings.module.css';
 import { AuthProviderValue } from '../types/AuthTypes';
 import { WorkspaceProviderValue, WorkspaceInfoProps } from '../types/WorkspaceTypes';
 import { useWorkspaces } from '../hooks/useWorkspaces';
+import { InstallPrompt } from '../components/InstallPrompt';
 
 const WorkspaceInfo = ({ currentWorkspace, workspaces, callback }: WorkspaceInfoProps) => {
   return (
@@ -58,7 +59,6 @@ const SettingsContent = () => {
         }
       </div>
       <div className={styles.settingButtons}>
-        <p>How To Install</p>
         <p>About</p>
         <p onClick={onClickLogout}>Logout</p>
       </div>
@@ -69,6 +69,7 @@ const SettingsContent = () => {
 export const Settings = () => {
   return (
     <div className={styles.settingsContainer}>
+      <InstallPrompt />
       <div className={styles.settings}>
         <h1>Settings</h1>
       </div>

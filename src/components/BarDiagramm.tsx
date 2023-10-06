@@ -34,7 +34,10 @@ export const BarDiagramm = ({
       {
         !isLoading && data.length &&
         <>
-          <Title onClick={() => navigate(`/edit/${DiagrammTypes.BAR}/${viewId}`)}>
+          <Title 
+            className="mb-2 text-[12px]"
+            onClick={() => navigate(`/edit/${DiagrammTypes.BAR}/${viewId}`)}
+          >
             {title}
           </Title>
           {subtitle && <Subtitle>{subtitle}</Subtitle>}

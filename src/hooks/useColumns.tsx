@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
+import { useToastContext } from "./useToastContext";
 
-export const useViews = () => {
+export const useColumns = (viewName: string) => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
   const API_KEY = import.meta.env.VITE_API_KEY;
   const { addToast } = useToastContext() as ToastProviderValue;
-  const [views, setViews] = useState([]);
+  const [columns, setColumns] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -15,14 +15,14 @@ export const useViews = () => {
     headers.append('Content-Type', 'appplication/json');
 
     (async () => {
-      await fetch(`${BASE_API_URL}/view/`, {
+      await fetch(`${BASE_API_URL}/view/columns?view_name=${viewName}`, {
         headers,
         method: 'GET'
       })
         .then(res => res.json())
         .then(parsed => {
           if (parsed.data) {
-            setViews(parsed.data);
+            setColumns(parsed.data);
           }
         })
         .catch((error: unknown) => {
@@ -39,5 +39,5 @@ export const useViews = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { views, isLoading }
+  return { columns, isLoading }
 }
