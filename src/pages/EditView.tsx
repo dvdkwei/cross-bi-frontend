@@ -1,14 +1,9 @@
 import { MenuBar } from '../components/MenuBar';
 import { DiagrammTypes } from '../enums';
-import styles from '../styles/pages/UpdateDiagramm.module.css';
+import styles from '../styles/pages/EditView.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDiagrammData } from '../hooks/useDiagrammData';
 import { Loader } from '../components/Loader';
-import { BigNumber } from '../components/BigNumber';
-import { BarDiagramm } from '../components/BarDiagramm';
-import { LineDiagramm } from '../components/LineDiagramm';
-import { ListDiagramm } from '../components/ListDiagramm';
-import { DonutDiagramm } from '../components/DonutDiagramm';
 import { useAggregateData } from '../hooks/useAggregateData';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useView } from '../hooks/useView';
@@ -18,13 +13,18 @@ import { ToastProviderValue } from '../types/ToastTypes';
 import { ButtonLoader } from '../components/ButtonLoader';
 import { useDashboardContext } from '../hooks/useDashboardContext';
 import { DashboardProviderValue } from '../types/DashboardTypes';
+import { BigNumber } from '../components/BigNumber';
+import { BarDiagramm } from '../components/BarDiagramm';
+import { LineDiagramm } from '../components/LineDiagramm';
+import { ListDiagramm } from '../components/ListDiagramm';
+import { DonutDiagramm } from '../components/DonutDiagramm';
 
 type EditFormProps = {
   diagrammType: DiagrammTypes,
   viewId: number,
 }
 
-const PreviewDiagramm = ({ diagrammType, viewId }: EditFormProps) => {
+export const EditPreview = ({ diagrammType, viewId }: EditFormProps) => {
   return (
     <div className='w-[90%] mt-4 mb-2'>
       {
@@ -143,7 +143,7 @@ const EditForm = ({ diagrammType, viewId }: EditFormProps) => {
           </select>
         </div>
       </form>
-      <PreviewDiagramm
+      <EditPreview
         diagrammType={diagrammType}
         viewId={viewId}
       />
@@ -287,7 +287,7 @@ const EditAggregateForm = ({ diagrammType, viewId }: EditFormProps) => {
           </select>
         </div>
       </form>
-      <PreviewDiagramm
+      <EditPreview
         diagrammType={diagrammType}
         viewId={viewId}
       />
@@ -301,7 +301,7 @@ const EditAggregateForm = ({ diagrammType, viewId }: EditFormProps) => {
   )
 }
 
-export const EditDiagramm = () => {
+export const EditView = () => {
   const { diagrammType, viewId } = useParams();
   const navigate = useNavigate();
 

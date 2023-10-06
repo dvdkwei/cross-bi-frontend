@@ -8,6 +8,7 @@ import alertIcon from '../assets/icons/alert-octagon.svg';
 import inProgressIcon from '../assets/icons/tool.svg';
 import resolvedIcon from '../assets/icons/check.svg';
 import { IncidentStatuses } from '../enums';
+import { NotificationSwitch } from '../components/NotificationSwitch';
 
 const imgAlertIcon = (stringIcon: string) => {
   return <img className='w-[18px] self-center mr-4' src={stringIcon} />
@@ -91,11 +92,7 @@ export const Incidents = ({ incidents }: {incidents: Incident[]}) => {
     <div className={styles.incidentsContainer}>
       <div className={styles.incidentsHeader}>
         <h1>Incidents ⚡️</h1>
-        <button
-          className='dark-button w-auto h-auto text-[12px] !px-4 !py-2'
-        >
-          Turn On Notifications
-        </button>
+        <NotificationSwitch />
       </div>
       <div className={`flex flex-row mb-4 gap-2 w-[95%] ${styles.incidentsFilter}`}>
         <button 

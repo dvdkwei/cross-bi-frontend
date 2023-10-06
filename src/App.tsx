@@ -7,8 +7,9 @@ import { Settings } from './pages/Settings';
 import { Incidents } from './pages/Incidents';
 import { UploadData } from './pages/UploadData';
 import { Profile } from './pages/Profile';
-import { EditDiagramm } from './pages/EditDiagramm';
+import { EditView } from './pages/EditView';
 import { useIncidents } from './hooks/useIncidents';
+import { AddView } from './pages/AddView';
 
 function App() {
   const { incidents } = useIncidents();
@@ -32,7 +33,8 @@ function App() {
         <Route path='/upload' element={<UploadData />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/settings' element={<Settings />} />
-        <Route path='/edit/:diagrammType/:viewId' element={<EditDiagramm />} />
+        <Route path='/edit/:diagrammType/:viewId' element={<EditView />} />
+        <Route path='/add' element={<AddView />} />
       </Route>
     </Routes>
   )

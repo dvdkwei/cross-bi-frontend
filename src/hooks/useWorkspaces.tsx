@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Workspace, WorkspaceProviderValue } from "../types/WorkspaceTypes"
 import { useUser } from "./useUser";
 import { useToastContext } from "./useToastContext";
@@ -14,40 +14,43 @@ export const useWorkspaces = () => {
   const { addToast } = useToastContext() as ToastProviderValue;
   const { currentWorkspace, switchWorkspace, resetWorkspace } = useWorkspaceContext() as WorkspaceProviderValue;
 
-  const fetchWorkspaces = useCallback(async () => {
+  useEffect(() => {
     if (currentUser) {
-      const headers = new Headers();
-      headers.append('x-api-key', API_KEY);
-      headers.append('Content-Type', 'appplication/json');
+      const fetchWorkspaces = async () => {
+        if (currentUser) {
+          const headers = new Headers();
+          headers.append('x-api-key', API_KEY);
+          headers.append('Content-Type', 'appplication/json');
 
-      await fetch(`${BASE_API_URL}/workspace/filter?user_id=${currentUser.id}`, {
-        headers,
-        method: 'GET'
-      }).then(res => res.json())
-        .then(parsed => {
-          setWorkspaces(parsed.data)
-        })
-        .catch((err: unknown) => {
-          if (err instanceof Error) {
-            addToast({
-              message: err.message,
-              timeout: 4000,
-              style: 'toast-error'
+          await fetch(`${BASE_API_URL}/workspace/filter?user_id=${currentUser.id}`, {
+            headers,
+            method: 'GET'
+          }).then(res => res.json())
+            .then(parsed => {
+              setWorkspaces(parsed.data)
             })
-          }
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+            .catch((err: unknown) => {
+              if (err instanceof Error) {
+                addToast({
+                  message: err.message,
+                  timeout: 4000,
+                  style: 'toast-error'
+                })
+              }
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
+        }
+      };
+
+      fetchWorkspaces();
     }
-  }, [API_KEY, BASE_API_URL, addToast, currentUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [API_KEY, BASE_API_URL, currentUser]);
 
   useEffect(() => {
-    fetchWorkspaces();
-  }, [fetchWorkspaces]);
-
-  useEffect(() => {
-    if(!currentWorkspace && workspaces.length){
+    if (!currentWorkspace && workspaces.length) {
       switchWorkspace(String(workspaces[0].id));
     }
   }, [currentWorkspace, switchWorkspace, workspaces])

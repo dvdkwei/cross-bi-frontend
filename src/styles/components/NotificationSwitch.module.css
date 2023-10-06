@@ -1,0 +1,58 @@
+.notificationSwitch{
+  display: flex;
+}
+
+.switch{
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+img {
+  width: 30px;
+}
+
+.notificationSwitch label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 60px;
+  height: 30px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.notificationSwitch label:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 30px;
+  height: 100%;
+  border: 1px black solid;
+  border-radius: 45px;
+  transition: 0.3s;
+  background-color: aliceblue;
+  background-image: url('../../assets/icons/bell-off.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+}
+
+.notificationSwitch input:checked + .notificationSwitch label {
+  background: rgba(0, 62, 102);
+}
+
+.notificationSwitch input:checked + .notificationSwitch label:after {
+  left: calc(100% + 2px);
+  transform: translateX(-100%);
+  background-image: url('../../assets/icons/bell.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+}
+
+.notificationSwitch label:active:after {
+  width: 32px;
+}
