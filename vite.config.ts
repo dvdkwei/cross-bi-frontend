@@ -8,7 +8,7 @@ export default ({ mode }) => {
   process.env = {...process.env, ...loadEnv(mode, process.cwd())};
 
   const shouldSelfDestroy = process.env.VITE_SELF_DESTROYING;
-  const swPath = process.env.VITE_SERVICE_WORKER_PATH
+  const devMode = process.env.VITE_DEV_MODE == 'true';
 
   return defineConfig({
     plugins: [
@@ -27,7 +27,7 @@ export default ({ mode }) => {
         selfDestroying: shouldSelfDestroy == 'true',
         injectRegister: 'script',
         srcDir: '.',
-        filename: swPath,
+        filename: devMode ? 'sw.js' : 'sw-prod.js',
         manifest: {
           "name": "Cross BI",
           "short_name": "Cross BI",
