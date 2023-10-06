@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { MenuBar } from "../components/MenuBar";
 import chevron from '../assets/icons/chevron-left.svg';
 import styles from '../styles/pages/AddView.module.css';
 import { SyntheticEvent, useEffect, useState } from "react";
@@ -11,7 +10,7 @@ import { useColumns } from "../hooks/useColumns";
 const AddBigNumberPreview = ({ viewName }: { viewName: string }) => {
   const {isLoading, columns} = useColumns(viewName);
   const [title, setTitle] = useState<string>('');
-  const [valueColumn, setValueColumn] = useState<string>('');
+  // const [valueColumn, setValueColumn] = useState<string>('');
 
   const onChangeTitle = (event: SyntheticEvent) => {
     setTitle((event.target as HTMLInputElement).value);
@@ -79,6 +78,8 @@ export const AddView = () => {
       setIsLoading(false);
     }
   }, [isLoadingViews]);
+
+  if(isLoading) return <></>;
 
   return (
     <div className={styles.addContainer}>

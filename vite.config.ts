@@ -8,21 +8,25 @@ export default ({ mode }) => {
   process.env = {...process.env, ...loadEnv(mode, process.cwd())};
 
   const shouldSelfDestroy = process.env.VITE_SELF_DESTROYING;
-  const isDevMode = process.env.VITE_DEV_MODE;
 
   return defineConfig({
     plugins: [
       react(),
       VitePWA({
         registerType: 'autoUpdate',
+        strategies: 'injectManifest',
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg}']
         },
         devOptions: {
-          enabled: !!isDevMode ?? false,
+          navigateFallbackAllowlist: [/^index.html$/],
+          enabled: true,
+          type: 'module',
         },
         selfDestroying: shouldSelfDestroy == 'true',
         injectRegister: 'script',
+        srcDir: '.',
+        filename: 'sw.js',
         manifest: {
           "name": "Cross BI",
           "short_name": "Cross BI",
@@ -63,6 +67,9 @@ export default ({ mode }) => {
           tailwindcss()
         ]
       }
+    },
+    build: {
+      chunkSizeWarningLimit: 1600,
     }
   });
 }

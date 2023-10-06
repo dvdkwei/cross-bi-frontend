@@ -1,3 +1,8 @@
+// import { precacheAndRoute, cleanupOutdatedCaches } from "workbox-precaching";
+
+// cleanupOutdatedCaches();
+// precacheAndRoute(self.__WB_MANIFEST);
+
 const cacheName = 'crache_v1';
 const API_KEY = '88c94c12-dce5-495c-a742-e213469f2052';
 
