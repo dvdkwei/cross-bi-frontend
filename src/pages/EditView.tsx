@@ -18,6 +18,7 @@ import { BarDiagramm } from '../components/BarDiagramm';
 import { LineDiagramm } from '../components/LineDiagramm';
 import { ListDiagramm } from '../components/ListDiagramm';
 import { DonutDiagramm } from '../components/DonutDiagramm';
+import { MapChart } from '../components/MapChart';
 
 type EditFormProps = {
   diagrammType: DiagrammTypes,
@@ -35,6 +36,7 @@ export const EditPreview = ({ diagrammType, viewId }: EditFormProps) => {
             case DiagrammTypes.LINE: return <LineDiagramm viewId={viewId} />
             case DiagrammTypes.LIST: return <ListDiagramm viewId={viewId} />
             case DiagrammTypes.DONUT: return <DonutDiagramm viewId={viewId} />
+            case DiagrammTypes.MAP: return <MapChart viewId={viewId} />
             default: return <></>
           }
         })()

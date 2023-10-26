@@ -1,4 +1,4 @@
-import { BarChart, Card, Subtitle, Title } from "@tremor/react"
+import { BarChart, Card, Subtitle, Text, Title } from "@tremor/react"
 import { BarDiagrammProps } from "../types/DiagrammTypes"
 import { useEffect } from "react";
 import { useDiagrammData } from "../hooks/useDiagrammData";
@@ -31,8 +31,9 @@ export const BarDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
+      { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
       {
-        !isLoading && data.length &&
+        !isLoading && data.length > 0 &&
         <>
           <Title 
             className="mb-2 text-[12px]"
