@@ -1,9 +1,10 @@
 import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup } from "react-simple-maps";
-import * as rawCountries from '../../countries.json';
+import * as rawCountries from '../assets/countries.json';
 import { Card, Title, Text } from "@tremor/react";
 import { useDiagrammData } from "../hooks/useDiagrammData";
 import { DiagrammTypes } from "../enums";
 import { useNavigate } from "react-router-dom";
+import * as topojson from '../../topojson.json';
 
 type Country = {
   name: string,
@@ -51,7 +52,7 @@ export const MapChart = ({ viewId }: MapChartProps) => {
               maxZoom={25} 
               minZoom={3}
             >
-              <Geographies geography={'../../topojson.json'}>
+              <Geographies geography={topojson}>
                 {
                   ({ geographies }) => geographies.map((geo) => {
                     if (data.map(data => data[xAxisTitle]).includes(geo.properties.BRK_A3)) {
