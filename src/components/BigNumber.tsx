@@ -16,6 +16,7 @@ export const BigNumber = ({ viewId, currency, decorationColor }: BigNumberProps)
       decorationColor={decorationColor ?? 'blue' }
       onClick={() => navigate(`/edit/${DiagrammTypes.BIGNUMBER}/${viewId}`)}
     >
+      { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
       {!isLoading && !data && <Text>No Data</Text>}
       {
         !isLoading && data &&

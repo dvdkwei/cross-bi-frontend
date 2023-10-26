@@ -3,7 +3,8 @@ export enum DiagrammTypes {
   BAR = 2,
   LINE = 3,
   DONUT = 4,
-  LIST = 5
+  LIST = 5,
+  MAP = 6
 }
 
 export enum IncidentStatuses {

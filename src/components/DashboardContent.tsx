@@ -6,6 +6,7 @@ import { DonutDiagramm } from "./DonutDiagramm";
 import { LineDiagramm } from "./LineDiagramm";
 import { ListDiagramm } from "./ListDiagramm";
 import { useViewsOfWorkspaceAndDashboard } from "../hooks/useViewsOfWorkspaceAndDashboard";
+import { MapChart } from "./MapChart";
 
 export const DashboardContent = () => {
   const { views } = useViewsOfWorkspaceAndDashboard();
@@ -58,6 +59,14 @@ export const DashboardContent = () => {
                   return (
                     <ListDiagramm
                       key={'5-' + index}
+                      viewId={view.id}
+                    />
+                  )
+                }
+                case DiagrammTypes.MAP: {
+                  return (
+                    <MapChart
+                      key={'6-' + index}
                       viewId={view.id}
                     />
                   )

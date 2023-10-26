@@ -18,6 +18,7 @@ export const ListDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
+      {isLoading && <Subtitle>Loading Data ...</Subtitle>}
       {!isLoading && data.length == 0 && <Subtitle>No Data</Subtitle>}
       {
         !isLoading && data.length > 0 &&

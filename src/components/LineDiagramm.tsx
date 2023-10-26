@@ -1,4 +1,4 @@
-import { Card, LineChart, MultiSelect, MultiSelectItem, Subtitle, Title } from "@tremor/react"
+import { Card, LineChart, MultiSelect, MultiSelectItem, Subtitle, Title, Text } from "@tremor/react"
 import { useDiagrammData } from "../hooks/useDiagrammData";
 import { DiagrammNativeData, LineDiagrammProps } from "../types/DiagrammTypes";
 import { useEffect, useState } from "react";
@@ -26,7 +26,7 @@ export const LineDiagramm = ({
   }, [isLoading, data]);
 
   useEffect(() => {
-    if(categories){
+    if (categories) {
       setFilteredCategories(categories);
     }
   }, [categories]);
@@ -38,13 +38,14 @@ export const LineDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
-      <Title className="mb-2" onClick={() => navigate(`/edit/${DiagrammTypes.LINE}/${viewId}`)}>
-        {title}
-      </Title>
+      { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
       {
-        subtitle &&
-        <Subtitle>{subtitle}</Subtitle>
+        !isLoading && title &&
+        <Title className="mb-2" onClick={() => navigate(`/edit/${DiagrammTypes.LINE}/${viewId}`)}>
+          {title}
+        </Title>
       }
+      {subtitle && <Subtitle>{subtitle}</Subtitle>}
       {
         !isLoading && filteredCategories &&
         <div className='flex flex-col w-full'>

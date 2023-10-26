@@ -1,4 +1,4 @@
-import { Card, Title, DonutChart, Subtitle } from "@tremor/react"
+import { Card, Title, DonutChart, Subtitle, Text } from "@tremor/react"
 import { BarDiagrammNativeData, DonutDiagrammProps } from "../types/DiagrammTypes";
 import { useDiagrammData } from "../hooks/useDiagrammData";
 import { useNavigate } from "react-router-dom";
@@ -49,9 +49,7 @@ export const DonutDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
-      <Title className="mb-2" onClick={() => navigate(`/edit/${DiagrammTypes.DONUT}/${viewId}`)}>
-        {title}
-      </Title>
+      { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
       {
         !isLoading && data.length === 0 &&
         <Subtitle>No Data</Subtitle>
@@ -59,6 +57,9 @@ export const DonutDiagramm = ({
       {
         !isLoading && data.length > 0 &&
         <>
+          <Title className="mb-2" onClick={() => navigate(`/edit/${DiagrammTypes.DONUT}/${viewId}`)}>
+            {title}
+          </Title>
           <XAxisFilter
             dataToFilter={data}
             value={filterValues}

@@ -40,11 +40,11 @@ img {
   background-size: 70%;
 }
 
-.notificationSwitch input:checked + .notificationSwitch label {
+.notificationSwitch input:checked + label {
   background: rgba(0, 62, 102);
 }
 
-.notificationSwitch input:checked + .notificationSwitch label:after {
+.notificationSwitch input:checked + label:after {
   left: calc(100% + 2px);
   transform: translateX(-100%);
   background-image: url('../../assets/icons/bell.svg');
