@@ -3,8 +3,7 @@
 @import "tailwindcss/utilities";
 
 :root {
-  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  font-family: -apple-system, BlinkMacS ystemFont, "Segoe UI", Roboto, Oxygen- Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.5;
   font-weight: 400;
   width: 100%;
@@ -24,136 +23,129 @@
   height: 100%
 }
 
-@media only screen and (max-device-width: 768px) {
-  a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-  }
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
 
-  a:hover {
-    color: #535bf2;
-  }
+a:hover {
+  color: #535bf2;
+}
 
-  body {
-    margin: 0;
-  }
+body {
+  margin: 0;
+}
 
-  #root {
-    position: relative;
-  }
+#root {
+  position: relative;
+}
 
-  body::-webkit-scrollbar {
-    display: none;
-  }
+body::-webkit-scrollbar {
+  display: none;
+}
 
-  .dark-button {
-    border-radius: 10px;
-    color: white;
-    background: #003E66;
-    display: flex;
-    place-content: center;
-    place-items: center;
-  }
+.dark-button {
+  border-radius: 10px;
+  color: white;
+  background: #003E66;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
 
-  .light-button {
-    border-radius: 10px;
-    color: #003E66;
-    background-color: #ffffff;
-    border: #003E66 2px solid;
-    display: flex;
-    place-content: center;
-    place-items: center;
-  }
+.light-button {
+  border-radius: 10px;
+  color: #003E66;
+  background-color: #ffffff;
+  border: #003E66 2px solid;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
 
-  .input {
-    display: flex;
-    flex-direction: column;
-    font-size: 24px;
-    gap: 6px;
-  }
+.input {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  gap: 6px;
+}
 
-  .input input {
-    width: 100%;
-    height: 34px;
-    background-color: transparent;
-    outline: none;
-    border: 2px solid white;
-    border-radius: 6px;
-    font-size: 14px;
-    padding-left: 10px;
-  }
+.input input {
+  width: 100%;
+  height: 34px;
+  background-color: transparent;
+  outline: none;
+  border: 2px solid white;
+  border-radius: 6px;
+  font-size: 14px;
+  padding-left: 10px;
+}
 
-  .input p {
-    margin: 0;
-    font-weight: bold;
-    font-size: 18px;
-  }
+.input p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 18px;
+}
 
-  .gesture-line {
-    color: white;
-    border: 3px solid white;
-    border-radius: 20px;
-    width: 36px;
-    align-self: center;
-    margin: 16px 0 24px 0;
-  }
+.gesture-line {
+  color: white;
+  border: 3px solid white;
+  border-radius: 20px;
+  width: 36px;
+  align-self: center;
+  margin: 16px 0 24px 0;
+}
 
-  .error-text {
-    color: red;
-    margin: 0;
-    align-self: center;
-    font-size: 32px;
-  }
+.error-text {
+  color: red;
+  margin: 0;
+  align-self: center;
+  font-size: 32px;
+}
 
-  .toast {
-    position: absolute;
-    width: 95%;
-    display: flex;
-    place-items: center;
-    margin-top: 12px;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    color: #003E66;
-    font-size: 16px;
-    border-radius: 10px;
-    animation: toast-appear .3s ease-in-out;
-    word-wrap: break-word;
-    z-index: 100;
-  }
+.toast {
+  position: absolute;
+  width: 95%;
+  display: flex;
+  place-items: center;
+  margin-top: 12px;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: #003E66;
+  font-size: 16px;
+  border-radius: 10px;
+  animation: toast-appear .3s ease-in-out;
+  word-wrap: break-word;
+  z-index: 100;
+}
 
-  .toast p {
-    margin: 8px;
-    width: 100%;
-    font-weight: 500;
-  }
+.toast p {
+  margin: 8px;
+  width: 100%;
+  font-weight: 500;
+}
 
-  .toast-error {
-    background-color: pink;
-  }
+.toast-error {
+  background-color: pink;
+}
 
-  .toast-success {
-    background-color: rgb(72, 183, 72);
-  }
+.toast-success {
+  background-color: rgb(72, 183, 72);
+}
 
-  .toast-warning {
-    background-color: rgb(252, 255, 166);
-  }
+.toast-warning {
+  background-color: rgb(252, 255, 166);
+}
 
-  img,
-  a,
-  input,
-  button,
-  div {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
-    -webkit-tap-highlight-color: transparent !important;
-    /* -webkit-user-select: none !important;
-    -khtml-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    user-select: none !important; */
-  }
+img,
+a,
+input,
+button,
+div {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 @keyframes toast-appear {

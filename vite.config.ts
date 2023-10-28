@@ -5,7 +5,7 @@ import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
 
 export default ({ mode }) => {
-  process.env = {...process.env, ...loadEnv(mode, process.cwd())};
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
   const shouldSelfDestroy = process.env.VITE_SELF_DESTROYING;
   const devMode = process.env.VITE_DEV_MODE == 'true';
@@ -29,10 +29,17 @@ export default ({ mode }) => {
         srcDir: '.',
         filename: devMode ? 'sw.js' : 'sw-prod.js',
         manifest: {
-          "name": "Cross BI",
-          "short_name": "Cross BI",
-          "id": "/",
-          "icons": [
+          name: "Cross BI",
+          short_name: "Cross BI",
+          description: 'Your Cross Plattform Business Intelligence App',
+          id: "/",
+          icons: [
+            {
+              "src": "pwa-192x192.png",
+              "sizes": "192x192",
+              "type": "image/png",
+              "purpose": "any"
+            },
             {
               "src": "pwa-192x192.png",
               "sizes": "192x192",
@@ -40,7 +47,6 @@ export default ({ mode }) => {
               "purpose": "maskable"
             },
             {
-              
               "src": "pwa-512x512.png",
               "sizes": "512x512",
               "type": "image/png",
@@ -49,21 +55,28 @@ export default ({ mode }) => {
             {
               "src": "pwa-512x512.png",
               "sizes": "512x512",
-              "type": " any maskable",
+              "type": "any maskable",
               "purpose": "any"
             }
           ],
-          "theme_color": "#fff",
-          "background_color": "#fff",
-          "display": "standalone",
-          "start_url": "/",
-          "related_applications": [{
-            "platform": "webapp",
-            "url": "https://app.crossbi.de/manifest.json",
+          screenshots: [
+            {
+              "src": "/sc-portrait.png",
+              "sizes": "778x1684",
+              "type": "image/png",
+            },
+          ],
+          theme_color: "#fff",
+          background_color: "#fff",
+          display: "standalone",
+          start_url: "/",
+          related_applications: [{
+            platform: "webapp",
+            url: "https://app.crossbi.de/manifest.json",
           }],
         }
       })
-    ], 
+    ],
     css: {
       postcss: {
         plugins: [
@@ -75,14 +88,14 @@ export default ({ mode }) => {
     build: {
       chunkSizeWarningLimit: 1600,
       rollupOptions: {
-        output:{
-            manualChunks(id) {
-                if (id.includes('node_modules')) {
-                    return id.toString().split('node_modules/')[1].split('/')[0].toString();
-                }
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return id.toString().split('node_modules/')[1].split('/')[0].toString();
             }
+          }
         }
-    }
+      }
     }
   });
 }

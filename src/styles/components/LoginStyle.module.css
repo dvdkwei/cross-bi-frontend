@@ -1,119 +1,117 @@
-@media only screen and (max-device-width: 768px){
-  .login {
-    position: absolute;
-    bottom: 0;
-    height: 64vh;
-    width: 100vw;
-    background-color: #003E66;
-    border-radius: 20px 20px 0 0;
-    animation-name: spawn-login;
-    animation-timing-function: ease-in;
-    animation-duration: .7s;
-    display: flex;
-    justify-content: center;
+.login {
+  position: absolute;
+  bottom: 0;
+  height: 64vh;
+  width: 100vw;
+  background-color: #003E66;
+  border-radius: 20px 20px 0 0;
+  animation-name: spawn-login;
+  animation-timing-function: ease-in;
+  animation-duration: .4s;
+  display: flex;
+  justify-content: center;
+}
+
+.loginWrapper {
+  width: 76%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation-name: text-opacity;
+  animation-timing-function: ease-in;
+  animation-duration: .7s;
+}
+
+.loginWrapper h1 {
+  font-size: 30px;
+  margin: 0;
+  margin-bottom: 20px;
+  line-height: 100%;
+}
+
+.loginInputs {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.loginInputs .gesture-line :global(.gesture-line) {
+  margin-bottom: 400px;
+}
+
+.inputs {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stay {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 16px;
+  align-items: center;
+}
+
+.stay p {
+  margin: 0;
+}
+
+.stay input {
+  margin: 0;
+  width: 18px;
+  accent-color: white;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+  gap: 10px;
+  color: white;
+}
+
+.actions p {
+  margin-bottom: 30px;
+  font-size: 40px;
+  animation: text-opacity .75s ease-in;
+}
+
+.actions button {
+  width: 100%;
+  font-size: 28px;
+  height: 40px;
+}
+
+.actions a {
+  font-size: 16px;
+  text-decoration: underline;
+  color: white;
+}
+
+@keyframes spawn-login {
+  from {
+    height: 40vh;
+    opacity: 90%;
   }
 
-  .loginWrapper {
-    width: 76%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    animation-name: text-opacity;
-    animation-timing-function: ease-in;
-    animation-duration: 1s;
+  to {
+    height: 65vh;
+    opacity: 100%;
+  }
+}
+
+@keyframes text-opacity {
+  from {
+    opacity: 0%;
   }
 
-  .loginWrapper h1 {
-    font-size: 30px;
-    margin: 0;
-    margin-bottom: 20px;
-    line-height: 100%;
-  }
-
-  .loginInputs {
-    display: flex;
-    flex-direction: column;
-    color: white;
-  }
-
-  .loginInputs .gesture-line :global(.gesture-line) {
-    margin-bottom: 400px;
-  }
-
-  .inputs {
-    margin-top: 10px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .stay {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    font-size: 16px;
-    align-items: center;
-  }
-
-  .stay p {
-    margin: 0;
-  }
-
-  .stay input {
-    margin: 0;
-    width: 18px;
-    accent-color: white;
-  }
-
-  .actions {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 24px;
-    gap: 10px;
-    color: white;
-  }
-
-  .actions p{
-    margin-bottom: 30px;
-    font-size: 40px;
-    animation: text-opacity .75s ease-in;
-  }
-
-  .actions button {
-    width: 100%;
-    font-size: 28px;
-    height: 40px;
-  }
-
-  .actions a {
-    font-size: 16px;
-    text-decoration: underline;
-    color: white;
-  }
-
-  @keyframes spawn-login {
-    from {
-      height: 0;
-      opacity: 90%;
-    }
-
-    to {
-      height: 65vh;
-      opacity: 100%;
-    }
-  }
-
-  @keyframes text-opacity {
-    from {
-      opacity: 0%;
-    }
-
-    to {
-      opacity: 100%;
-    }
+  to {
+    opacity: 100%;
   }
 }

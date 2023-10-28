@@ -1,47 +1,45 @@
-@media only screen and (max-device-width: 768px){
-  .auth {
-    background-image: url('../../assets/background-Login.png');
-    background-size: cover;
-    background-position: center;
-    max-height: 100vh;
-    max-width: 100%;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-  
-  .welcomeTextContainer{
-    color: #003E66;
-    text-align: left;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .welcomeTextContainer h1{
-    margin: 0;
-    font-weight: 700;
-    font-size: 44px;
-  }
-  
-  .actions {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .actions button{
-    width: 80%;
-    font-size: 64px;
-  }
-  
-  .actions a{
-    font-size: 44px;
-    text-decoration: underline;
-    color: #003E66;
-  }
+.auth {
+  background-image: url('../../assets/background-Login.png');
+  background-size: cover;
+  background-position: center;
+  max-height: 100vh;
+  max-width: 100%;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.welcomeTextContainer {
+  color: #003E66;
+  text-align: left;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcomeTextContainer h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 44px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.actions button {
+  width: 80%;
+  font-size: 64px;
+}
+
+.actions a {
+  font-size: 44px;
+  text-decoration: underline;
+  color: #003E66;
 }
