@@ -33,8 +33,6 @@ export const InstallPrompt = () => {
 
     const { outcome } = await installPrompt.userChoice;
 
-    console.log(outcome)
-
     if (outcome == 'accepted') {
       persistCookie(outcome, { secure: 'Secure', sameSite: 'Strict' });
       setShowPrompt(false);
@@ -54,12 +52,12 @@ export const InstallPrompt = () => {
     if (isChrome) {
       window.addEventListener("beforeinstallprompt", (event) => {
         event.preventDefault();
-        setShowPrompt(true);
         setInstallPrompt(event as BeforeInstallPromptEvent);
       });
     }
 
     setShowPrompt(true);
+
   }, [value]);
 
   if (!showPrompt) return <></>;
