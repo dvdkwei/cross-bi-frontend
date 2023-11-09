@@ -6,6 +6,8 @@ import { DiagrammTypes } from "../enums";
 import { useEffect, useState } from "react";
 import { XAxisFilter } from "./XAxisFilter";
 import styles from '../styles/components/Diagramm.module.css';
+import { useToastContext } from "../hooks/useToastContext";
+import { ToastProviderValue } from "../types/ToastTypes";
 
 export const DonutDiagramm = ({
   viewId,
@@ -15,6 +17,19 @@ export const DonutDiagramm = ({
   const { isLoading, data, title, index, slicedColors, xAxisTitle, yAxisTitle } = useDiagrammData(viewId);
   const [filteredData, setFilteredData] = useState<BarDiagrammNativeData[]>([]);
   const [filterValues, setFilterValues] = useState<string[]>([]);
+  const { addToast } = useToastContext() as ToastProviderValue;
+
+  const onClickTitle = () => {
+    if(!navigator.onLine){
+      addToast({
+        message: `It seems that you are offline. Try again later.`, 
+        style: 'toast-error',
+        timeout: 4000,
+      })
+      return;
+    }
+    navigate(`/edit/${DiagrammTypes.DONUT}/${viewId}`);
+  }
 
   const valueFormatter = (number: number) => {
     if (!currency) {
@@ -57,7 +72,7 @@ export const DonutDiagramm = ({
       {
         !isLoading && data.length > 0 &&
         <>
-          <Title className="mb-2" onClick={() => navigate(`/edit/${DiagrammTypes.DONUT}/${viewId}`)}>
+          <Title className="mb-2" onClick={onClickTitle}>
             {title}
           </Title>
           <XAxisFilter

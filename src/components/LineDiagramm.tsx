@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DiagrammTypes } from "../enums";
 import styles from '../styles/components/Diagramm.module.css';
+import { useToastContext } from "../hooks/useToastContext";
+import { ToastProviderValue } from "../types/ToastTypes";
 
 export const LineDiagramm = ({
   subtitle,
@@ -14,6 +16,19 @@ export const LineDiagramm = ({
   const { isLoading, data, title, index, categories, slicedColors } = useDiagrammData(viewId);
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState<DiagrammNativeData[]>([]);
+  const { addToast } = useToastContext() as ToastProviderValue;
+
+  const onClickTitle = () => {
+    if(!navigator.onLine){
+      addToast({
+        message: `It seems that you are offline. Try again later.`, 
+        style: 'toast-error',
+        timeout: 4000,
+      })
+      return;
+    }
+    navigate(`/edit/${DiagrammTypes.BIGNUMBER}/${viewId}`);
+  }
 
   useEffect(() => {
     if (!isLoading && data) {
@@ -41,7 +56,7 @@ export const LineDiagramm = ({
       { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
       {
         !isLoading && title &&
-        <Title className="mb-2" onClick={() => navigate(`/edit/${DiagrammTypes.LINE}/${viewId}`)}>
+        <Title className="mb-2" onClick={onClickTitle}>
           {title}
         </Title>
       }

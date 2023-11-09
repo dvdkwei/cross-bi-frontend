@@ -6,6 +6,8 @@ import { AuthProviderValue } from '../types/AuthTypes';
 import { WorkspaceProviderValue, WorkspaceInfoProps } from '../types/WorkspaceTypes';
 import { useWorkspaces } from '../hooks/useWorkspaces';
 import { InstallPrompt } from '../components/InstallPrompt';
+import { useNavigate } from 'react-router-dom';
+import { Swipe } from '../components/Swipe';
 
 const WorkspaceInfo = ({ currentWorkspace, workspaces, callback }: WorkspaceInfoProps) => {
   return (
@@ -45,6 +47,7 @@ const SettingsContent = () => {
 
   return (
     <div className='flex flex-col w-[95%] gap-6'>
+
       <div className={styles.workspaceInfo}>
         <h2 className='text-[24px] font-semibold'>Current Workspace</h2>
         {
@@ -67,8 +70,13 @@ const SettingsContent = () => {
 }
 
 export const Settings = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className={styles.settingsContainer}>
+      <Swipe
+        onSwipeLeft={() => navigate('/profile')}
+      />
       <InstallPrompt />
       <div className={styles.settings}>
         <h1>Settings</h1>

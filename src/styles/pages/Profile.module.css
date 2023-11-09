@@ -97,6 +97,27 @@
   cursor: pointer;
 }
 
+@media all and (min-width: 480px){
+  .profileSummary {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 95%;
+    justify-content: center;
+    align-items: center;
+    animation: content-render-animation .5s ease-in-out;
+  }
+
+  .profilePicture {
+    display: flex;
+    place-items: center;
+    width: 18rem;
+    aspect-ratio: 1/1;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+}
+
 @keyframes content-render-animation {
   from {
     transform: scale(98%);
