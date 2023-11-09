@@ -4,12 +4,27 @@ import { useDiagrammData } from "../hooks/useDiagrammData";
 import { useNavigate } from "react-router-dom";
 import { DiagrammTypes } from "../enums";
 import styles from '../styles/components/Diagramm.module.css';
+import { useToastContext } from "../hooks/useToastContext";
+import { ToastProviderValue } from "../types/ToastTypes";
 
 export const ListDiagramm = ({
   viewId,
 }: ListDiagrammProps) => {
   const navigate = useNavigate();
   const { isLoading, data, xAxisTitle, yAxisTitle, title } = useDiagrammData(viewId);
+  const { addToast } = useToastContext() as ToastProviderValue;
+
+  const onClickTitle = () => {
+    if(!navigator.onLine){
+      addToast({
+        message: `It seems that you are offline. Try again later.`, 
+        style: 'toast-error',
+        timeout: 4000,
+      })
+      return;
+    }
+    navigate(`/edit/${DiagrammTypes.BIGNUMBER}/${viewId}`);
+  }
 
   return (
     <Card
@@ -23,7 +38,7 @@ export const ListDiagramm = ({
       {
         !isLoading && data.length > 0 &&
         <>
-          <Title onClick={() => navigate(`/edit/${DiagrammTypes.LIST}/${viewId}`)}>
+          <Title onClick={onClickTitle}>
             {title}
           </Title>
           <List>

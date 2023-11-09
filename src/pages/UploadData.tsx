@@ -4,6 +4,8 @@ import styles from '../styles/pages/UploadData.module.css';
 import { SyntheticEvent, useRef, useState } from 'react';
 import { useToastContext } from '../hooks/useToastContext';
 import { ToastProviderValue } from '../types/ToastTypes';
+import { Swipe } from '../components/Swipe';
+import { useNavigate } from 'react-router-dom';
 
 const UploadForm = ({ callback }: { callback: React.Dispatch<React.SetStateAction<File | undefined>> }) => {
   const { addToast } = useToastContext() as ToastProviderValue;
@@ -42,6 +44,7 @@ const UploadForm = ({ callback }: { callback: React.Dispatch<React.SetStateActio
 export const UploadData = () => {
   const newDahsboardTitle = useRef<string>('');
   const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
+  const navigate = useNavigate();
 
   const getFileSizeInMB = (size: number) => {
     return ((size / (1024 * 1024)).toFixed(2)).toString();
@@ -59,6 +62,10 @@ export const UploadData = () => {
 
   return (
     <div className={styles.uploadDataContainer}>
+      <Swipe
+        onSwipeLeft={() => navigate('/incidents')}
+        onSwipeRight={() => navigate('/profile')}
+      />
       <div className={styles.uploadHeader}>
         <h1>Upload Data</h1>
       </div>

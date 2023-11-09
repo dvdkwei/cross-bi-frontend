@@ -54,10 +54,11 @@ export const InstallPrompt = () => {
         event.preventDefault();
         setInstallPrompt(event as BeforeInstallPromptEvent);
       });
+
+      setShowPrompt(true);
     }
 
-    setShowPrompt(true);
-
+    
   }, [value]);
 
   if (!showPrompt) return <></>;

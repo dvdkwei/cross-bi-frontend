@@ -9,6 +9,8 @@ import inProgressIcon from '../assets/icons/tool.svg';
 import resolvedIcon from '../assets/icons/check.svg';
 import { IncidentStatuses } from '../enums';
 import { NotificationSwitch } from '../components/NotificationSwitch';
+import { Swipe } from '../components/Swipe';
+import { useNavigate } from 'react-router-dom';
 
 const imgAlertIcon = (stringIcon: string) => {
   return <img className='w-[18px] self-center mr-4' src={stringIcon} />
@@ -51,6 +53,7 @@ export const Incidents = ({ incidents }: {incidents: Incident[]}) => {
   const [filterStatus, setFilterStatus] = useState<IncidentStatuses | undefined>(undefined);
   const [sortedIncidents, setSortedIncidents] = useState<Incident[]>([])
   const { isLoading } = useIncidents();
+  const navigate = useNavigate();
 
   const onClickNewButton = () => {
     if(filterStatus == IncidentStatuses.NEW){
@@ -90,6 +93,10 @@ export const Incidents = ({ incidents }: {incidents: Incident[]}) => {
 
   return (
     <div className={styles.incidentsContainer}>
+      <Swipe
+        onSwipeLeft={() => navigate('/my-workspace')}
+        onSwipeRight={() => navigate('/upload')}
+      />
       <div className={styles.incidentsHeader}>
         <h1>Incidents ⚡️</h1>
         <NotificationSwitch />

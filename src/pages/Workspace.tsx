@@ -10,6 +10,8 @@ import { useState } from "react";
 import { TimeFrame } from "../components/TimeFrame";
 import { useTimeFrameContext } from "../hooks/useTimeFrameContext";
 import { TimeFrameProviderValue } from "../contexts/TimeFrameContext";
+import { useNavigate } from "react-router-dom";
+import { Swipe } from "../components/Swipe";
 
 const DashboardPicker = () => {
   const { 
@@ -49,7 +51,7 @@ export const Workspace = () => {
     toDateHandler, 
     resetTimeFrame 
   } = useTimeFrameContext() as TimeFrameProviderValue;
-
+  const navigate = useNavigate();
   const [showDate, setShowDate] = useState(!!fromDate || !!toDate);
   const buttonStyle = "dark-button text-[12px] !px-4 font-semibold";
 
@@ -69,6 +71,7 @@ export const Workspace = () => {
 
   return (
     <div className={styles.workspaceContainer}>
+      <Swipe onSwipeRight={() => navigate('/incidents')}/>
       <div className={styles.workspaceHeader + ' fixed z-50 bg-white'}>
         <DashboardPicker />
         <div className="flex gap-2 w-fit text-[18px]">

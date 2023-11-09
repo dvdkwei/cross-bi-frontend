@@ -5,6 +5,8 @@ import { useDiagrammData } from "../hooks/useDiagrammData";
 import { useNavigate } from "react-router-dom";
 import { DiagrammTypes } from "../enums";
 import styles from '../styles/components/Diagramm.module.css';
+import { useToastContext } from "../hooks/useToastContext";
+import { ToastProviderValue } from "../types/ToastTypes";
 
 export const BarDiagramm = ({
   subtitle,
@@ -12,6 +14,19 @@ export const BarDiagramm = ({
 }: BarDiagrammProps) => {
   const navigate = useNavigate();
   const { isLoading, data, title, index, categories, slicedColors } = useDiagrammData(viewId);
+  const { addToast } = useToastContext() as ToastProviderValue;
+
+  const onClickTitle = () => {
+    if(!navigator.onLine){
+      addToast({
+        message: `It seems that you are offline. Try again later.`, 
+        style: 'toast-error',
+        timeout: 4000,
+      })
+      return;
+    }
+    navigate(`/edit/${DiagrammTypes.BAR}/${viewId}`);
+  }
 
   useEffect(() => {
     if(!isLoading && data){
@@ -37,7 +52,7 @@ export const BarDiagramm = ({
         <>
           <Title 
             className="mb-2 text-[12px]"
-            onClick={() => navigate(`/edit/${DiagrammTypes.BAR}/${viewId}`)}
+            onClick={onClickTitle}
           >
             {title}
           </Title>
