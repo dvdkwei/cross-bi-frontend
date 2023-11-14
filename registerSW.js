@@ -30,16 +30,18 @@ const subscribeToPush = () => {
       'BI1bqMiu8LCFSdSMRHUVkQgHr2iV1fSmL01lQlQ5UH5wpt6v61no9YNISbHHVy-h0zH7eP9rzoU4ZP5dXQoXy4E'
     ),
   })
-    .then((sub) => {
-      console.log(JSON.stringify(sub));
+    .then((subscriptionObject) => {
+      console.log(JSON.stringify(subscriptionObject));
       const headers = new Headers();
       headers.append('x-api-key', API_KEY);
+      headers.append('Content-Type', 'appplication/json');
 
-      fetch(BASE_API + '/subscription', {
+      fetch(BASE_API + '/subscription/', {
         method: 'POST',
         headers: headers,
+        redirect: 'follow',
         body: JSON.stringify({
-          subscription_json: sub
+          subscription_json: subscriptionObject, 
         })
       })
     })
@@ -65,7 +67,7 @@ const registerServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker
-        .register(swPath, { scope: '/' })
+        .register(swPath, { scope: '/', type: 'module' })
         .then((registration) => swRegister = registration)
         .then(() => askNotificationPermission())
         .catch(error => {
