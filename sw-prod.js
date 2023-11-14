@@ -4,10 +4,10 @@ cleanupOutdatedCaches();
 precacheAndRoute(self.__WB_MANIFEST);
 
 const cacheName = 'crache_v1';
-const API_KEY = '88c94c12-dce5-495c-a742-e213469f2052';
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const addResourcesToCache = async (resources) => {
-  const cache = await caches.open("crache_v1");
+  const cache = await caches.open(cacheName);
   await cache.addAll(resources);
 };
 
@@ -32,6 +32,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(caches.open(cacheName).then(async (cache) => {
     const headers = new Headers();
     headers.append('x-api-key', API_KEY);
+    headers.append('Content-Type', 'appplication/json');
 
     return fetch(url, { headers: headers })
     .then((fetched) => {
@@ -46,11 +47,14 @@ self.addEventListener('fetch', (event) => {
 
 self.addEventListener('push', (event) => {
   const pushData = event.data.text();
-  console.log(pushData, event.data);
 
   const data = JSON.parse(pushData);
 
   event.waitUntil(
-    self.registration.showNotification(data.title, { body: data.body })
-  )
+    self.registration.showNotification(data.title, { 
+      body: data.body, 
+      icon: './pwa-192x192.png',
+      vibrate: [200, 100, 200, 100, 200, 100, 200], 
+    })
+  );
 })
