@@ -44,7 +44,7 @@ export const WorkspaceProvider = ({ children }: { children: ReactElement }) => {
   }, [API_KEY, BASE_API_URL, addToast])
 
   const switchWorkspace = (workspaceId: string) => {
-    persistCookie(workspaceId);
+    persistCookie(workspaceId, { sameSite: 'Strict' });
     fetchCurrentWorkspace(workspaceId);
   }
 
