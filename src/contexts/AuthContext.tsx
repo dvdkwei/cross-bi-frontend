@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
           console.log(JSON.stringify(subscriptionObject));
           const headers = new Headers();
           headers.append('x-api-key', API_KEY);
-          headers.append('Content-Type', 'appplication/json');
+          headers.append('Content-Type', 'application/json');
     
           fetch(BASE_API_URL + '/subscription/', {
             method: 'POST',
