@@ -5,7 +5,6 @@ import { Loader } from './Loader';
 import { AuthProviderValue } from '../types/AuthTypes';
 
 export function Login({ register }: { register: () => void }) {
-
   const email = useRef<string>('');
   const password = useRef<string>('');
   const { isLoading, handleLogin } = useAuthContext() as AuthProviderValue;
@@ -20,7 +19,9 @@ export function Login({ register }: { register: () => void }) {
     password.current = (event.target as HTMLInputElement).value;
   }
 
-  const onClickLogin = () => handleLogin({ email: email.current, password: password.current });
+  const onClickLogin = () => {
+    handleLogin({ email: email.current, password: password.current });
+  };
 
   return (
     <div className={`${styles.login}`}>
