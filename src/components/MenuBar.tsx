@@ -22,7 +22,10 @@ export const MenuBar = ({ menuIndex }: { menuIndex: number }) => {
   const navigate = useNavigate();
 
   const onClickMenuIcons = (index: number) => {
-    navigate(pages[index], { replace: true });
+    navigate(pages[index], { 
+      replace: true, 
+      state: { transition:  menuIndex > index ? 'page-transition-left' : 'page-transition-right'}
+    });
   }
 
   useEffect(() => {

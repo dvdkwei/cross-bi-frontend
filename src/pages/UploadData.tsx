@@ -4,8 +4,8 @@ import styles from '../styles/pages/UploadData.module.css';
 import { SyntheticEvent, useRef, useState } from 'react';
 import { useToastContext } from '../hooks/useToastContext';
 import { ToastProviderValue } from '../types/ToastTypes';
-import { Swipe } from '../components/Swipe';
-import { useNavigate } from 'react-router-dom';
+import { SwipeNavigation } from '../components/SwipeNavigation';
+import { useLocation } from 'react-router-dom';
 
 const UploadForm = ({ callback }: { callback: React.Dispatch<React.SetStateAction<File | undefined>> }) => {
   const { addToast } = useToastContext() as ToastProviderValue;
@@ -44,7 +44,7 @@ const UploadForm = ({ callback }: { callback: React.Dispatch<React.SetStateActio
 export const UploadData = () => {
   const newDahsboardTitle = useRef<string>('');
   const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
-  const navigate = useNavigate();
+  const { state } = useLocation();
 
   const getFileSizeInMB = (size: number) => {
     return ((size / (1024 * 1024)).toFixed(2)).toString();
@@ -61,45 +61,50 @@ export const UploadData = () => {
   }
 
   return (
-    <div className={styles.uploadDataContainer}>
-      <Swipe
-        onSwipeLeft={() => navigate('/incidents')}
-        onSwipeRight={() => navigate('/profile')}
-      />
-      <div className={styles.uploadHeader}>
-        <h1>Upload Data</h1>
+    <>
+      <div
+        className={styles.uploadDataContainer}
+        style={state?.transition ? { animation: `.3s ease-out ${state.transition}` } : {}}
+      >
+        <SwipeNavigation
+          onSwipeLeftRoute={'/incidents'}
+          onSwipeRightRoute={'/profile'}
+        />
+        <div className={styles.uploadHeader}>
+          <h1>Upload Data</h1>
+        </div>
+        <div className={styles.upload}>
+          {
+            currentFile ?
+              <div className={styles.fileUploaded}>
+                <div className={`${styles.fileInfo} flex flex-col w-full`}>
+                  <h2 className='text-black'>You've uploaded ✅:</h2>
+                  <h3>{currentFile.name}&nbsp;&nbsp;&nbsp;{getFileSizeInMB(currentFile.size)}MB</h3>
+                </div>
+                <div className='flex flex-col w-full'>
+                  <h2 className='text-[24px] mt-6 font-semibold'>Dashboard Name:</h2>
+                  <input
+                    placeholder={'e.g. ' + removeFileNamePostfix(currentFile.name)}
+                    className={styles.dashboardName}
+                    type='text'
+                    onChange={onChangeNewDashboardTitle}
+                  />
+                </div>
+                <div className={styles.actions}>
+                  <button className='dark-button font-bold'>
+                    Add Dashboard
+                  </button>
+                  <button className='light-button' onClick={removeFile}>
+                    Change File
+                  </button>
+                </div>
+              </div>
+              :
+              <UploadForm callback={setCurrentFile} />
+          }
+        </div>
       </div>
-      <div className={styles.upload}>
-        {
-          currentFile ?
-            <div className={styles.fileUploaded}>
-              <div className={`${styles.fileInfo} flex flex-col w-full`}>
-                <h2 className='text-black'>You've uploaded ✅:</h2>
-                <h3>{currentFile.name}&nbsp;&nbsp;&nbsp;{getFileSizeInMB(currentFile.size)}MB</h3>
-              </div>
-              <div className='flex flex-col w-full'>
-                <h2 className='text-[24px] mt-6 font-semibold'>Dashboard Name:</h2>
-                <input
-                  placeholder={'e.g. ' + removeFileNamePostfix(currentFile.name)}
-                  className={styles.dashboardName}
-                  type='text'
-                  onChange={onChangeNewDashboardTitle}
-                />
-              </div>
-              <div className={styles.actions}>
-                <button className='dark-button font-bold'>
-                  Add Dashboard
-                </button>
-                <button className='light-button' onClick={removeFile}>
-                  Change File
-                </button>
-              </div>
-            </div>
-            :
-            <UploadForm callback={setCurrentFile} />
-        }
-      </div>
-      <MenuBar menuIndex={2}/>
-    </div>
+      <MenuBar menuIndex={2} />
+    </>
   )
 }

@@ -8,11 +8,9 @@ import { Incidents } from './pages/Incidents';
 import { UploadData } from './pages/UploadData';
 import { Profile } from './pages/Profile';
 import { EditView } from './pages/EditView';
-import { useIncidents } from './hooks/useIncidents';
 import { AddView } from './pages/AddView';
 
 function App() {
-  const { incidents } = useIncidents();
 
   useEffect(() => {
     if (!matchMedia("(display-mode: browser)").matches) {
@@ -29,7 +27,7 @@ function App() {
         <Route path='/' element={<Navigate to='/my-workspace' />} />
         <Route path='/*' element={<Navigate to='/my-workspace' />} />
         <Route path='/my-workspace' element={<Workspace />} />
-        <Route path='/incidents' element={<Incidents incidents={incidents} />} />
+        <Route path='/incidents' element={<Incidents />} />
         <Route path='/upload' element={<UploadData />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/settings' element={<Settings />} />

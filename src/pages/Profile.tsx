@@ -5,8 +5,8 @@ import styles from '../styles/pages/Profile.module.css';
 import { User } from '../types/UserTypes';
 import mailIcon from '../assets/icons/mail.svg';
 import profpic from '../assets/profile-picture.png';
-import { Swipe } from '../components/Swipe';
-import { useNavigate } from 'react-router-dom';
+import { SwipeNavigation } from '../components/SwipeNavigation';
+import { useLocation } from 'react-router-dom';
 
 const ProfileSummary = ({ user }: { user: User }) => {
   const onClickMailIcon = () => {
@@ -25,7 +25,7 @@ const ProfileSummary = ({ user }: { user: User }) => {
         <h3 className={styles.username}>{user.username}</h3>
         <div className={styles.contactInfo}>
           <h2>Contact Info</h2>
-          <div className='flex w-full border-2 border-[#003e66]'/>
+          <div className='flex w-full border-2 border-[#003e66]' />
           <h3 className={styles.email} onClick={onClickMailIcon}>
             {user.email}
             <img className='w-6' src={mailIcon} />
@@ -38,19 +38,24 @@ const ProfileSummary = ({ user }: { user: User }) => {
 
 export const Profile = () => {
   const { currentUser } = useUser();
-  const navigate = useNavigate();
+  const { state } = useLocation();
 
   return (
-    <div className={styles.profileContainer}>
-      <Swipe
-        onSwipeLeft={() => navigate('/upload')}
-        onSwipeRight={() => navigate('/settings')}
-      />
-      <div className={styles.profileHeader}>
-        <h1>Profile</h1>
+    <>
+      <div
+        className={styles.profileContainer}
+        style={state?.transition ? { animation: `.3s ease-out ${state.transition}` } : {}}
+      >
+        <SwipeNavigation
+          onSwipeLeftRoute={'/upload'}
+          onSwipeRightRoute={'/settings'}
+        />
+        <div className={styles.profileHeader}>
+          <h1>Profile</h1>
+        </div>
+        {currentUser ? <ProfileSummary user={currentUser} /> : <Loader />}
       </div>
-      {currentUser ? <ProfileSummary user={currentUser} /> : <Loader />}
-      <MenuBar menuIndex={3}/>
-    </div>
+      <MenuBar menuIndex={3} />
+    </>
   )
 }

@@ -1,16 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useToastContext } from "./useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
-import { IncidentStatuses } from "../enums";
-
-export type Incident = {
-  id: number,
-  title: string,
-  timestamp: Date,
-  description: string,
-  department: string,
-  status: IncidentStatuses
-}
+import { Incident } from "../types/IncidentTypes";
 
 export const useIncidents = () => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
