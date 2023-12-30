@@ -6,8 +6,8 @@ import { AuthProviderValue } from '../types/AuthTypes';
 import { WorkspaceProviderValue, WorkspaceInfoProps } from '../types/WorkspaceTypes';
 import { useWorkspaces } from '../hooks/useWorkspaces';
 import { InstallPrompt } from '../components/InstallPrompt';
-import { useNavigate } from 'react-router-dom';
-import { Swipe } from '../components/Swipe';
+import { useLocation } from 'react-router-dom';
+import { SwipeNavigation } from '../components/SwipeNavigation';
 
 const WorkspaceInfo = ({ currentWorkspace, workspaces, callback }: WorkspaceInfoProps) => {
   return (
@@ -70,19 +70,24 @@ const SettingsContent = () => {
 }
 
 export const Settings = () => {
-  const navigate = useNavigate();
-  
+  const { state } = useLocation();
+
   return (
-    <div className={styles.settingsContainer}>
-      <Swipe
-        onSwipeLeft={() => navigate('/profile')}
-      />
-      <InstallPrompt />
-      <div className={styles.settings}>
-        <h1>Settings</h1>
-      </div>
-      <SettingsContent />
+    <>
+      <div
+        className={styles.settingsContainer}
+        style={state?.transition ? { animation: `.3s ease-out ${state.transition}` } : {}}
+      >
+        <SwipeNavigation
+          onSwipeLeftRoute={'/profile'}
+        />
+        <InstallPrompt />
+        <div className={styles.settings}>
+          <h1>Settings</h1>
+        </div>
+        <SettingsContent />
+      </div >
       <MenuBar menuIndex={4} />
-    </div >
+    </>
   )
 }

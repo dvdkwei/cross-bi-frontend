@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { MenuBar } from '../components/MenuBar';
 import styles from '../styles/pages/Incidents.module.css';
-import { Incident, useIncidents } from '../hooks/useIncidents';
+import { useIncidents } from '../hooks/useIncidents';
 import { Loader } from '../components/Loader';
 import { Callout, Color } from '@tremor/react';
 import alertIcon from '../assets/icons/alert-octagon.svg';
 import inProgressIcon from '../assets/icons/tool.svg';
 import resolvedIcon from '../assets/icons/check.svg';
-import { IncidentStatuses } from '../enums';
+import { IncidentTypes } from '../enums';
 import { NotificationSwitch } from '../components/NotificationSwitch';
-import { Swipe } from '../components/Swipe';
-import { useNavigate } from 'react-router-dom';
+import { SwipeNavigation } from '../components/SwipeNavigation';
+import { useLocation } from 'react-router-dom';
+import { Incident } from '../types/IncidentTypes';
 
 const imgAlertIcon = (stringIcon: string) => {
   return <img className='w-[18px] self-center mr-4' src={stringIcon} />
@@ -24,10 +25,10 @@ const MappedIncidents = ({ incidents }: { incidents: Incident[] }) => {
           let color: Color;
           let icon: string;
 
-          switch(incident.status){
-            case IncidentStatuses.NEW: color = 'rose'; icon = alertIcon; break;
-            case IncidentStatuses.SORTED: color = 'yellow'; icon = inProgressIcon; break;
-            case IncidentStatuses.RESOLVED: color = 'green'; icon = resolvedIcon; break;
+          switch (incident.status) {
+            case IncidentTypes.NEW: color = 'rose'; icon = alertIcon; break;
+            case IncidentTypes.SORTED: color = 'yellow'; icon = inProgressIcon; break;
+            case IncidentTypes.RESOLVED: color = 'green'; icon = resolvedIcon; break;
             default: color = 'rose'; icon = alertIcon;
           }
 
@@ -49,38 +50,38 @@ const MappedIncidents = ({ incidents }: { incidents: Incident[] }) => {
   )
 }
 
-export const Incidents = ({ incidents }: {incidents: Incident[]}) => {
-  const [filterStatus, setFilterStatus] = useState<IncidentStatuses | undefined>(undefined);
+export const Incidents = () => {
+  const [filterStatus, setFilterStatus] = useState<IncidentTypes | undefined>(undefined);
   const [sortedIncidents, setSortedIncidents] = useState<Incident[]>([])
-  const { isLoading } = useIncidents();
-  const navigate = useNavigate();
+  const { isLoading, incidents } = useIncidents();
+  const { state } = useLocation();
 
   const onClickNewButton = () => {
-    if(filterStatus == IncidentStatuses.NEW){
+    if (filterStatus == IncidentTypes.NEW) {
       setFilterStatus(undefined);
       return;
     }
-    setFilterStatus(IncidentStatuses.NEW);
+    setFilterStatus(IncidentTypes.NEW);
   }
 
   const onClickSortedButton = () => {
-    if(filterStatus == IncidentStatuses.SORTED){
+    if (filterStatus == IncidentTypes.SORTED) {
       setFilterStatus(undefined);
       return;
     }
-    setFilterStatus(IncidentStatuses.SORTED);
+    setFilterStatus(IncidentTypes.SORTED);
   }
 
   const onClickResolvedButton = () => {
-    if(filterStatus == IncidentStatuses.RESOLVED){
+    if (filterStatus == IncidentTypes.RESOLVED) {
       setFilterStatus(undefined);
       return;
     }
-    setFilterStatus(IncidentStatuses.RESOLVED);
+    setFilterStatus(IncidentTypes.RESOLVED);
   }
 
   useEffect(() => {
-    if(filterStatus === undefined){
+    if (filterStatus === undefined) {
       setSortedIncidents(incidents);
       return;
     }
@@ -89,45 +90,50 @@ export const Incidents = ({ incidents }: {incidents: Incident[]}) => {
 
   useEffect(() => {
     setSortedIncidents(incidents);
-  }, [incidents])
+  }, [incidents]);
 
   return (
-    <div className={styles.incidentsContainer}>
-      <Swipe
-        onSwipeLeft={() => navigate('/my-workspace')}
-        onSwipeRight={() => navigate('/upload')}
-      />
-      <div className={styles.incidentsHeader}>
-        <h1>Incidents ⚡️</h1>
-        <NotificationSwitch />
+    <>
+      <div 
+        className={styles.incidentsContainer}
+        style={state?.transition ? { animation: `.3s ease-out ${state.transition}` } : {}}
+      >
+        <SwipeNavigation
+          onSwipeLeftRoute={'/my-workspace'}
+          onSwipeRightRoute={'/upload'}
+        />
+        <div className={styles.incidentsHeader}>
+          <h1>Incidents</h1>
+          <NotificationSwitch />
+        </div>
+        <div className={`flex flex-row mb-4 gap-2 w-[95%] ${styles.incidentsFilter}`}>
+          <button
+            onClick={onClickNewButton}
+            className={filterStatus === IncidentTypes.NEW ? 'dark-button' : 'light-button'}
+          >
+            New
+          </button>
+          <button
+            onClick={onClickSortedButton}
+            className={filterStatus === IncidentTypes.SORTED ? 'dark-button' : 'light-button'}
+          >
+            Sorted
+          </button>
+          <button
+            onClick={onClickResolvedButton}
+            className={filterStatus === IncidentTypes.RESOLVED ? 'dark-button' : 'light-button'}
+          >
+            Resolved
+          </button>
+        </div>
+        {
+          isLoading ?
+            <Loader />
+            :
+            <MappedIncidents incidents={sortedIncidents} />
+        }
       </div>
-      <div className={`flex flex-row mb-4 gap-2 w-[95%] ${styles.incidentsFilter}`}>
-        <button 
-          onClick={onClickNewButton}
-          className={filterStatus === IncidentStatuses.NEW ? 'dark-button' : 'light-button'}
-        >
-          New
-        </button>
-        <button 
-          onClick={onClickSortedButton}
-          className={filterStatus === IncidentStatuses.SORTED ? 'dark-button' : 'light-button'}
-        >
-          Sorted
-        </button>
-        <button 
-          onClick={onClickResolvedButton}
-          className={filterStatus === IncidentStatuses.RESOLVED ? 'dark-button' : 'light-button'}
-        >
-          Resolved
-        </button>
-      </div>
-      {
-        isLoading ?
-          <Loader />
-          :
-          <MappedIncidents incidents={sortedIncidents} />
-      }
       <MenuBar menuIndex={1} />
-    </div>
+    </>
   )
 }

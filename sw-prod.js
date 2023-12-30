@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { precacheAndRoute, cleanupOutdatedCaches } from "workbox-precaching";
 
 cleanupOutdatedCaches();
@@ -55,6 +56,14 @@ self.addEventListener('push', (event) => {
       body: data.body, 
       icon: './pwa-192x192.png',
       vibrate: [200, 100, 200, 100, 200, 100, 200], 
+      badge: './pwa-192x192.png'
     })
   );
-})
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  if(clients.openWindow){
+    event.waitUntil(clients.openWindow('https://app.crossbi.de'));
+  }
+});

@@ -7,7 +7,7 @@ export enum DiagrammTypes {
   MAP = 6
 }
 
-export enum IncidentStatuses {
+export enum IncidentTypes {
   NEW = 0,
   SORTED = 1,
   RESOLVED = 2

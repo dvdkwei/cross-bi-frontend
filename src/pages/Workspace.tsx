@@ -10,14 +10,14 @@ import { useState } from "react";
 import { TimeFrame } from "../components/TimeFrame";
 import { useTimeFrameContext } from "../hooks/useTimeFrameContext";
 import { TimeFrameProviderValue } from "../contexts/TimeFrameContext";
-import { useNavigate } from "react-router-dom";
-import { Swipe } from "../components/Swipe";
+import { useLocation } from "react-router-dom";
+import { SwipeNavigation } from "../components/SwipeNavigation";
 
 const DashboardPicker = () => {
-  const { 
-    dashboards, 
-    pickedDashboard, 
-    switchDashboard 
+  const {
+    dashboards,
+    pickedDashboard,
+    switchDashboard
   } = useDashboardContext() as DashboardProviderValue;
 
   const onChangeSelect = (dashboardId: string) => {
@@ -44,14 +44,14 @@ export const Workspace = () => {
   const { isLoading: isLoadingWorkspace } = useWorkspaces();
   const { isLoading: isLoadingViews } = useViewsOfWorkspaceAndDashboard();
   const { isLoading: isLoadingDashboard } = useDashboardContext() as DashboardProviderValue;
-  const { 
-    fromDate, 
-    toDate, 
-    fromDateHandler, 
-    toDateHandler, 
-    resetTimeFrame 
+  const {
+    fromDate,
+    toDate,
+    fromDateHandler,
+    toDateHandler,
+    resetTimeFrame
   } = useTimeFrameContext() as TimeFrameProviderValue;
-  const navigate = useNavigate();
+  const { state } = useLocation();
   const [showDate, setShowDate] = useState(!!fromDate || !!toDate);
   const buttonStyle = "dark-button text-[12px] !px-4 font-semibold";
 
@@ -60,60 +60,65 @@ export const Workspace = () => {
     setShowDate(showDate => !showDate);
   };
 
-  if(isLoadingWorkspace || isLoadingViews || isLoadingDashboard){
-    return(
+  if (isLoadingWorkspace || isLoadingViews || isLoadingDashboard) {
+    return (
       <div className="flex w-full h-[100vh] items-center justify-center">
         <Loader />
-        <MenuBar menuIndex={0}/>
+        <MenuBar menuIndex={0} />
       </div>
     )
   }
 
   return (
-    <div className={styles.workspaceContainer}>
-      <Swipe onSwipeRight={() => navigate('/incidents')}/>
-      <div className={styles.workspaceHeader + ' fixed z-50 bg-white'}>
-        <DashboardPicker />
-        <div className="flex gap-2 w-fit text-[18px]">
-          {
-            !showDate ?
-              <button
-                onClick={toggleTimeFrameButton}
-                className={buttonStyle}
-              >
-                Timeframe
-              </button>
-              :
-              <>
-                <button
-                  className={buttonStyle}
-                  onClick={resetTimeFrame}
-                >
-                  Reset
-                </button>
+    <>
+      <div 
+        className={styles.workspaceContainer}
+        style={state?.transition ? { animation: `.3s ease-out ${state.transition}` } : {}}
+      >
+        <SwipeNavigation onSwipeRightRoute={'/incidents'} />
+        <div className={styles.workspaceHeader + ' fixed z-50 bg-white'}>
+          <DashboardPicker />
+          <div className="flex gap-2 w-fit text-[18px]">
+            {
+              !showDate ?
                 <button
                   onClick={toggleTimeFrameButton}
-                  className={buttonStyle + " !bg-red-800"}
+                  className={buttonStyle}
                 >
-                  Cancel
+                  Timeframe
                 </button>
-              </>
-          }
+                :
+                <>
+                  <button
+                    className={buttonStyle}
+                    onClick={resetTimeFrame}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    onClick={toggleTimeFrameButton}
+                    className={buttonStyle + " !bg-red-800"}
+                  >
+                    Cancel
+                  </button>
+                </>
+            }
+          </div>
         </div>
-      </div>
-      <div className={styles.workspace + ' pt-[60px]'}>
-        <DashboardContent />
+        <div className={styles.workspace + ' pt-[60px]'}>
+          <DashboardContent />
+        </div>
+        {
+          showDate &&
+          <TimeFrame
+            toDate={toDate}
+            fromDate={fromDate}
+            fromDateHandler={fromDateHandler}
+            toDateHandler={toDateHandler}
+          />
+        }
       </div>
       <MenuBar menuIndex={0} />
-      { 
-        showDate && 
-        <TimeFrame 
-          toDate={toDate}
-          fromDate={fromDate}
-          fromDateHandler={fromDateHandler}
-          toDateHandler={toDateHandler}
-        /> 
-      }
-    </div>
+    </>
   )
 }
