@@ -1,10 +1,11 @@
 import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup } from "react-simple-maps";
 import * as rawCountries from '../assets/countries.json';
 import { Card, Title, Text } from "@tremor/react";
-import { useDiagrammData } from "../hooks/useDiagrammData";
-import { DiagrammTypes } from "../enums";
+import { useDiagramData } from "../hooks/useDiagramData";
+import { DiagramTypes } from "../enums";
 import { useNavigate } from "react-router-dom";
 import * as topojson from '../../topojson.json';
+import { BigDiagramLoader } from "./BigDiagramLoader";
 
 type Country = {
   name: string,
@@ -22,26 +23,26 @@ type MapChartProps = {
 export const MapChart = ({ viewId }: MapChartProps) => {
   const navigate = useNavigate();
   const countries: Country[] = JSON.parse(JSON.stringify(rawCountries['countries']));
-  const { title, isLoading, data, xAxisTitle, yAxisTitle } = useDiagrammData(viewId);
+  const { title, isLoading, data, xAxisTitle, yAxisTitle } = useDiagramData(viewId);
 
   const getMapCenter = () => {
     const firstCountry = countries.filter(country => data.map(toMap => toMap[xAxisTitle]).includes(country.alpha3))[0];
     return [firstCountry.longitude, firstCountry.latitude] as [number, number];
   }
 
+  if (isLoading) return <BigDiagramLoader />;
+
   return (
     <Card
       className="w-[100%] flex flex-col gap-2 !p-2"
       decoration="top"
     >
-      {isLoading && <Text className="!text-[14px]">Loading Data ...</Text>}
-      {!isLoading && data.length == 0 && <Text>No Data</Text>}
-      {
-        !isLoading && data.length > 0 &&
+      {data.length == 0 && <Text>No Data</Text>}
+      {data.length > 0 &&
         <>
           <Title
             className="mb-2 !text-[24px]"
-            onClick={() => navigate(`/edit/${DiagrammTypes.MAP}/${viewId}`)}
+            onClick={() => navigate(`/edit/${DiagramTypes.MAP}/${viewId}`)}
           >
             {title}
           </Title>

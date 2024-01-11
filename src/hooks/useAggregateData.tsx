@@ -1,4 +1,4 @@
-import { BigNumberData } from "../types/DiagrammTypes";
+import { BigNumberData } from "../types/DiagramTypes";
 import { useEffect, useState } from "react";
 import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
@@ -40,7 +40,7 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
     };
 
     const fetchData = async () => {
-      let fetchUrl = `${BASE_API_URL}/view/aggregate/${viewId}`;
+      let fetchUrl = `${BASE_API_URL}/views/aggregate/${viewId}`;
       const headers = new Headers();
       headers.append('x-api-key', API_KEY);
       headers.append('Content-Type', 'appplication/json');

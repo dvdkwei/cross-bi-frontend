@@ -16,35 +16,35 @@ export type YAxisData = {
   yAxisValue: number
 }
 
-export type BarDiagrammNativeData = {
+export type BarDiagramNativeData = {
   [x: string]: string | number
 }
 
-export type BarDiagrammProps = {
+export type BarDiagramProps = {
   subtitle?: string,
   viewId: number,
   decoration?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-export type LineDiagrammProps = {
+export type LineDiagramProps = {
   subtitle?: string,
   viewId: number,
   decoration?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-export type DonutDiagrammProps = {
+export type DonutDiagramProps = {
   viewId: number,
   currency?: string,
   decoration?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-export type ListDiagrammProps = {
+export type ListDiagramProps = {
   viewId: number,
   currency?: string,
   decoration?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-export type UncategorisedDiagrammData = {
+export type UncategorisedDiagramData = {
   title: string | undefined,
   axisData : {
     xAxisTitle: string,
@@ -54,7 +54,7 @@ export type UncategorisedDiagrammData = {
   }[]
 }
 
-export type CategorisedDiagrammData = {
+export type CategorisedDiagramData = {
   xAxisTitle: string,
   xAxisValue: string[],
   categories: string[],
@@ -62,6 +62,6 @@ export type CategorisedDiagrammData = {
   title: string | undefined
 }
 
-export type DiagrammNativeData = {
+export type DiagramNativeData = {
   [x: string]: string | number
 }

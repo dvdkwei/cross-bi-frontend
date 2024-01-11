@@ -17,7 +17,7 @@ export const useUser = () => {
       headers.append('x-api-key', API_KEY);
       headers.append('Content-Type', 'appplication/json');
       try {
-        fetch(`${BASE_API_URL}/user/${value}`, {
+        fetch(`${BASE_API_URL}/users/${value}`, {
           headers,
           method: 'GET'
         }).then(res => res.json())

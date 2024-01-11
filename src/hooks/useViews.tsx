@@ -15,7 +15,7 @@ export const useViews = () => {
     headers.append('Content-Type', 'appplication/json');
 
     (async () => {
-      await fetch(`${BASE_API_URL}/view/`, {
+      await fetch(`${BASE_API_URL}/views/`, {
         headers,
         method: 'GET'
       })

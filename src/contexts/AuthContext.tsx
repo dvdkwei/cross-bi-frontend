@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
     headers.append('Content-Type', 'appplication/json');
 
     try {
-      await fetch(`${BASE_API_URL}/user/`, {
+      await fetch(`${BASE_API_URL}/users/`, {
         headers,
         method: 'POST',
         body: JSON.stringify(registerData)
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
           headers.append('x-api-key', API_KEY);
           headers.append('Content-Type', 'application/json');
     
-          fetch(BASE_API_URL + '/subscription/', {
+          fetch(BASE_API_URL + '/subscriptions/', {
             method: 'POST',
             headers: headers,
             redirect: 'follow',
@@ -129,7 +129,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
     headers.append('Content-Type', 'appplication/json');
 
     try {
-      await fetch(`${BASE_API_URL}/user/login`, {
+      await fetch(`${BASE_API_URL}/users/login`, {
         headers,
         method: 'POST',
         body: JSON.stringify(loginData)

@@ -22,7 +22,7 @@ export const DashboardProvider = ({ children }: { children: ReactElement }) => {
       headers.append('x-api-key', API_KEY);
       headers.append('Content-Type', 'appplication/json');
 
-      await fetch(`${BASE_API_URL}/dashboard/filter?workspace_id=${currentWorkspace.id}`, {
+      await fetch(`${BASE_API_URL}/dashboards/filter?workspace_id=${currentWorkspace.id}`, {
         headers,
         method: 'GET'
       })

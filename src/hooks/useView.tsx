@@ -15,7 +15,7 @@ export const useView = (viewId: number) => {
     headers.append('x-api-key', API_KEY);
     headers.append('Content-Type', 'appplication/json');
 
-    await fetch(`${BASE_API_URL}/view/${viewId}`, {
+    await fetch(`${BASE_API_URL}/views/${viewId}`, {
       headers,
       method: 'GET'
     })
@@ -42,7 +42,7 @@ export const useView = (viewId: number) => {
     headers.append('x-api-key', API_KEY);
     headers.append('Content-Type', 'appplication/json');
 
-    await fetch(`${BASE_API_URL}/view/${viewId}`, {
+    await fetch(`${BASE_API_URL}/views/${viewId}`, {
       headers,
       method: 'PUT',
       body: JSON.stringify(newView)

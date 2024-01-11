@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { DiagrammTypes } from "../enums";
-import { BarDiagramm } from "./BarDiagramm";
+import { DiagramTypes } from "../enums";
+import { BarDiagram } from "./BarDiagram";
 import { BigNumber } from "./BigNumber";
-import { DonutDiagramm } from "./DonutDiagramm";
-import { LineDiagramm } from "./LineDiagramm";
-import { ListDiagramm } from "./ListDiagramm";
+import { DonutDiagram } from "./DonutDiagram";
+import { LineDiagram } from "./LineDiagram";
+import { ListDiagram } from "./ListDiagram";
 import { useViewsOfWorkspaceAndDashboard } from "../hooks/useViewsOfWorkspaceAndDashboard";
 import { MapChart } from "./MapChart";
 
@@ -20,7 +20,7 @@ export const DashboardContent = () => {
           .map((view, index) => {
             if (view.diagramm_type) {
               switch (view.diagramm_type) {
-                case DiagrammTypes.BIGNUMBER: {
+                case DiagramTypes.BIGNUMBER: {
                   return (
                     <BigNumber
                       key={'1-' + index}
@@ -30,40 +30,40 @@ export const DashboardContent = () => {
                     />
                   )
                 }
-                case DiagrammTypes.BAR: {
+                case DiagramTypes.BAR: {
                   return (
-                    <BarDiagramm
+                    <BarDiagram
                       key={'2-' + index}
                       viewId={view.id}
                     />
                   )
                 }
-                case DiagrammTypes.LINE: {
+                case DiagramTypes.LINE: {
                   return (
-                    <LineDiagramm
+                    <LineDiagram
                       key={'3-' + index}
                       viewId={view.id}
                     />
                   )
                 }
-                case DiagrammTypes.DONUT: {
+                case DiagramTypes.DONUT: {
                   return (
-                    <DonutDiagramm
+                    <DonutDiagram
                       key={'4-' + index}
                       viewId={view.id}
                       currency="EUR"
                     />
                   )
                 }
-                case DiagrammTypes.LIST: {
+                case DiagramTypes.LIST: {
                   return (
-                    <ListDiagramm
+                    <ListDiagram
                       key={'5-' + index}
                       viewId={view.id}
                     />
                   )
                 }
-                case DiagrammTypes.MAP: {
+                case DiagramTypes.MAP: {
                   return (
                     <MapChart
                       key={'6-' + index}

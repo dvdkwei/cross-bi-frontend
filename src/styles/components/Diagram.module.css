@@ -1,4 +1,4 @@
-/*DonutDiagramm*/
+/*DonutDiagram*/
 .donutContainer {
   width: 100%;
   padding: 0.5rem !important;
@@ -21,7 +21,7 @@
   font-size: 12px !important;
 }
 
-/* LineDiagramm */
+/* LineDiagram */
 .lineContainer {
   width: 100%;
   display: flex;
@@ -38,7 +38,11 @@
   font-size: 24px !important;
 }
 
-.line>div>div>div>div>ol>li>p {
+.line .text-tremor-default {
+  font-size: 12px !important;
+}
+
+.line > div > div > div > div > ol > div > li > p {
   font-size: 14px !important;
 }
 
@@ -46,7 +50,7 @@
   font-size: 12px !important;
 }
 
-/*ListDiagramm*/
+/*ListDiagram*/
 .listContainer {
   width: 100%;
   display: flex;
@@ -63,7 +67,7 @@
   font-size: 15px !important;
 }
 
-/* BarDiagramm */
+/* BarDiagram */
 .barContainer {
   width: 100%;
   display: flex;

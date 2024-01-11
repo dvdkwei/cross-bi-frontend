@@ -1,4 +1,4 @@
-export enum DiagrammTypes {
+export enum DiagramTypes {
   BIGNUMBER = 1,
   BAR = 2,
   LINE = 3,

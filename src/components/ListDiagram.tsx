@@ -1,17 +1,18 @@
 import { Card, Title, List, ListItem, Subtitle } from "@tremor/react"
-import { ListDiagrammProps } from "../types/DiagrammTypes";
-import { useDiagrammData } from "../hooks/useDiagrammData";
+import { ListDiagramProps } from "../types/DiagramTypes";
+import { useDiagramData } from "../hooks/useDiagramData";
 import { useNavigate } from "react-router-dom";
-import { DiagrammTypes } from "../enums";
-import styles from '../styles/components/Diagramm.module.css';
+import { DiagramTypes } from "../enums";
+import styles from '../styles/components/Diagram.module.css';
 import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
+import { BigDiagramLoader } from "./BigDiagramLoader";
 
-export const ListDiagramm = ({
+export const ListDiagram = ({
   viewId,
-}: ListDiagrammProps) => {
+}: ListDiagramProps) => {
   const navigate = useNavigate();
-  const { isLoading, data, xAxisTitle, yAxisTitle, title } = useDiagrammData(viewId);
+  const { isLoading, data, xAxisTitle, yAxisTitle, title } = useDiagramData(viewId);
   const { addToast } = useToastContext() as ToastProviderValue;
 
   const onClickTitle = () => {
@@ -23,8 +24,10 @@ export const ListDiagramm = ({
       })
       return;
     }
-    navigate(`/edit/${DiagrammTypes.BIGNUMBER}/${viewId}`);
+    navigate(`/edit/${DiagramTypes.BIGNUMBER}/${viewId}`);
   }
+
+  if (isLoading) return <BigDiagramLoader />;
 
   return (
     <Card
@@ -33,10 +36,8 @@ export const ListDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
-      {isLoading && <Subtitle>Loading Data ...</Subtitle>}
-      {!isLoading && data.length == 0 && <Subtitle>No Data</Subtitle>}
-      {
-        !isLoading && data.length > 0 &&
+      {data.length == 0 && <Subtitle>No Data</Subtitle>}
+      {data.length > 0 &&
         <>
           <Title onClick={onClickTitle}>
             {title}

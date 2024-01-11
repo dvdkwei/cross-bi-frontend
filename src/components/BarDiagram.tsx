@@ -1,19 +1,20 @@
 import { BarChart, Card, Subtitle, Text, Title } from "@tremor/react"
-import { BarDiagrammProps } from "../types/DiagrammTypes"
+import { BarDiagramProps } from "../types/DiagramTypes"
 import { useEffect } from "react";
-import { useDiagrammData } from "../hooks/useDiagrammData";
+import { useDiagramData } from "../hooks/useDiagramData";
 import { useNavigate } from "react-router-dom";
-import { DiagrammTypes } from "../enums";
-import styles from '../styles/components/Diagramm.module.css';
+import { DiagramTypes } from "../enums";
+import styles from '../styles/components/Diagram.module.css';
 import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
+import { BigDiagramLoader } from "./BigDiagramLoader";
 
-export const BarDiagramm = ({
+export const BarDiagram = ({
   subtitle,
   viewId
-}: BarDiagrammProps) => {
+}: BarDiagramProps) => {
   const navigate = useNavigate();
-  const { isLoading, data, title, index, categories, slicedColors } = useDiagrammData(viewId);
+  const { isLoading, data, title, index, categories, slicedColors } = useDiagramData(viewId);
   const { addToast } = useToastContext() as ToastProviderValue;
 
   const onClickTitle = () => {
@@ -25,7 +26,7 @@ export const BarDiagramm = ({
       })
       return;
     }
-    navigate(`/edit/${DiagrammTypes.BAR}/${viewId}`);
+    navigate(`/edit/${DiagramTypes.BAR}/${viewId}`);
   }
 
   useEffect(() => {
@@ -39,6 +40,8 @@ export const BarDiagramm = ({
     }
   }, [isLoading, data])
 
+  if (isLoading) return <BigDiagramLoader />
+
   return (
     <Card
       id="bar-diagramm"
@@ -46,9 +49,9 @@ export const BarDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
-      { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
+      { !data || (data.length <= 0) && <Text className="!text-[14px]">No Data</Text> }
       {
-        !isLoading && data.length > 0 &&
+        data.length > 0 &&
         <>
           <Title 
             className="mb-2 text-[12px]"
