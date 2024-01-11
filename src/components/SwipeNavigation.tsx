@@ -35,7 +35,7 @@ export const SwipeNavigation = ({
         if (offsetX < 0 && onSwipeRightRoute) {
           navigate(onSwipeRightRoute, { state: { transition: 'page-transition-right' } });
         }
-        else if (touchXStart && offsetX > 0 && onSwipeLeftRoute) {
+        else if (offsetX > 0 && onSwipeLeftRoute) {
           navigate(onSwipeLeftRoute, { state: { transition: 'page-transition-left' } })
         }
         return;
@@ -45,7 +45,7 @@ export const SwipeNavigation = ({
         if (offsetY > 0 && onSwipeDownRoute) {
           navigate(onSwipeDownRoute, { state: { transition: 'page-transition-down' } });
         }
-        else if (touchYStart && offsetY > 0 && onSwipeUpRoute) { 
+        else if (offsetY > 0 && onSwipeUpRoute) { 
           navigate(onSwipeUpRoute, { state: { transition: 'page-transition-up' } });
         }
         return;

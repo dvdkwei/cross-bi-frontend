@@ -2,22 +2,21 @@ import { useNavigate } from "react-router-dom";
 import chevron from '../assets/icons/chevron-left.svg';
 import styles from '../styles/pages/AddView.module.css';
 import { SyntheticEvent, useEffect, useState } from "react";
-import { DiagrammTypes } from "../enums";
+import { DiagramTypes } from "../enums";
 import { BigNumberPreview } from "../components/BigNumberPreview";
 import { useViews } from "../hooks/useViews";
 import { useColumns } from "../hooks/useColumns";
 
 const AddBigNumberPreview = ({ viewName }: { viewName: string }) => {
-  const {isLoading, columns} = useColumns(viewName);
+  const { isLoading, columns } = useColumns(viewName);
   const [title, setTitle] = useState<string>('');
-  // const [valueColumn, setValueColumn] = useState<string>('');
 
   const onChangeTitle = (event: SyntheticEvent) => {
     setTitle((event.target as HTMLInputElement).value);
   }
 
-  if(isLoading){
-    return<></>;
+  if (isLoading) {
+    return <></>;
   }
 
   return (
@@ -53,7 +52,7 @@ export const AddView = () => {
   const navigate = useNavigate();
   const { isLoading: isLoadingViews, views } = useViews();
   const [selectedView, setSelectedView] = useState<string>('');
-  const [diagrammType, setDiagrammType] = useState<DiagrammTypes | undefined>(undefined);
+  const [diagramType, setDiagramType] = useState<DiagramTypes | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onChangeSelectView = (event: SyntheticEvent) => {
@@ -61,16 +60,16 @@ export const AddView = () => {
     setSelectedView(view);
   }
 
-  const onChangeChooseDiagramm = (event: SyntheticEvent) => {
+  const onChangeChooseDiagram = (event: SyntheticEvent) => {
     const pickedValue = (event.target as HTMLSelectElement).value;
     const pickedValueAsNumber = Number(pickedValue);
 
     if (!pickedValueAsNumber) {
-      setDiagrammType(undefined);
+      setDiagramType(undefined);
       return;
     }
 
-    setDiagrammType(pickedValueAsNumber as DiagrammTypes);
+    setDiagramType(pickedValueAsNumber as DiagramTypes);
   }
 
   useEffect(() => {
@@ -79,7 +78,7 @@ export const AddView = () => {
     }
   }, [isLoadingViews]);
 
-  if(isLoading) return <></>;
+  if (isLoading) return <></>;
 
   return (
     <div className={styles.addContainer}>
@@ -114,17 +113,17 @@ export const AddView = () => {
         </select>
         <select
           defaultValue={undefined}
-          onChange={onChangeChooseDiagramm}
+          onChange={onChangeChooseDiagram}
         >
-          <option value={undefined}>-- Choose Diagramm Type</option>
-          <option value={DiagrammTypes.BIGNUMBER}>Big Number</option>
-          <option value={DiagrammTypes.BAR}>Bar Diagramm</option>
-          <option value={DiagrammTypes.LINE}>Line Diagramm</option>
-          <option value={DiagrammTypes.DONUT}>Donut Diagramm</option>
-          <option value={DiagrammTypes.LIST}>List</option>
+          <option value={undefined}>-- Choose Chart Type</option>
+          <option value={DiagramTypes.BIGNUMBER}>Big Number</option>
+          <option value={DiagramTypes.BAR}>Bar Chart</option>
+          <option value={DiagramTypes.LINE}>Line Chart</option>
+          <option value={DiagramTypes.DONUT}>Donut Chart</option>
+          <option value={DiagramTypes.LIST}>List</option>
         </select>
         {
-          diagrammType == DiagrammTypes.BIGNUMBER &&
+          diagramType == DiagramTypes.BIGNUMBER &&
           selectedView &&
           <AddBigNumberPreview viewName={selectedView} />
         }

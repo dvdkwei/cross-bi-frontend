@@ -1,21 +1,22 @@
-import { Card, Title, DonutChart, Subtitle, Text } from "@tremor/react"
-import { BarDiagrammNativeData, DonutDiagrammProps } from "../types/DiagrammTypes";
-import { useDiagrammData } from "../hooks/useDiagrammData";
+import { Card, Title, DonutChart, Subtitle } from "@tremor/react"
+import { BarDiagramNativeData, DonutDiagramProps } from "../types/DiagramTypes";
+import { useDiagramData } from "../hooks/useDiagramData";
 import { useNavigate } from "react-router-dom";
-import { DiagrammTypes } from "../enums";
+import { DiagramTypes } from "../enums";
 import { useEffect, useState } from "react";
 import { XAxisFilter } from "./XAxisFilter";
-import styles from '../styles/components/Diagramm.module.css';
+import styles from '../styles/components/Diagram.module.css';
 import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
+import { BigDiagramLoader } from "./BigDiagramLoader";
 
-export const DonutDiagramm = ({
+export const DonutDiagram = ({
   viewId,
   currency
-}: DonutDiagrammProps) => {
+}: DonutDiagramProps) => {
   const navigate = useNavigate();
-  const { isLoading, data, title, index, slicedColors, xAxisTitle, yAxisTitle } = useDiagrammData(viewId);
-  const [filteredData, setFilteredData] = useState<BarDiagrammNativeData[]>([]);
+  const { isLoading, data, title, index, slicedColors, xAxisTitle, yAxisTitle } = useDiagramData(viewId);
+  const [filteredData, setFilteredData] = useState<BarDiagramNativeData[]>([]);
   const [filterValues, setFilterValues] = useState<string[]>([]);
   const { addToast } = useToastContext() as ToastProviderValue;
 
@@ -28,7 +29,7 @@ export const DonutDiagramm = ({
       })
       return;
     }
-    navigate(`/edit/${DiagrammTypes.DONUT}/${viewId}`);
+    navigate(`/edit/${DiagramTypes.DONUT}/${viewId}`);
   }
 
   const valueFormatter = (number: number) => {
@@ -57,6 +58,8 @@ export const DonutDiagramm = ({
     }));
   }, [data, filterValues, xAxisTitle]);
 
+  if (isLoading) return <BigDiagramLoader />;
+
   return (
     <Card
       id="donut-diagramm"
@@ -64,13 +67,8 @@ export const DonutDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
-      { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
-      {
-        !isLoading && data.length === 0 &&
-        <Subtitle>No Data</Subtitle>
-      }
-      {
-        !isLoading && data.length > 0 &&
+      { data.length === 0 && <Subtitle>No Data</Subtitle> }
+      { data.length > 0 &&
         <>
           <Title className="mb-2" onClick={onClickTitle}>
             {title}

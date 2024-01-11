@@ -67,7 +67,7 @@ export const MenuBar = ({ menuIndex }: { menuIndex: number }) => {
       {
         !isOnline &&
         <div className='text-[11px] bg-red-700 w-full flex justify-center'>
-        Offline Mode
+          Offline Mode
         </div>
       }
     </div>

@@ -4,11 +4,11 @@ import { precacheAndRoute, cleanupOutdatedCaches } from "workbox-precaching";
 cleanupOutdatedCaches();
 precacheAndRoute(self.__WB_MANIFEST);
 
-const cacheName = 'crache_v1';
+const CACHE_NAME = import.meta.env.VITE_CACHE_NAME;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 const addResourcesToCache = async (resources) => {
-  const cache = await caches.open(cacheName);
+  const cache = await caches.open(CACHE_NAME);
   await cache.addAll(resources);
 };
 
@@ -30,7 +30,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  event.respondWith(caches.open(cacheName).then(async (cache) => {
+  event.respondWith(caches.open(CACHE_NAME).then(async (cache) => {
     const headers = new Headers();
     headers.append('x-api-key', API_KEY);
     headers.append('Content-Type', 'appplication/json');

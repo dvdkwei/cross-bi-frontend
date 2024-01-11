@@ -15,7 +15,7 @@ export const useColumns = (viewName: string) => {
     headers.append('Content-Type', 'appplication/json');
 
     (async () => {
-      await fetch(`${BASE_API_URL}/view/columns?view_name=${viewName}`, {
+      await fetch(`${BASE_API_URL}/views/columns?view_name=${viewName}`, {
         headers,
         method: 'GET'
       })

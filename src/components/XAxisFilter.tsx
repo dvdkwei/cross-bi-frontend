@@ -1,9 +1,9 @@
 import { MultiSelect, MultiSelectItem } from "@tremor/react";
-import { DiagrammNativeData } from "../types/DiagrammTypes";
-import styles from '../styles/components/Diagramm.module.css';
+import { DiagramNativeData } from "../types/DiagramTypes";
+import styles from '../styles/components/Diagram.module.css';
 
 type XAxisFilterProps = {
-  dataToFilter: DiagrammNativeData[],
+  dataToFilter: DiagramNativeData[],
   value: string[],
   valueKey: string,
   onValueChange: (value: string[]) => void

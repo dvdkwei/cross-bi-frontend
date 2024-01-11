@@ -1,8 +1,8 @@
 import { MenuBar } from '../components/MenuBar';
-import { DiagrammTypes } from '../enums';
+import { DiagramTypes } from '../enums';
 import styles from '../styles/pages/EditView.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDiagrammData } from '../hooks/useDiagrammData';
+import { useDiagramData } from '../hooks/useDiagramData';
 import { Loader } from '../components/Loader';
 import { useAggregateData } from '../hooks/useAggregateData';
 import { SyntheticEvent, useEffect, useState } from 'react';
@@ -14,29 +14,29 @@ import { ButtonLoader } from '../components/ButtonLoader';
 import { useDashboardContext } from '../hooks/useDashboardContext';
 import { DashboardProviderValue } from '../types/DashboardTypes';
 import { BigNumber } from '../components/BigNumber';
-import { BarDiagramm } from '../components/BarDiagramm';
-import { LineDiagramm } from '../components/LineDiagramm';
-import { ListDiagramm } from '../components/ListDiagramm';
-import { DonutDiagramm } from '../components/DonutDiagramm';
+import { BarDiagram } from '../components/BarDiagram';
+import { LineDiagram } from '../components/LineDiagram';
+import { ListDiagram } from '../components/ListDiagram';
+import { DonutDiagram } from '../components/DonutDiagram';
 import { MapChart } from '../components/MapChart';
 
 type EditFormProps = {
-  diagrammType: DiagrammTypes,
+  diagramType: DiagramTypes,
   viewId: number,
 }
 
-export const EditPreview = ({ diagrammType, viewId }: EditFormProps) => {
+export const EditPreview = ({ diagramType, viewId }: EditFormProps) => {
   return (
     <div className='w-[90%] mt-4 mb-2'>
       {
         (() => {
-          switch (diagrammType) {
-            case DiagrammTypes.BIGNUMBER: return <BigNumber viewId={viewId} currency='EUR' />
-            case DiagrammTypes.BAR: return <BarDiagramm viewId={viewId} />
-            case DiagrammTypes.LINE: return <LineDiagramm viewId={viewId} />
-            case DiagrammTypes.LIST: return <ListDiagramm viewId={viewId} />
-            case DiagrammTypes.DONUT: return <DonutDiagramm viewId={viewId} />
-            case DiagrammTypes.MAP: return <MapChart viewId={viewId} />
+          switch (diagramType) {
+            case DiagramTypes.BIGNUMBER: return <BigNumber viewId={viewId} currency='EUR' />
+            case DiagramTypes.BAR: return <BarDiagram viewId={viewId} />
+            case DiagramTypes.LINE: return <LineDiagram viewId={viewId} />
+            case DiagramTypes.LIST: return <ListDiagram viewId={viewId} />
+            case DiagramTypes.DONUT: return <DonutDiagram viewId={viewId} />
+            case DiagramTypes.MAP: return <MapChart viewId={viewId} />
             default: return <></>
           }
         })()
@@ -45,8 +45,8 @@ export const EditPreview = ({ diagrammType, viewId }: EditFormProps) => {
   )
 }
 
-const EditForm = ({ diagrammType, viewId }: EditFormProps) => {
-  const { isLoading: isLoadingDiagrammData, title } = useDiagrammData(viewId);
+const EditForm = ({ diagramType, viewId }: EditFormProps) => {
+  const { isLoading: isLoadingDiagramData, title } = useDiagramData(viewId);
   const { view, updateView } = useView(viewId);
   const { isLoading: isLoadingDashboard, pickedDashboard, dashboards } = useDashboardContext() as DashboardProviderValue;
   const [newTitle, setNewTitle] = useState<string>('');
@@ -105,12 +105,12 @@ const EditForm = ({ diagrammType, viewId }: EditFormProps) => {
   }, [pickedDashboard]);
 
   useEffect(() => {
-    if (!isLoadingDiagrammData && !isLoadingDashboard) {
+    if (!isLoadingDiagramData && !isLoadingDashboard) {
       setIsLoading(false);
     }
-  }, [isLoadingDashboard, isLoadingDiagrammData])
+  }, [isLoadingDashboard, isLoadingDiagramData])
 
-  if (isLoadingDiagrammData || isLoadingDashboard) {
+  if (isLoadingDiagramData || isLoadingDashboard) {
     return (
       <div className='flex h-[100vh] items-center'>
         <Loader />
@@ -146,7 +146,7 @@ const EditForm = ({ diagrammType, viewId }: EditFormProps) => {
         </div>
       </form>
       <EditPreview
-        diagrammType={diagrammType}
+        diagramType={diagramType}
         viewId={viewId}
       />
       <div className='flex flex-col w-[90%] gap-2 mt-4'>
@@ -159,8 +159,8 @@ const EditForm = ({ diagrammType, viewId }: EditFormProps) => {
   )
 }
 
-const EditAggregateForm = ({ diagrammType, viewId }: EditFormProps) => {
-  const { title, isLoading: isLoadingDiagrammData, aggregateStrategy } = useAggregateData(viewId);
+const EditAggregateForm = ({ diagramType, viewId }: EditFormProps) => {
+  const { title, isLoading: isLoadingDiagramData, aggregateStrategy } = useAggregateData(viewId);
   const { view, updateView } = useView(viewId);
   const [newTitle, setNewTitle] = useState<string>('');
   const [newAggregateStrategy, setNewAggregateStrategy] = useState<string>('');
@@ -230,12 +230,12 @@ const EditAggregateForm = ({ diagrammType, viewId }: EditFormProps) => {
   }, [pickedDashboard]);
 
   useEffect(() => {
-    if (!isLoadingDiagrammData && !isLoadingDashboard) {
+    if (!isLoadingDiagramData && !isLoadingDashboard) {
       setIsLoading(false);
     }
-  }, [isLoadingDashboard, isLoadingDiagrammData])
+  }, [isLoadingDashboard, isLoadingDiagramData])
 
-  if (isLoadingDiagrammData || isLoadingDashboard) {
+  if (isLoadingDiagramData || isLoadingDashboard) {
     return (
       <div className='flex h-[100vh] items-center'>
         <Loader />
@@ -290,7 +290,7 @@ const EditAggregateForm = ({ diagrammType, viewId }: EditFormProps) => {
         </div>
       </form>
       <EditPreview
-        diagrammType={diagrammType}
+        diagramType={diagramType}
         viewId={viewId}
       />
       <div className='flex flex-col w-[90%] gap-2 mt-4'>
@@ -304,7 +304,7 @@ const EditAggregateForm = ({ diagrammType, viewId }: EditFormProps) => {
 }
 
 export const EditView = () => {
-  const { diagrammType, viewId } = useParams();
+  const { diagramType, viewId } = useParams();
   const navigate = useNavigate();
 
   return (
@@ -315,14 +315,14 @@ export const EditView = () => {
       </h1>
       <div className='flex flex-col w-full overflow-auto items-center min-h-[100vh] mt-[52px]'>
         {
-          Number(diagrammType) === DiagrammTypes.BIGNUMBER ?
+          Number(diagramType) === DiagramTypes.BIGNUMBER ?
             <EditAggregateForm
-              diagrammType={Number(diagrammType)}
+              diagramType={Number(diagramType)}
               viewId={Number(viewId)}
             />
             :
             <EditForm
-              diagrammType={Number(diagrammType)}
+              diagramType={Number(diagramType)}
               viewId={Number(viewId)}
             />
         }

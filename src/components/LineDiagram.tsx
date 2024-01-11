@@ -1,33 +1,34 @@
-import { Card, LineChart, MultiSelect, MultiSelectItem, Subtitle, Title, Text } from "@tremor/react"
-import { useDiagrammData } from "../hooks/useDiagrammData";
-import { DiagrammNativeData, LineDiagrammProps } from "../types/DiagrammTypes";
+import { Card, LineChart, MultiSelect, MultiSelectItem, Subtitle, Title } from "@tremor/react"
+import { useDiagramData } from "../hooks/useDiagramData";
+import { DiagramNativeData, LineDiagramProps } from "../types/DiagramTypes";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DiagrammTypes } from "../enums";
-import styles from '../styles/components/Diagramm.module.css';
+import { DiagramTypes } from "../enums";
+import styles from '../styles/components/Diagram.module.css';
 import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
+import { BigDiagramLoader } from "./BigDiagramLoader";
 
-export const LineDiagramm = ({
+export const LineDiagram = ({
   subtitle,
   viewId
-}: LineDiagrammProps) => {
+}: LineDiagramProps) => {
   const navigate = useNavigate();
-  const { isLoading, data, title, index, categories, slicedColors } = useDiagrammData(viewId);
+  const { isLoading, data, title, index, categories, slicedColors } = useDiagramData(viewId);
   const [filteredCategories, setFilteredCategories] = useState<string[]>([]);
-  const [filteredData, setFilteredData] = useState<DiagrammNativeData[]>([]);
+  const [filteredData, setFilteredData] = useState<DiagramNativeData[]>([]);
   const { addToast } = useToastContext() as ToastProviderValue;
 
   const onClickTitle = () => {
-    if(!navigator.onLine){
+    if (!navigator.onLine) {
       addToast({
-        message: `It seems that you are offline. Try again later.`, 
+        message: `It seems that you are offline. Try again later.`,
         style: 'toast-error',
         timeout: 4000,
       })
       return;
     }
-    navigate(`/edit/${DiagrammTypes.BIGNUMBER}/${viewId}`);
+    navigate(`/edit/${DiagramTypes.BIGNUMBER}/${viewId}`);
   }
 
   useEffect(() => {
@@ -46,6 +47,8 @@ export const LineDiagramm = ({
     }
   }, [categories]);
 
+  if (isLoading) return <BigDiagramLoader />;
+
   return (
     <Card
       id="line-diagramm"
@@ -53,16 +56,13 @@ export const LineDiagramm = ({
       decoration="top"
       decorationColor="blue"
     >
-      { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
-      {
-        !isLoading && title &&
+      {title &&
         <Title className="mb-2" onClick={onClickTitle}>
           {title}
         </Title>
       }
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
-      {
-        !isLoading && filteredCategories &&
+      {filteredCategories &&
         <div className='flex flex-col w-full'>
           <MultiSelect
             value={filteredCategories}
@@ -81,8 +81,8 @@ export const LineDiagramm = ({
           </MultiSelect>
         </div >
       }
-      {
-        !isLoading && data &&
+      {data.length <= 0 && <Subtitle>No Data</Subtitle>}
+      {data &&
         <LineChart
           data={filteredData}
           index={index}

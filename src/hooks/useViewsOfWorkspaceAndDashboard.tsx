@@ -27,7 +27,7 @@ export const useViewsOfWorkspaceAndDashboard = () => {
       headers.append('x-api-key', API_KEY);
       headers.append('Content-Type', 'appplication/json');
 
-      await fetch(`${BASE_API_URL}/view/filter?workspace_id=${currentWorkspace.id}&dashboard_id=${pickedDashboard.id}`, {
+      await fetch(`${BASE_API_URL}/views/filter?workspace_id=${currentWorkspace.id}&dashboard_id=${pickedDashboard.id}`, {
         headers,
         method: 'GET'
       })

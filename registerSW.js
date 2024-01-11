@@ -1,3 +1,4 @@
+// essential for vite-pwa
 const registerServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
     const serviceWorkerPath = import.meta.env.VITE_SERVICE_WORKER_PATH;
@@ -7,7 +8,7 @@ const registerServiceWorker = async () => {
         .catch(error => {
           console.error(error)
         });
-    })
+    });
   }
 }
 

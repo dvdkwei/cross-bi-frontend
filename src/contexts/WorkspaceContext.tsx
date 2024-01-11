@@ -20,7 +20,7 @@ export const WorkspaceProvider = ({ children }: { children: ReactElement }) => {
     headers.append('x-api-key', API_KEY);
     headers.append('Content-Type', 'appplication/json');
 
-    await fetch(`${BASE_API_URL}/workspace/${workspaceId}`, {
+    await fetch(`${BASE_API_URL}/workspaces/${workspaceId}`, {
       headers,
       method: 'GET'
     })

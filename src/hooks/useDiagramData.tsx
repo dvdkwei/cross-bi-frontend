@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { CategorisedDiagrammData, DiagrammNativeData, UncategorisedDiagrammData } from "../types/DiagrammTypes"
+import { CategorisedDiagramData, DiagramNativeData, UncategorisedDiagramData } from "../types/DiagramTypes"
 import { useToastContext } from "./useToastContext"
 import { ToastProviderValue } from "../types/ToastTypes"
 import { Color } from "@tremor/react"
@@ -7,7 +7,7 @@ import { useColors } from "./useColors"
 import { useTimeFrameContext } from "./useTimeFrameContext"
 import { TimeFrameProviderValue } from "../contexts/TimeFrameContext"
 
-export const useDiagrammData = (id: number) => {
+export const useDiagramData = (id: number) => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
   const API_KEY = import.meta.env.VITE_API_KEY;
   const { addToast } = useToastContext() as ToastProviderValue;
@@ -17,7 +17,7 @@ export const useDiagrammData = (id: number) => {
   const [title, setTitle] = useState<string>('');
   const [xAxisTitle, setXaxisTitle] = useState<string>('');
   const [yAxisTitle, setYaxisTitle] = useState<string>('');
-  const [data, setData] = useState<DiagrammNativeData[]>([]);
+  const [data, setData] = useState<DiagramNativeData[]>([]);
   const [slicedColors, setSlicedColors] = useState<Color[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { fromDate, toDate } = useTimeFrameContext() as TimeFrameProviderValue;
@@ -33,7 +33,7 @@ export const useDiagrammData = (id: number) => {
       .join(' ');
   }
 
-  const transformUncategorisedData = (rawData: UncategorisedDiagrammData) => {
+  const transformUncategorisedData = (rawData: UncategorisedDiagramData) => {
     if (!rawData.axisData.length) {
       setData([]);
       return;
@@ -61,13 +61,13 @@ export const useDiagrammData = (id: number) => {
     setData(transformedData);
   }
 
-  const transformCategorisedData = (rawData: CategorisedDiagrammData) => {
+  const transformCategorisedData = (rawData: CategorisedDiagramData) => {
     if (!rawData.yAxisData.length) {
       setData([]);
       return;
     }
 
-    const transformed: DiagrammNativeData[] = [];
+    const transformed: DiagramNativeData[] = [];
     setTitle(rawData.title ?? translateTitle(rawData.xAxisTitle));
     setIndex(rawData.xAxisTitle);
     setCategories(rawData.categories);
@@ -75,7 +75,7 @@ export const useDiagrammData = (id: number) => {
     setYaxisTitle(rawData.yAxisData[0][0].yAxisTitle);
 
     rawData.xAxisValue.forEach((xelem, xindex) => {
-      let tempObj: DiagrammNativeData = {
+      let tempObj: DiagramNativeData = {
         [rawData.xAxisTitle]: xelem
       };
       rawData.yAxisData[xindex].forEach((yelem) => {
@@ -92,7 +92,7 @@ export const useDiagrammData = (id: number) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let fetchUrl = `${BASE_API_URL}/view/inspect/${id}`;
+      let fetchUrl = `${BASE_API_URL}/views/inspect/${id}`;
       const headers = new Headers();
       headers.append('x-api-key', API_KEY);
       headers.append('Content-Type', 'appplication/json');
@@ -114,10 +114,10 @@ export const useDiagrammData = (id: number) => {
         .then(parsed => {
           if (parsed.data) {
             if (parsed.data.categories) {
-              transformCategorisedData(parsed.data as CategorisedDiagrammData);
+              transformCategorisedData(parsed.data as CategorisedDiagramData);
             }
             else {
-              transformUncategorisedData(parsed.data as UncategorisedDiagrammData);
+              transformUncategorisedData(parsed.data as UncategorisedDiagramData);
             }
           }
         })

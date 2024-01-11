@@ -1,10 +1,11 @@
 import { Card, Metric, Text } from "@tremor/react"
-import { BigNumberProps } from "../types/DiagrammTypes";
+import { BigNumberProps } from "../types/DiagramTypes";
 import { useAggregateData } from "../hooks/useAggregateData";
 import { useNavigate } from "react-router-dom";
-import { DiagrammTypes } from "../enums";
+import { DiagramTypes } from "../enums";
 import { useToastContext } from "../hooks/useToastContext";
 import { ToastProviderValue } from "../types/ToastTypes";
+import { SmallDiagramLoader } from "./SmallDiagramLoader";
 
 export const BigNumber = ({ viewId, currency, decorationColor }: BigNumberProps) => {
   const navigate = useNavigate()
@@ -20,8 +21,10 @@ export const BigNumber = ({ viewId, currency, decorationColor }: BigNumberProps)
       })
       return;
     }
-    navigate(`/edit/${DiagrammTypes.BIGNUMBER}/${viewId}`);
+    navigate(`/edit/${DiagramTypes.BIGNUMBER}/${viewId}`);
   }
+
+  if (isLoading) return <SmallDiagramLoader />
 
   return (
     <Card
@@ -31,10 +34,9 @@ export const BigNumber = ({ viewId, currency, decorationColor }: BigNumberProps)
       decorationColor={decorationColor ?? 'blue' }
       onClick={onClickTitle}
     >
-      { isLoading && <Text className="!text-[14px]">Loading Data ...</Text> }
-      {!isLoading && !data && <Text>No Data</Text>}
+      {!data && <Text>No Data</Text>}
       {
-        !isLoading && data &&
+        data &&
         <>
           <Text className="text-[#003E66] !text-[18px]">{title}</Text>
           <Metric className="!text-[32px]">{data.value}</Metric>
