@@ -23,6 +23,6 @@
       "vite-plugin-pwa/client"
     ]
   },
-  "include": ["src", "registerSW.js", "sw.js", "sw-prod.js"],
+  "include": ["src", "registerSW.js", "sw.js", "sw-prod.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
