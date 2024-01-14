@@ -14,8 +14,11 @@ export default ({ mode }) => {
     plugins: [
       react(),
       VitePWA({
-        registerType: 'autoUpdate',
+        registerType: 'prompt',
         strategies: 'injectManifest',
+        srcDir: '.',
+        filename: devMode ? 'sw.js' : 'sw-prod.js',
+        injectRegister: 'script',
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg}']
         },
@@ -25,9 +28,6 @@ export default ({ mode }) => {
           type: 'module',
         },
         selfDestroying: shouldSelfDestroy == 'true',
-        injectRegister: 'script',
-        srcDir: '.',
-        filename: devMode ? 'sw.js' : 'sw-prod.js',
         manifest: {
           name: "Cross BI",
           short_name: "Cross BI",
