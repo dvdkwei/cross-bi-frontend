@@ -16,9 +16,6 @@ dist-ssr
 .env
 .env.*
 
-# SW
-/sw.js
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

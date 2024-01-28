@@ -4,7 +4,7 @@ import { Card, Title, Text } from "@tremor/react";
 import { useDiagramData } from "../hooks/useDiagramData";
 import { DiagramTypes } from "../enums";
 import { useNavigate } from "react-router-dom";
-import * as topojson from '../../topojson.json';
+import * as topojson from '../../statics/topojson.json';
 import { BigDiagramLoader } from "./BigDiagramLoader";
 
 type Country = {

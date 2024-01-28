@@ -1,0 +1,47 @@
+{
+  "name": "Cross BI",
+  "short_name": "Cross BI",
+  "description": "Your Cross Plattform Business Intelligence App",
+  "id": "/",
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "any maskable",
+      "purpose": "any"
+    },
+    {
+      "src": "pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "related_applications": [{
+    "platform": "webapp",
+    "url": "https://app.crossbi.de/manifest.json"
+  }],
+  "screenshots": [
+    {
+      "src": "/sc-portrait.png",
+      "sizes": "778x1684",
+      "type": "image/png"
+    }
+  ]
+}
