@@ -9,7 +9,7 @@ export const UpdateSWContext = createContext<Partial<UpdateSWProviderValue>>({})
 
 export const UpdateSWProvider = ({ children }: { children: ReactElement }) => {
   const [showUpdateDialog, setShowUpdateDialog] = useState<boolean>(false);
- 
+
   const closeDialog = () => {
     setShowUpdateDialog(showUpdateDialog => !showUpdateDialog);
   }
@@ -23,23 +23,21 @@ export const UpdateSWProvider = ({ children }: { children: ReactElement }) => {
           const newSWInstalling = registration.installing;
           const newSWActive = registration.active;
 
-          if(newSWInstalling){
+          if (newSWInstalling) {
             newSWInstalling.addEventListener('statechange', () => {
-              if(newSWInstalling.state == 'installing') {
+              if (newSWInstalling.state == 'installing') {
                 setShowUpdateDialog(true);
               }
             })
           }
 
-          if(newSWActive) {
-            if(newSWActive.state == 'activated') {
-              setTimeout(() => setShowUpdateDialog(false), 2000);
-            }
+          if (newSWActive && newSWActive.state == 'activated') {
+            setTimeout(() => setShowUpdateDialog(false), 500);
           }
         });
       }
     }
-    
+
     listenForSWUpdate();
   }, []);
 
@@ -52,7 +50,7 @@ export const UpdateSWProvider = ({ children }: { children: ReactElement }) => {
       <Dialog open={showUpdateDialog} onClose={closeDialog}>
         <DialogPanel>
           <Title className="mb-3 text-xl">An Update is Available! 🚀</Title>
-          Please wait while the page is being updated.
+          Please wait while the app is being updated.
         </DialogPanel>
       </Dialog>
       {children}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type CookieOptions = {
   secure?: 'Secure',
@@ -25,21 +25,24 @@ export function useCookie(key: string) {
     document.cookie = `${key}=${value}; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
   }
 
-  useEffect(() => {
-    const getCookieValue = () => {
-      return document.cookie
+  const getCookieValue = useCallback(() => {
+    if(!key) return;
+
+    return document.cookie
         .split('; ')
         .find(row => row.startsWith(`${key}=`))
-        ?.split('=')[1]
-    }
+        ?.split('=')[1];
+  }, [key])
 
+  useEffect(() => {
     const currentValue: string | boolean = getCookieValue() ?? false;    
     setValue(currentValue);
-  }, [key]);
+  }, [getCookieValue]);
 
   return {
     value,
     persistCookie,
-    removeCookie
+    removeCookie,
+    getCookieValue
   }
 }

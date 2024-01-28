@@ -1,30 +1,37 @@
 /* eslint-disable no-undef */
 import { precacheAndRoute, cleanupOutdatedCaches } from "workbox-precaching";
-
-cleanupOutdatedCaches();
-precacheAndRoute(self.__WB_MANIFEST);
+import { clientsClaim } from 'workbox-core';
 
 const CACHE_NAME = import.meta.env.VITE_CACHE_NAME;
 const API_KEY = import.meta.env.VITE_API_KEY;
+const IS_DEV_MODE = import.meta.env.VITE_DEV_MODE;
+
+cleanupOutdatedCaches();
+
+if(!IS_DEV_MODE) {
+  precacheAndRoute(self.__WB_MANIFEST)
+}
+
+self.skipWaiting();
+clientsClaim();
 
 const addResourcesToCache = async (resources) => {
-  const cache = await caches.open(CACHE_NAME);
-  await cache.addAll(resources);
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.addAll(resources);
+  }
+  catch(err){
+    console.error(err);
+  }
 };
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
-
   event.waitUntil(addResourcesToCache([
     '/',
     'index.html',
     'src/assets',
     'src/styles'
   ]));
-});
-
-self.addEventListener("activate", (event) => {
-  event.waitUntil(clients.claim());
 });
 
 self.addEventListener('fetch', (event) => {
@@ -34,25 +41,26 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  event.respondWith(caches.open(CACHE_NAME).then(async (cache) => {
-    const headers = new Headers();
-    headers.append('x-api-key', API_KEY);
-    headers.append('Content-Type', 'appplication/json');
+  event.respondWith(
+    caches.open(CACHE_NAME).then(async (cache) => {
+      const headers = new Headers();
+      headers.append('x-api-key', API_KEY);
+      headers.append('Content-Type', 'appplication/json');
 
-    return fetch(url, { headers: headers })
-    .then((fetched) => {
-      cache.put(event.request, fetched.clone());
-      return fetched;
+      return fetch(url, { headers: headers })
+      .then((fetched) => {
+        cache.put(event.request, fetched.clone());
+        return fetched;
+      })
+      .catch(() => {
+        return cache.match(url);
+      });
     })
-    .catch(() => {
-      return cache.match(url);
-    })
-  }));
+  );
 });
 
 self.addEventListener('push', (event) => {
   const pushData = event.data.text();
-
   const data = JSON.parse(pushData);
 
   event.waitUntil(
