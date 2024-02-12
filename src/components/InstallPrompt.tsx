@@ -15,7 +15,7 @@ interface BeforeInstallPromptEvent extends Event {
 export const InstallPrompt = () => {
   const [showPrompt, setShowPrompt] = useState<boolean>(false);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const { value, persistCookie } = useCookie('cb_install_prompt');
+  const { persistCookie, getCookieValue } = useCookie('cb_install_prompt');
 
   const onClickClose = () => {
     const expiryDate = new Date();
@@ -43,9 +43,10 @@ export const InstallPrompt = () => {
   }
 
   useEffect(() => {
+    const actualValue = getCookieValue();
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
-    if ((value && value == 'dismissed') || isStandalone) return;
+    if ((actualValue && actualValue == 'dismissed') || isStandalone) return;
 
     const isChrome = navigator.userAgent.indexOf('Chrome') > -1;
 
@@ -59,7 +60,7 @@ export const InstallPrompt = () => {
     }
 
     
-  }, [value]);
+  }, [getCookieValue]);
 
   if (!showPrompt) return <></>;
 

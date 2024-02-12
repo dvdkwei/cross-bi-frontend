@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import styles from '../styles/components/TimeFrame.module.css';
 
 type TimeFrameProps = {
@@ -13,6 +14,8 @@ export const TimeFrame = ({
   fromDateHandler, 
   toDateHandler 
 }: TimeFrameProps) => {
+  const fromDateInput = useRef<HTMLInputElement>(null);
+  const toDateInput = useRef<HTMLInputElement>(null);
 
   const getMaxFromDate = (): string => {
     const maxDate = new Date();
@@ -24,21 +27,31 @@ export const TimeFrame = ({
     return new Date().toISOString().split('T')[0];
   }
 
+  const onClickFromDate = () => {
+    fromDateInput.current?.showPicker();
+  }
+  
+  const onClickToDate = () => {
+    toDateInput.current?.showPicker();
+  }
+
   return (
     <div className={`${styles.dateContainer} ${styles.showDateContainer}`}>
-      <div className={styles.dateMask}>
+      <div className={styles.dateMask} onClick={onClickFromDate}>
         <p>{fromDate ? fromDate : 'From Date'}</p>
         <input
           type='date'
           onChange={fromDateHandler}
           max={getMaxFromDate()}
+          ref={fromDateInput}
         />
       </div>
-      <div className={styles.dateMask}>
+      <div className={styles.dateMask} onClick={onClickToDate}>
         <p>{toDate ? toDate : 'To Date'}</p>
         <input type='date'
           onChange={toDateHandler}
           max={getMaxToDate()}
+          ref={toDateInput}
         />
       </div>
     </div>

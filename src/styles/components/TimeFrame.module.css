@@ -13,18 +13,18 @@
   gap: 8px;
   background-color: rgba(255, 255, 255, .8);
   backdrop-filter: blur(6px);
-  z-index: 10;
+  z-index: 0;
   animation: render-date-container .7s ease-in-out;
 }
 
 .hideDateContainer {
   display: none;
-  animation: render-date-container .2s ease-in reverse;
+  animation: render-date-container .4s ease-in reverse;
 }
 
 .showDateContainer {
   display: flex;
-  animation: render-date-container .2s ease-in;
+  animation: render-date-container .4s ease-in;
 }
 
 .dateMask {
@@ -43,6 +43,9 @@
   padding: 2px 0;
   border-radius: 8px;
   height: 36px;
+  max-width: 810px;
+  z-index: 0;
+  cursor: pointer;
 }
 
 .dateMask p {
@@ -58,6 +61,7 @@
   z-index: 10;
   display: flex;
   opacity: 0;
+  cursor: pointer;
 }
 
 @keyframes render-date-container {

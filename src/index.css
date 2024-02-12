@@ -153,6 +153,12 @@ div {
   -webkit-tap-highlight-color: transparent !important;
 }
 
+
+/* Tremor Overrides */
+.text-tremor-label {
+  font-size: .5rem !important;
+}
+
 @keyframes toast-appear {
   from {
     margin-top: -300px;

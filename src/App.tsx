@@ -9,8 +9,10 @@ import { UploadData } from './pages/UploadData';
 import { Profile } from './pages/Profile';
 import { EditView } from './pages/EditView';
 import { AddView } from './pages/AddView';
+import { useIncidents } from './hooks/useIncidents';
 
 function App() {
+  const { fetchIncidents } = useIncidents();
 
   useEffect(() => {
     if (!matchMedia("(display-mode: browser)").matches) {
@@ -18,6 +20,15 @@ function App() {
       window.resizeTo(500, 844);
     }
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchIncidents();
+    }, 60000);
+
+    return () => clearInterval(interval);
+
+  }, [fetchIncidents]);
 
   return (
     <Routes>

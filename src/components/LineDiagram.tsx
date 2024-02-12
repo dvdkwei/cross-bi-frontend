@@ -52,9 +52,7 @@ export const LineDiagram = ({
   return (
     <Card
       id="line-diagramm"
-      className={styles.lineContainer}
-      decoration="top"
-      decorationColor="blue"
+      className={`${styles.lineContainer} border-gray-100 border`}
     >
       {title &&
         <Title className="mb-2" onClick={onClickTitle}>
