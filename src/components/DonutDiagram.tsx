@@ -63,7 +63,7 @@ export const DonutDiagram = ({
   return (
     <Card
       id="donut-diagramm"
-      className={`flex flex-col gap-2 ${styles.donutContainer}`}
+      className={`flex flex-col gap-2 border border-gray-100 ${styles.donutContainer}`}
       decoration="top"
       decorationColor="blue"
     >

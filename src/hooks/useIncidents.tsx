@@ -46,17 +46,9 @@ export const useIncidents = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchIncidents();
-    }, 60000);
-
-    return () => clearInterval(interval);
-
-  }, [fetchIncidents]);
-
   return {
     isLoading,
-    incidents
+    incidents,
+    fetchIncidents
   }
 }

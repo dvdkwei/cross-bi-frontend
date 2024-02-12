@@ -45,9 +45,7 @@ export const BarDiagram = ({
   return (
     <Card
       id="bar-diagramm"
-      className={styles.barContainer}
-      decoration="top"
-      decorationColor="blue"
+      className={`${styles.barContainer} border-gray-100 border`}
     >
       { !data || (data.length <= 0) && <Text className="!text-[14px]">No Data</Text> }
       {

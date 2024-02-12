@@ -34,8 +34,7 @@ export const MapChart = ({ viewId }: MapChartProps) => {
 
   return (
     <Card
-      className="w-[100%] flex flex-col gap-2 !p-2"
-      decoration="top"
+      className="w-[100%] flex flex-col gap-2 !p-2 border border-gray-100 max-w-[400px]"
     >
       {data.length == 0 && <Text>No Data</Text>}
       {data.length > 0 &&

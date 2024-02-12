@@ -32,7 +32,7 @@ export const ListDiagram = ({
   return (
     <Card
       id="list-diagramm"
-      className={styles.listContainer}
+      className={styles.listContainer + ' border border-gray-100'}
       decoration="top"
       decorationColor="blue"
     >
