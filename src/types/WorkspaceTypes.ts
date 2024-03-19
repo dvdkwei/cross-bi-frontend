@@ -13,5 +13,4 @@ export type WorkspaceProviderValue = {
 export type WorkspaceInfoProps = { 
   currentWorkspace: Workspace | undefined, 
   workspaces: Workspace[], 
-  callback: (wrkId: string) => void 
 }

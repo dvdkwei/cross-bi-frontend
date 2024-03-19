@@ -38,7 +38,7 @@ export const BarDiagram = ({
       ];
       yAxisLabels.forEach(label => label.setAttribute('x', '60'));
     }
-  }, [isLoading, data])
+  }, [data, isLoading]);
 
   if (isLoading) return <BigDiagramLoader />
 

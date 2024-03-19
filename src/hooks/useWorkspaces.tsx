@@ -46,8 +46,7 @@ export const useWorkspaces = () => {
 
       fetchWorkspaces();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [API_KEY, BASE_API_URL, currentUser]);
+  }, [API_KEY, BASE_API_URL, addToast, currentUser]);
 
   useEffect(() => {
     if (!currentWorkspace && workspaces.length) {

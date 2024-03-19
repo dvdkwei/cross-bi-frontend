@@ -15,9 +15,11 @@ export function ToastProvider({ children }: { children: ReactElement }) {
   const providerValue = { addToast }
 
   useEffect(() => {
-    setShouldShowToasts(true);
-    setTimeout(() => { setShouldShowToasts(false) }, toast.timeout);
-  }, [toast])
+    if (toast) {
+      setShouldShowToasts(true);
+      setTimeout(() => { setShouldShowToasts(false) }, toast.timeout);
+    }
+  }, [toast]);
 
   return (
     <ToastContext.Provider value={providerValue} >
