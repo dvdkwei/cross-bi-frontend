@@ -28,8 +28,12 @@ export const DashboardProvider = ({ children }: { children: ReactElement }) => {
       })
         .then(res => res.json())
         .then(parsed => {
-          setDashboards(parsed.data)
-          setPickedDashboard(parsed.data?.length ? parsed.data[0] : undefined)
+          const { data } = parsed;
+
+          if(data && (data.length >= 0)){
+            setDashboards(data);
+            setPickedDashboard(data.sort((d1: Dashboard, d2: Dashboard) => parseInt(d1.id) - parseInt(d2.id))[0]);
+          }
         })
         .catch((err: unknown) => {
           if (err instanceof Error) {
@@ -40,7 +44,7 @@ export const DashboardProvider = ({ children }: { children: ReactElement }) => {
             })
           }
         })
-        .finally(() => setIsLoading(false));  
+        .finally(() => setIsLoading(false));
     }
   }, [API_KEY, BASE_API_URL, addToast, currentWorkspace]);
 
@@ -48,10 +52,10 @@ export const DashboardProvider = ({ children }: { children: ReactElement }) => {
     setPickedDashboard(dashboards.filter(dashboard => dashboard.id == dashboardId)[0]);
   }
 
-  const resetDashboards = () => {
+  const resetDashboards = useCallback(() => {
     setPickedDashboard(undefined);
     setDashboards([]);
-  }
+  }, [setPickedDashboard, setDashboards])
 
   const providerValue: DashboardProviderValue = {
     isLoading,
@@ -69,7 +73,7 @@ export const DashboardProvider = ({ children }: { children: ReactElement }) => {
     else {
       resetDashboards();
     }
-  }, [currentWorkspace, fetchDashboards]);
+  }, [currentWorkspace, fetchDashboards, resetDashboards]);
 
   return (
     <DashboardContext.Provider value={providerValue}>

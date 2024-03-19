@@ -36,8 +36,7 @@ export const useViews = () => {
         })
         .finally(() => setIsLoading(false));
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [API_KEY, BASE_API_URL, addToast]);
 
   return { views, isLoading }
 }

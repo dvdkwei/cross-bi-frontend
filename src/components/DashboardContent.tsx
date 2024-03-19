@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { DiagramTypes } from "../enums";
 import { BarDiagram } from "./BarDiagram";
 import { BigNumber } from "./BigNumber";
@@ -10,7 +9,6 @@ import { MapChart } from "./MapChart";
 
 export const DashboardContent = () => {
   const { views } = useViewsOfWorkspaceAndDashboard();
-  const navigate = useNavigate();
 
   return (
     <>
@@ -75,12 +73,6 @@ export const DashboardContent = () => {
             }
           })
       }
-      <button
-        className='light-button w-full text-[14px] font-semibold !border-[0] mt-6 mb-[70px]'
-        onClick={() => navigate('/add')}
-      >
-        Add View
-      </button>
     </>
   )
 }

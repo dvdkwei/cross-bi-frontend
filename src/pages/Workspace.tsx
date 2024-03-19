@@ -6,12 +6,13 @@ import { Loader } from "../components/Loader";
 import { useWorkspaces } from "../hooks/useWorkspaces";
 import { useViewsOfWorkspaceAndDashboard } from "../hooks/useViewsOfWorkspaceAndDashboard";
 import { DashboardContent } from "../components/DashboardContent";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { TimeFrame } from "../components/TimeFrame";
 import { useTimeFrameContext } from "../hooks/useTimeFrameContext";
 import { TimeFrameProviderValue } from "../contexts/TimeFrameContext";
 import { useLocation } from "react-router-dom";
 import { SwipeNavigation } from "../components/SwipeNavigation";
+import { InstallPrompt } from "../components/InstallPrompt";
 
 const DashboardPicker = () => {
   const {
@@ -27,8 +28,8 @@ const DashboardPicker = () => {
   return (
     <select value={pickedDashboard?.id ?? ''} onChange={e => onChangeSelect(e.target.value)}>
       {
-        dashboards?.length &&
-        dashboards.map((dashboard, index) => {
+        dashboards?.length > 0 &&
+        dashboards.sort((d1, d2) => parseInt(d1.id) - parseInt(d2.id)).map((dashboard, index) => {
           return (
             <option key={'dh' + index} className="px-8" value={dashboard.id}>
               {dashboard.name}
@@ -53,6 +54,7 @@ export const Workspace = () => {
   } = useTimeFrameContext() as TimeFrameProviderValue;
   const { state } = useLocation();
   const [showDate, setShowDate] = useState(!!fromDate || !!toDate);
+  const workspaceContainer = useRef<HTMLDivElement>(null);
   const buttonStyle = "dark-button text-[12px] !px-4 font-semibold";
 
   const toggleTimeFrameButton = () => {
@@ -71,9 +73,10 @@ export const Workspace = () => {
 
   return (
     <>
-      <div 
+      <div
         className={styles.workspaceContainer}
         style={state?.transition ? { animation: `.3s ease-out ${state.transition}` } : {}}
+        ref={workspaceContainer}
       >
         <SwipeNavigation onSwipeRightRoute={'/incidents'} />
         <div className={styles.workspaceHeader + ' fixed z-50 bg-white'}>
@@ -117,8 +120,9 @@ export const Workspace = () => {
             toDateHandler={toDateHandler}
           />
         }
+        <MenuBar menuIndex={0} />
+        <InstallPrompt />
       </div>
-      <MenuBar menuIndex={0} />
     </>
   )
 }

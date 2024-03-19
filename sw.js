@@ -36,8 +36,11 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', (event) => {
   let url = event.request.url;
+  const isHTTP= url.startsWith('http');
+  const isGETRequest = (event.request.method == 'GET');
+  const isTimeFilterRequest = (url.includes('from') || url.includes('to'));
 
-  if (!url.startsWith('http') || event.request.method !== 'GET') {
+  if (!isHTTP || !isGETRequest || isTimeFilterRequest) {
     return;
   }
 
@@ -66,9 +69,9 @@ self.addEventListener('push', (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title, { 
       body: data.body, 
-      icon: './pwa-192x192.png',
+      icon: '/pwa-192x192.png',
       vibrate: [200, 100, 200, 100, 200, 100, 200], 
-      badge: './pwa-192x192.png'
+      badge: '/pwa-192x192.png'
     })
   );
 });

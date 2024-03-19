@@ -51,8 +51,7 @@ export const SwipeNavigation = ({
         return;
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigate, onSwipeDownRoute, onSwipeLeftRoute, onSwipeRightRoute, onSwipeUpRoute]);
 
   return <></>;
 }

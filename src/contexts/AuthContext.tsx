@@ -12,6 +12,7 @@ export const AuthContext = createContext<Partial<AuthProviderValue>>({})
 export const AuthProvider = ({ children }: { children: ReactElement }) => {
   const BASE_API_URL = import.meta.env.VITE_BASE_API_URI;
   const API_KEY = import.meta.env.VITE_API_KEY;
+  const VAPID_KEY = import.meta.env.VITE_VAPID_KEY;
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -90,10 +91,8 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
     
     navigator.serviceWorker.ready.then((registration) => {
       registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlB64ToUint8Array(
-          'BI1bqMiu8LCFSdSMRHUVkQgHr2iV1fSmL01lQlQ5UH5wpt6v61no9YNISbHHVy-h0zH7eP9rzoU4ZP5dXQoXy4E'
-          ),
+          userVisibleOnly: true,
+          applicationServerKey: urlB64ToUint8Array(VAPID_KEY),
         })
         .then((subscriptionObject) => {
           const headers = new Headers();
@@ -107,7 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
             body: JSON.stringify({
               subscription_json: subscriptionObject, 
             })
-          })
+          });
         })
         .catch(err => {
           console.error(err);
