@@ -30,7 +30,7 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
     }
 
     const roundValue = (value: string, title: string) => {
-      if(!/[d]/ig.test(value)){
+      if(!(/[\d]/ig).test(value)){
         return value;
       }
 
