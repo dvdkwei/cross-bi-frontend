@@ -7,7 +7,7 @@ export type BigNumberData = {
 
 export type BigNumberProps = {
   viewId: number,
-  currency: 'EUR' | 'USD',
+  currency?: 'EUR' | 'USD',
   decorationColor?: Color,
 }
 

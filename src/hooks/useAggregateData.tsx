@@ -29,11 +29,20 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
         .join(' ');
     }
 
-    const roundValue = (value: number) => {
-      if (!currency) {
-        return (value * 1.0).toFixed(2).toString();
+    const roundValue = (value: string, title: string) => {
+      if(!/[d]/ig.test(value)){
+        return value;
       }
-      return value.toLocaleString('de-DE', {
+
+      const valueNumeric = Number(value);
+
+      if (!currency || !title.toLowerCase().includes('revenue')) {
+        if(typeof valueNumeric == 'number') {
+          return (valueNumeric * 1.0).toFixed(2).toString() + '%';
+        }
+      }
+
+      return valueNumeric.toLocaleString('de-DE', {
         style: 'currency',
         currency: currency
       });
@@ -55,16 +64,18 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
       })
         .then(res => res.json())
         .then(parsed => {
-          if (parsed.data) {
+          const { data } = parsed;
+          if (data) {
+            setTitle(data.title ?? translateTitle(data.valueTitle));
+
             setData({
-              valueTitle: parsed.data.valueTitle,
-              value: roundValue(Number(parsed.data.value))
+              valueTitle: data.valueTitle,
+              value: roundValue(data.value, title)
             });
 
-            setTitle(parsed.data.title ?? translateTitle(parsed.data.valueTitle));
-            setXaxisTitle(parsed.data.x_axis);
-            setYaxisTitle(parsed.data.y_axis)
-            setAggregateStrategy(parsed.data.aggregate)
+            setXaxisTitle(data.x_axis);
+            setYaxisTitle(data.y_axis);
+            setAggregateStrategy(data.aggregate);
           }
           else {
             setData(undefined);
@@ -84,15 +95,7 @@ export const useAggregateData = (viewId: number, currency?: 'EUR' | 'USD') => {
 
     fetchData();
   }, 
-  [
-    API_KEY, 
-    BASE_API_URL, 
-    addToast, 
-    currency, 
-    fromDate, 
-    toDate, 
-    viewId
-  ]);
+  [API_KEY, BASE_API_URL, addToast, currency, fromDate, title, toDate, viewId]);
 
   return {
     data,

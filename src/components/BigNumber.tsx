@@ -24,7 +24,7 @@ export const BigNumber = ({ viewId, currency }: BigNumberProps) => {
     navigate(`/edit/${DiagramTypes.BIGNUMBER}/${viewId}`);
   }
 
-  if (isLoading) return <SmallDiagramLoader />
+  if (isLoading) return <SmallDiagramLoader />;
 
   return (
     <Card
@@ -40,7 +40,10 @@ export const BigNumber = ({ viewId, currency }: BigNumberProps) => {
             <Text className="text-[#003E66] !text-[1.2rem]">{title}</Text>
             <Metric className="!text-[2rem]">{data.value}</Metric>
           </div>
-          <BadgeDelta deltaType='moderateIncrease'>12.67%</BadgeDelta>
+          {
+            title.toLowerCase().includes('revenue') &&
+            <BadgeDelta deltaType='moderateIncrease'>{((Math.random()*10)).toFixed(2) + '%'}</BadgeDelta>
+          }
         </Flex>
       }
     </Card>
